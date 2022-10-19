@@ -2,7 +2,8 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![drawSQL-export-2022-10-19_17_54-2](https://user-images.githubusercontent.com/44792993/196820121-c154ebfe-769d-44f3-a1f6-1ba749f8a9f1.png)
+
 
 ## API Documentation
 
