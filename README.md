@@ -884,7 +884,7 @@ Update and return an existing review.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: ?
+  * Method: PUT
   * URL: ?
   * Headers:
     * Content-Type: application/json
@@ -952,7 +952,7 @@ Delete an existing review.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: ?
+  * Method: DELETE
   * URL: ?
   * Body: none
 
@@ -990,7 +990,7 @@ Return all the bookings that the current user has made.
 
 * Require Authentication: true
 * Request
-  * Method: ?
+  * Method: GET
   * URL: ?
   * Body: none
 
@@ -1035,7 +1035,7 @@ Return all the bookings for a spot specified by id.
 
 * Require Authentication: true
 * Request
-  * Method: ?
+  * Method: GET
   * URL: ?
   * Body: none
 
@@ -1104,7 +1104,7 @@ Create and return a new booking from a spot specified by id.
 * Require Authentication: true
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
-  * Method: ?
+  * Method: POST
   * URL: ?
   * Body:
 
@@ -1186,7 +1186,7 @@ Update and return an existing booking.
 * Require Authentication: true
 * Require proper authorization: Booking must belong to the current user
 * Request
-  * Method: ?
+  * Method: PUT
   * URL: ?
   * Headers:
     * Content-Type: application/json
@@ -1284,7 +1284,7 @@ Delete an existing booking.
 * Require proper authorization: Booking must belong to the current user or the
   Spot must belong to the current user
 * Request
-  * Method: ?
+  * Method: DELETE
   * URL: ?
   * Body: none
 
@@ -1336,7 +1336,7 @@ Delete an existing image for a Spot.
 * Require Authentication: true
 * Require proper authorization: Spot must belong to the current user
 * Request
-  * Method: ?
+  * Method: DELETE
   * URL: ?
   * Body: none
 
@@ -1373,7 +1373,7 @@ Delete an existing image for a Review.
 * Require Authentication: true
 * Require proper authorization: Review must belong to the current user
 * Request
-  * Method: ?
+  * Method: DELETE
   * URL: ?
   * Body: none
 
@@ -1409,7 +1409,7 @@ Return spots filtered by query parameters.
 
 * Require Authentication: false
 * Request
-  * Method: ?
+  * Method: POST
   * URL: ?
   * Query Parameters
     * page: integer, minimum: 0, maximum: 10, default: 0
