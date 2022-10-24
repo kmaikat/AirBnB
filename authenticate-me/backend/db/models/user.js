@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       const { id, username, email } = this; // context will be the User instance
       return { id, username, email };
     }
-    
+
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
@@ -64,6 +64,12 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("Cannot be an email.");
             }
           }
+        },
+        firstName: {
+          type: DataTypes.STRING
+        },
+        lastName: {
+          type: DataTypes.STRING
         }
       },
       email: {
