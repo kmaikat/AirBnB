@@ -10,43 +10,43 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       address: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       },
       city: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       },
       state: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       },
       country: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       },
       lat: {
-        type: DataTypes.DECIMAL,
+        type: Sequelize.DECIMAL,
         allowNull: true
       },
       lng: {
-        type: DataTypes.DECIMAL,
+        type: Sequelize.DECIMAL,
         allowNull: true
       },
       name: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       },
       description: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       },
       price: {
-        type: DataTypes.DECIMAL,
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
       createdAt: {
