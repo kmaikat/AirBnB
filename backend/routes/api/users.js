@@ -29,14 +29,28 @@ const validateSignup = [
     handleValidationErrors
 ];
 
+// sign up a user
 router.post('/', validateSignup, async (req, res) => {
-      const { email, password, username } = req.body;
-      const user = await User.signup({ email, username, password });
+      const { email, password, username, firstName, lastName} = req.body;
+      const user = await User.signup({ email, username, password, firstName, lastName});
 
-      await setTokenCookie(res, user);
+      // await setTokenCookie(res, user);
+
+      const token = await setTokenCookie(res, user)
+
+
+      const currentUser = {
+        // id: user.id,
+        firstName,
+        lastName,
+        email,
+        username,
+        password,
+        token
+      }
 
       return res.json({
-        user
+        currentUser
       });
     }
 );
