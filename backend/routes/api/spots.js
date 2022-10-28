@@ -42,10 +42,57 @@ const validateSpot = [
     handleValidationErrors
 ]
 
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage("Review text is required"),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+]
 
+
+// get all spots by current user
+router.get('/current', requireAuth, async (req, res) => {
+
+    const ownerId = parseInt(req.user.id);
+    const spots = await Spot.findAll({
+        where: {
+            ownerId
+        }
+    })
+
+    for (let spot of spots) {
+
+        const spotReview = await spot.getReviews({
+            attributes: [
+                [sequelize.fn('AVG', sequelize.col("stars")), "avgRating"]
+            ]
+
+        })
+        let avgRating = spotReview[0].dataValues.avgRating
+        spot.dataValues.avgRating = parseFloat(Number(avgRating).toFixed(1))
+
+
+        const spotImage = await SpotImage.findOne({
+            where: {
+                spotId: spot.id
+            }
+        })
+
+        if (spotImage) {
+            spot.dataValues.previewImage = spotImage.url
+        } else {
+            spot.dataValues.previewImage = "image url"
+        }
+    }
+    return res.json({ Spots: spots })
+})
 // add an Image to a Spot based on the Spot's id
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
-    const id = parseInt(req.params.spotId)
+    const id = req.params.spotId
     const spot = await Spot.findByPk(id)
     const { url, preview } = req.body
 
@@ -72,6 +119,48 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         url,
         preview: true
     })
+})
+
+// create a review for a spot based on the spots id
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+    const { review, stars } = req.body
+    const spotId = parseInt(req.params.spotId)
+    const userId = parseInt(req.user.id)
+
+    // no spot err
+    const spot = await Spot.findByPk(spotId)
+    if (!spot) {
+        const error = new Error("Spot couldn't be found");
+        error.status = 404
+        return next(error)
+    }
+
+    // find all the reviews for the spot associated with the user
+    const reviewExists = await Review.findAll({
+        where: {
+            userId,
+            spotId
+        }
+    })
+
+    // existing review err
+    if (reviewExists.length > 0) {
+        const error = new Error("User already has a review for this spot")
+        error.status = 403
+        return next(error)
+    }
+
+    // create
+    const createReview = await Review.create({
+        userId,
+        spotId,
+        review,
+        stars
+    })
+
+    res.status(201)
+    return res.json(createReview);
+
 })
 
 // get details of a spot from an Id
@@ -173,39 +262,6 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 })
 
-// get all spots by current user
-router.get('/current', requireAuth, async (req, res) => {
-    const spots = await Spot.findAll({
-        where: {
-            ownerId: req.user.id
-        }
-    })
-
-    for (let spot of spots) {
-
-        const spotReview = await spot.getReviews({
-            attributes: [
-                [sequelize.fn('AVG', sequelize.col("stars")), "avgRating"]
-            ]
-        })
-        let avgRating = spotReview[0].dataValues.avgRating
-        spot.dataValues.avgRating = parseFloat(Number(avgRating).toFixed(1))
-
-
-        const spotImage = await SpotImage.findOne({
-            where: {
-                spotId: spot.id
-            }
-        })
-
-        if (spotImage) {
-            spot.dataValues.previewImage = spotImage.url
-        } else {
-            spot.dataValues.previewImage = "image url"
-        }
-    }
-    return res.json({ Spots: spots })
-})
 
 // get all spots
 router.get('/', async (req, res) => {
