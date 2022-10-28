@@ -43,6 +43,36 @@ const validateSpot = [
 ]
 
 
+// add an Image to a Spot based on the Spot's id
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+    const id = parseInt(req.params.spotId)
+    const spot = await Spot.findByPk(id)
+    const { url, preview } = req.body
+
+    if (!spot) {
+        const error = new Error("Spot couldn't be found");
+        error.status = 404;
+        return next(error)
+    }
+
+    if (spot.ownerId !== req.user.id) {
+        const error = new Error("Forbidden");
+        error.status = 403;
+        return next(error)
+    }
+    //add image into SpotImages
+    const newImage = await SpotImage.create({
+        spotId: req.params.spotId,
+        url,
+        preview
+    })
+
+    return res.status(200).json({
+        id: newImage.id,
+        url,
+        preview: true
+    })
+})
 
 // get details of a spot from an Id
 router.get('/:spotId', async (req, res, next) => {
@@ -81,23 +111,66 @@ router.get('/:spotId', async (req, res, next) => {
     return res.json(spot)
 })
 
-// get all spots
-router.get('/', async (req, res) => {
-    const spots = await Spot.findAll()
-    for (let spot of spots) {
-        spot.dataValues.avgRating = await spot.getReviews({
-            attributes: [
-                [
-                    sequelize.fn('AVG', sequelize.col("stars")), "avgRating"
-                ]
-            ]
-        })
-        spot.dataValues.previewImage = "sorry"
+// edit a spot
+router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
+    const id = parseInt(req.params.spotId)
+    const spot = await Spot.findByPk(id)
+
+    if (!spot) {
+        const error = new Error("Spot couldn't be found");
+        error.status = 404;
+        return next(error)
     }
 
-    res.json({
-        Spots: spots
+    if (spot.ownerId !== req.user.id) {
+        const error = new Error("Forbidden");
+        error.status = 403;
+        return next(error)
+    }
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    spot.update({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    });
+
+    // await spot.save();
+    return res.json(spot);
+
+})
+
+// Delete a Spot
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const id = req.params.spotId
+    const spot = await Spot.findByPk(id)
+
+    if (!spot) {
+        const error = new Error("Spot couldn't be found");
+        error.status = 404;
+        return next(error)
+    }
+
+    if (spot.ownerId !== req.user.id) {
+        const error = new Error("Forbidden");
+        error.status = 403;
+        return next(error)
+    }
+
+    await spot.destroy()
+
+    return res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
     })
+
 })
 
 // get all spots by current user
@@ -132,6 +205,25 @@ router.get('/current', requireAuth, async (req, res) => {
         }
     }
     return res.json({ Spots: spots })
+})
+
+// get all spots
+router.get('/', async (req, res) => {
+    const spots = await Spot.findAll()
+    for (let spot of spots) {
+        spot.dataValues.avgRating = await spot.getReviews({
+            attributes: [
+                [
+                    sequelize.fn('AVG', sequelize.col("stars")), "avgRating"
+                ]
+            ]
+        })
+        spot.dataValues.previewImage = "sorry"
+    }
+
+    res.json({
+        Spots: spots
+    })
 })
 
 // create a new spot
