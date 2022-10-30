@@ -148,7 +148,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     // console.log("***************LOOK HERE**************", spot)
 
     // spot cannot belong to current user
-    if (spot.ownerId === userId) {
+    if (spot.ownerId !== userId) {
         const error = new Error("Forbidden");
         error.status = 403
         return next(error);
@@ -386,6 +386,8 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 // get all spots
 router.get('/', async (req, res) => {
+    
+
     const spots = await Spot.findAll()
     for (let spot of spots) {
         spot.dataValues.avgRating = await spot.getReviews({
@@ -395,7 +397,7 @@ router.get('/', async (req, res) => {
                 ]
             ]
         })
-        spot.dataValues.previewImage = "sorry"
+        spot.dataValues.previewImage = ""
     }
 
     res.json({

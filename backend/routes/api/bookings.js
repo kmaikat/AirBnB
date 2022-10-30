@@ -55,53 +55,38 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // edit a booking
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
-    const { startDate, endDate } = req.body
-    const spotId = parseInt(req.params.spotId)
     const bookingId = parseInt(req.params.bookingId)
+    const { startDate, endDate } = req.body
     const userId = parseInt(req.user.id)
-    // to date obj
+
+    const booking = await Booking.findByPk(bookingId)
+
     const start = new Date(startDate)
     const end = new Date(endDate)
     const today = new Date()
 
-    const booking = await Booking.findByPk(bookingId)
-
-    if (booking) {
-        const error = new Error("Booking couldn't be found");
+    if (!booking) {
+        const error = new Error("Booking couldn't be found")
         error.status = 404
-        return next(error);
+        return next(error)
     }
 
-    const bookingObj = booking.toJSON()
-    console.log("*******************", bookingObj)
+    // //booking must belong to user
+    // if (booking.userId !== userId ) {
+    //     const error = new Error("Forbidden");
+    //     error.status = 403
+    //     return next(error);
+    // }
 
-    // booking user must be the user
-    if (bookingObj.userId !== userId) {
-        const error = new Error("Forbidden");
-        error.status = 403
-        return next(error);
-    }
-
-    if (end <= today) {
+    if (booking.endDate < today) {
         const error = new Error("Past bookings can't be modified");
         error.status = 403
         return next(error);
     }
+    const date = new Date(booking.endDate)
 
-    if (start >= end) {
-        const error = new Error("endDate cannot be on or before startDate")
-        error.status = 400
-        return next(error)
-    }
 
-    // start date can't be a passed date
-    if (start < today) {
-        const error = new Error("startDate unavailable")
-        error.status = 400
-        return next(error)
-    }
-
-    const bookings = await Booking.findByPk(bookingId,{
+    const bookings = await Booking.findAll({
         where: {
             spotId
         },
@@ -117,7 +102,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
         return res.json(book);
     }
-    // error handlers for date conflicts
+
     for (const booking of bookings) {
         const error = new Error('Sorry, this spot is already booked for the specified dates');
         error.errors = {}
@@ -140,6 +125,52 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
             return next(error)
         }
     }
+
+    res.json(bookings)
+
+})
+
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
+    const bookingId =  req.params.bookingId
+    const userId = req.user.id
+
+    const booking = await Booking.findByPk(bookingId)
+
+    const today = new Date()
+
+    // if booking is not found
+    if (!booking) {
+        const error = new Error("Booking couldn't be found")
+        error.status = 404
+        return next(error)
+    }
+
+    // if today is after start date, it cannot be deleted
+    if (booking.startDate < today) {
+        const error = new Error("Bookings that have been started can't be deleted")
+        error.status = 403
+        return next(error)
+    }
+
+    // can only be deleted if booking belongs to user or if spot owns to user
+    const spotId =  booking.spotId
+    const spot = await Spot.findOne({
+        
+    })
+
+    console.log("***************** LOOK HERE **************", spot)
+    if (booking.userId !== userId) {
+        const error = new Error("Forbidden")
+        error.status = 404
+        return next(error)
+    }
+
+    booking.destroy()
+    res.status(200)
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+      })
 
 })
 
