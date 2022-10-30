@@ -71,37 +71,26 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         return next(error)
     }
 
-    // //booking must belong to user
-    // if (booking.userId !== userId ) {
-    //     const error = new Error("Forbidden");
-    //     error.status = 403
-    //     return next(error);
-    // }
+    //booking must belong to user
+    if (booking.userId !== userId) {
+        const error = new Error("Forbidden");
+        error.status = 403
+        return next(error);
+    }
 
     if (booking.endDate < today) {
         const error = new Error("Past bookings can't be modified");
         error.status = 403
         return next(error);
     }
-    const date = new Date(booking.endDate)
-
 
     const bookings = await Booking.findAll({
         where: {
-            spotId
+            spotId: booking.spotId
         },
         attributes: ["startDate", "endDate"],
         raw: true
     })
-
-    // if booking exists ...
-    if (bookings.length === 0) {
-        const book = await Booking.update({
-            startDate, endDate, spotId, userId
-        });
-
-        return res.json(book);
-    }
 
     for (const booking of bookings) {
         const error = new Error('Sorry, this spot is already booked for the specified dates');
@@ -126,12 +115,16 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         }
     }
 
-    res.json(bookings)
+    await booking.update({
+        startDate, endDate
+    });
+
+    res.json(booking)
 
 })
 
 router.delete('/:bookingId', requireAuth, async (req, res, next) => {
-    const bookingId =  req.params.bookingId
+    const bookingId = req.params.bookingId
     const userId = req.user.id
 
     const booking = await Booking.findByPk(bookingId)
@@ -153,9 +146,9 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     }
 
     // can only be deleted if booking belongs to user or if spot owns to user
-    const spotId =  booking.spotId
+    const spotId = booking.spotId
     const spot = await Spot.findOne({
-        
+
     })
 
     console.log("***************** LOOK HERE **************", spot)
@@ -170,7 +163,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     res.json({
         "message": "Successfully deleted",
         "statusCode": 200
-      })
+    })
 
 })
 

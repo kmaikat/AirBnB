@@ -2,7 +2,7 @@ const express = require("express");
 
 const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
 const { Spot, SpotImage, Review, Booking, sequelize, User, ReviewImage, Sequelize } = require("../../db/models");
-const { check } = require("express-validator");
+const { check, query } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
 const router = express.Router();
@@ -39,6 +39,42 @@ const validateSpot = [
         .exists({ checkFalsy: true })
         .isInt({ min: 1 })
         .withMessage("Price per day is required"),
+    handleValidationErrors
+]
+
+const validateQuery = [
+    query("page")
+        .default(1)
+        .isInt({ min: 1, max: 20 })
+        .withMessage("Page must be greater than or equal to 1"),
+    query("size")
+        .default(20)
+        .isInt({ min: 1, max: 10 })
+        .withMessage("Size must be greater than or equal to 1"),
+    query("maxLat")
+        .optional()
+        .isFloat({ max: 90 })
+        .withMessage("Maximum latitude is invalid"),
+    query("minLat")
+        .optional()
+        .isFloat({ min: -90 })
+        .withMessage("Minimum latitude is invalid"),
+    query("minLng")
+        .optional()
+        .isFloat({ min: -180 })
+        .withMessage("Maximum longitude is invalid"),
+    query("maxLng")
+        .optional()
+        .isFloat({ min: 180 })
+        .withMessage("Minimum longitude is invalid"),
+    query("minPrice")
+        .optional()
+        .isFloat({ min: 0 })
+        .withMessage("Minimum price must be greater than or equal to 0"),
+    query("maxPrice")
+        .optional()
+        .isFloat({ min: 0 })
+        .withMessage("Maximum price must be greater than or equal to 0"),
     handleValidationErrors
 ]
 
@@ -176,13 +212,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     })
 
     // if booking exists ...
-    if (bookings.length === 0) {
-        const book = await Booking.create({
-            startDate, endDate, spotId, userId
-        });
-
-        return res.json(book);
-    }
 
     for (const booking of bookings) {
         const error = new Error('Sorry, this spot is already booked for the specified dates');
@@ -207,7 +236,11 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         }
     }
 
-    res.json(bookings)
+    const book = await Booking.create({
+        startDate, endDate, spotId, userId
+    });
+
+    return res.json(book);
 })
 
 // add an Image to a Spot based on the Spot's id
@@ -385,23 +418,81 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 
 // get all spots
-router.get('/', async (req, res) => {
-    
+router.get('/', validateQuery, async (req, res) => {
+    // query filter begins here
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
 
-    const spots = await Spot.findAll()
-    for (let spot of spots) {
-        spot.dataValues.avgRating = await spot.getReviews({
+
+    let pagination = { page, size };
+    if (parseInt(page) >= 1 && parseInt(size) >= 1) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1)
+    }
+
+    let query = {
+        where: {},
+        include: {}
+    }
+
+    if (maxLat && minLat) {
+        query.where.lat = { [Op.between]: [parseFloat(minLat), parseFloat(maxLat)] };
+    } else if (minLat) {
+        query.where.lat = { [Op.gte]: parseFloat(minLat) };
+    } else if (maxLat) {
+        query.where.lat = { [Op.lte]: parseFloat(maxLat) };
+    }
+
+    if (maxLng && minLng) {
+        query.where.lng = { [Op.between]: [parseFloat(minLng), parseFloat(maxLng)] };
+    } else if (minLng) {
+        query.where.lng = { [Op.gte]: parseFloat(minLng) };
+    } else if (maxLng) {
+        query.where.lng = { [Op.lte]: parseFloat(maxLng) };
+    }
+
+    if (maxPrice && minPrice) {
+        query.where.price = { [Op.between]: [parseFloat(minPrice), parseFloat(maxPrice)] };
+    } else if (minPrice) {
+        query.where.price = { [Op.gte]: parseFloat(minPrice) };
+    } else if (maxPrice) {
+        query.where.price = { [Op.lte]: parseFloat(maxPrice) };
+    }
+    // if min price
+
+    const spots = await Spot.findAll({
+        ...pagination,
+        include: {
+            model: SpotImage,
+            attributes: ["url"]
+        },
+        where: query.where
+
+    })
+    for (let index = 0; index < spots.length; index++) {
+        const spot = spots[index]
+        spot.dataValues.avgRating = (await spot.getReviews({
             attributes: [
                 [
                     sequelize.fn('AVG', sequelize.col("stars")), "avgRating"
                 ]
-            ]
-        })
-        spot.dataValues.previewImage = ""
+            ],
+        }))[0].toJSON().avgRating
+
+        spots[index] = spots[index].toJSON()
+
+        if (spots[index].SpotImages.length > 0) {
+            spots[index].previewImage = spots[index].SpotImages[0].url
+        } else {
+            spots[index].previewImage = null;
+        }
+
+        delete spots[index].SpotImages
     }
 
     res.json({
-        Spots: spots
+        Spots: spots,
+        page,
+        size
     })
 })
 
