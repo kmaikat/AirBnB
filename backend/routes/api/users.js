@@ -10,46 +10,56 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 
 const validateSignup = [
-    check('email')
+  check('email')
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage('Please provide a valid email.'),
-    check('username')
+  check('username')
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
     .withMessage('Please provide a username with at least 4 characters.'),
-    check('username')
+  check('username')
     .not()
     .isEmail()
     .withMessage('Username cannot be an email.'),
-    check('password')
+  check('password')
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
-    handleValidationErrors
+  handleValidationErrors
 ];
 
 // sign up a user
 router.post('/', validateSignup, async (req, res) => {
-      const { email, password, username, firstName, lastName} = req.body;
-      const user = await User.signup({ email, username, password, firstName, lastName});
+  const { email, password, username, firstName, lastName } = req.body;
+  try {
+    const user = await User.signup({ email, username, password, firstName, lastName });
+    // await setTokenCookie(res, user);
 
-      // await setTokenCookie(res, user);
-
-      const token = await setTokenCookie(res, user)
+    const token = await setTokenCookie(res, user)
 
 
-      const currentUser = {
-        id: user.id,
-        firstName,
-        lastName,
-        email,
-        username,
-        token
-      }
-
-      return res.json(currentUser);
+    const currentUser = {
+      id: user.id,
+      firstName,
+      lastName,
+      email,
+      username,
+      token
     }
+
+    return res.json(currentUser);
+  } catch (error) {
+    const err = new Error();
+    res.status(403)
+    err.message = "User already exists"
+    err.statusCode = 403;
+    err.errors = {
+      [`${error.errors[0].path}`]: `User with that ${error.errors[0].path} already exists`
+    }
+    res.json(err)
+  }
+}
 );
 
 

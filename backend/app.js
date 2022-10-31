@@ -64,7 +64,8 @@ app.use((err, _req, _res, next) => {
   // check if error is a Sequelize error:
   if (err instanceof ValidationError) {
     err.errors = err.errors.map((e) => e.message);
-    err.title = 'Validation error';
+    err.message = 'User already exists';
+    err.status = 403;
   }
   next(err);
 });
@@ -79,8 +80,8 @@ app.use((err, _req, res, _next) => {
     errors: err.errors,
   }
 
-  if (isProduction) err.stack = err.stack
-  
+  if (isProduction === false) response.stack = err.stack
+  console.log(err)
   res.json(response);
 });
 
