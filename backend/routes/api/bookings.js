@@ -49,7 +49,7 @@ router.get('/current', requireAuth, async (req, res) => {
     }
 
     console.log(bookings)
-    return res.json(bookings)
+    return res.json({"Bookings": bookings})
 })
 
 

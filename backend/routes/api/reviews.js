@@ -48,7 +48,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         ]
     })
 
-    return res.json({ reviews })
+    return res.json({"Reviews": reviews})
 })
 
 // Add an Image to a Review based on the Review's id
@@ -67,6 +67,7 @@ router.post('/:reviewId/images', requireAuth, validateImage, async (req, res, ne
         return next(error)
     }
 
+    console.log(reviewExists)
     if (reviewExists.ReviewImages.length > 10) {
         const err = new Error("Maximum number of images for this resource was reached");
         err.status = 403;

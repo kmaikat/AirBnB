@@ -159,7 +159,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
             include: {
                 model: User,
-                attributes: ['id', 'firstName', 'lastName']
             }
         })
 
@@ -171,7 +170,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             attributes: ['spotId', 'startDate', 'endDate']
         })
     }
-    return res.json({ bookings })
+    return res.json({ Bookings: bookings })
 })
 
 // Create a Booking from a Spot based on the Spot's id
@@ -195,7 +194,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
     // console.log("***************LOOK HERE**************", spot)
 
     // spot cannot belong to current user
-    if (spot.ownerId !== userId) {
+    if (spot.dataValues.ownerId === userId) {
         const error = new Error("Forbidden");
         error.status = 403
         return next(error);
