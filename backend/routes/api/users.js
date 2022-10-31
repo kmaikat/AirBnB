@@ -48,9 +48,7 @@ router.post('/', validateSignup, async (req, res) => {
         token
       }
 
-      return res.json({
-        currentUser
-      });
+      return res.json(currentUser);
     }
 );
 
