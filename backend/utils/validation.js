@@ -7,7 +7,7 @@ const handleValidationErrors = (req, _res, next) => {
     console.log(validationErrors);
     if (!validationErrors.isEmpty()) {
         const errors = validationErrors
-            .array()
+            .array({ onlyFirstError: true })
             .map(error => `${error.msg}`);
 
         console.log(errors);
@@ -23,5 +23,5 @@ const handleValidationErrors = (req, _res, next) => {
 
 
 module.exports = {
-  handleValidationErrors
+    handleValidationErrors
 };
