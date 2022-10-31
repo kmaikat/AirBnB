@@ -7,6 +7,15 @@ const { handleValidationErrors } = require("../../utils/validation");
 
 const router = express.Router();
 
+const validateBooking = [
+    check("startDate", "Please provide a start date.")
+        .exists({ checkFalsy: true }),
+    check("endDate", "endDate cannot be on or before startDate")
+        .custom((value, { req }) => { return Date.parse(value) > Date.parse(req.body.startDate); }),
+    check("endDate", "Please provide an end date.")
+        .exists({ checkFalsy: true }),
+    handleValidationErrors
+];
 //Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res) => {
     // find user id
@@ -54,7 +63,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
 
 // edit a booking
-router.put('/:bookingId', requireAuth, async (req, res, next) => {
+router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) => {
     const bookingId = parseInt(req.params.bookingId)
     const { startDate, endDate } = req.body
     const userId = parseInt(req.user.id)
