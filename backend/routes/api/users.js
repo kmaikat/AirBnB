@@ -40,12 +40,11 @@ router.post('/', validateSignup, async (req, res) => {
 
 
       const currentUser = {
-        // id: user.id,
+        id: user.id,
         firstName,
         lastName,
         email,
         username,
-        password,
         token
       }
 
