@@ -327,6 +327,27 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
 })
 
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const id = parseInt(req.params.spotId)
+    const reviews = await Spot.findByPk(id, {
+        attributes: [],
+        include: {
+            model: Review,
+            include: [
+                { model: ReviewImage, attributes: ["id", "url"] },
+                { model: User, attributes: ["id", "firstName", "lastname"] }
+            ]
+        }
+    })
+
+    if (!reviews) {
+        const error = new Error("Spot couldn't be found");
+        error.status = 404;
+        return next(error)
+    }
+    res.json(reviews)
+
+})
 // get details of a spot from an Id
 router.get('/:spotId', async (req, res, next) => {
     const id = parseInt(req.params.spotId);
