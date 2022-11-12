@@ -52,7 +52,7 @@ router.post('/', validateSignup, async (req, res) => {
       token
     }
 
-    return res.json(currentUser);
+    return res.json({user: currentUser});
   } catch (error) {
     const err = new Error();
     res.status(403)

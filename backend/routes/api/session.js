@@ -27,10 +27,10 @@ router.delete('/', (_req, res) => {
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
   if (user) {
-    return res.json({
+    return res.json({user: {
       ...user.toSafeObject()
-    });
-  } else return res.json({});
+    }});
+  } else return res.json({user: null});
 });
 
 
@@ -55,7 +55,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
   const response = user.toSafeObject()
   response.token = token;
-  return res.json(response);
+  return res.json({user: response});
 }
 );
 
