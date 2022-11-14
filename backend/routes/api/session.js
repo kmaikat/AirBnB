@@ -10,11 +10,10 @@ const router = express.Router();
 const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
+    .withMessage('Email or username is required'),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
+    .withMessage('Password is required'),
   handleValidationErrors
 ];
 
@@ -28,10 +27,10 @@ router.delete('/', (_req, res) => {
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
   if (user) {
-    return res.json({
-      user: user.toSafeObject()
-    });
-  } else return res.json({});
+    return res.json({user: {
+      ...user.toSafeObject()
+    }});
+  } else return res.json({user: null});
 });
 
 
@@ -48,11 +47,15 @@ router.post('/', validateLogin, async (req, res, next) => {
     return next(err);
   }
 
+  // if there is no user name
+  //"credential": "Email or username is required",
+  // "password": "Password is required"
+
   const token = await setTokenCookie(res, user);
 
   const response = user.toSafeObject()
   response.token = token;
-  return res.json(response);
+  return res.json({user: response});
 }
 );
 

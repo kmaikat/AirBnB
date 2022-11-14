@@ -39,7 +39,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
             },
             {
                 model: Spot,
-                attributes: { exclude: ['createdAt', 'updatedAt', 'description'] }
+                attributes: { exclude: ['createdAt', 'updatedAt', 'description'] },
+                include: SpotImage
             },
             {
                 model: ReviewImage,
@@ -48,7 +49,18 @@ router.get('/current', requireAuth, async (req, res, next) => {
         ]
     })
 
-    return res.json({ reviews })
+    for (let index = 0; index < reviews.length; index++) {
+        reviews[index] = reviews[index].toJSON()
+        if (reviews[index].Spot.SpotImages.length > 0) {
+            reviews[index].Spot.previewImage = reviews[index].Spot.SpotImages[0].url
+        } else {
+            reviews[index].Spot.previewImage = null;
+        }
+
+        delete reviews[index].Spot.SpotImages
+    }
+
+    return res.json({"Reviews": reviews})
 })
 
 // Add an Image to a Review based on the Review's id
@@ -67,6 +79,7 @@ router.post('/:reviewId/images', requireAuth, validateImage, async (req, res, ne
         return next(error)
     }
 
+    console.log(reviewExists)
     if (reviewExists.ReviewImages.length > 10) {
         const err = new Error("Maximum number of images for this resource was reached");
         err.status = 403;

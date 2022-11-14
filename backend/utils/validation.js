@@ -7,14 +7,14 @@ const handleValidationErrors = (req, _res, next) => {
     console.log(validationErrors);
     if (!validationErrors.isEmpty()) {
         const errors = validationErrors
-            .array()
+            .array({ onlyFirstError: true })
             .map(error => `${error.msg}`);
 
         console.log(errors);
-        const err = Error("Bad request.");
+        const err = Error("Validation error");
         err.errors = errors;
         err.status = 400;
-        err.title = "Bad request";
+        err.title = "Validation error";
         next(err);
     };
 
@@ -23,5 +23,5 @@ const handleValidationErrors = (req, _res, next) => {
 
 
 module.exports = {
-  handleValidationErrors
+    handleValidationErrors
 };

@@ -22,14 +22,13 @@ const validateSpot = [
         .withMessage("Country is required"),
     check("lat")
         .exists({ checkFalsy: true })
-        // .isInt({min:-90, max:90})
         .withMessage("Latitude is not valid"),
     check("lng")
         .exists({ checkFalsy: true })
-        // .isInt({min:-180, max:180})
         .withMessage("Longitude is not valid"),
     check("name")
         .exists({ checkFalsy: true })
+        .withMessage("Name must be less than 50 characters")
         .isLength({ max: 50 })
         .withMessage("Name must be less than 50 characters"),
     check("description")
@@ -37,6 +36,7 @@ const validateSpot = [
         .withMessage("Description is required"),
     check("price")
         .exists({ checkFalsy: true })
+        .withMessage("Price per day is required")
         .isInt({ min: 1 })
         .withMessage("Price per day is required"),
     handleValidationErrors
@@ -44,10 +44,12 @@ const validateSpot = [
 
 const validateQuery = [
     query("page")
+        .optional()
         .default(1)
         .isInt({ min: 1, max: 20 })
         .withMessage("Page must be greater than or equal to 1"),
     query("size")
+        .optional()
         .default(20)
         .isInt({ min: 1, max: 10 })
         .withMessage("Size must be greater than or equal to 1"),
@@ -66,7 +68,7 @@ const validateQuery = [
     query("maxLng")
         .optional()
         .isFloat({ min: 180 })
-        .withMessage("Minimum longitude is invalid"),
+        .withMessage("Maximum longitude is invalid"),
     query("minPrice")
         .optional()
         .isFloat({ min: 0 })
@@ -89,6 +91,15 @@ const validateReview = [
     handleValidationErrors
 ]
 
+const validateBooking = [
+    check("startDate", "Please provide a start date.")
+        .exists({ checkFalsy: true }),
+    check("endDate", "endDate cannot be on or before startDate")
+        .custom((value, { req }) => { return Date.parse(value) > Date.parse(req.body.startDate); }),
+    check("endDate", "Please provide an end date.")
+        .exists({ checkFalsy: true }),
+    handleValidationErrors
+];
 // get all spots by current user
 router.get('/current', requireAuth, async (req, res) => {
 
@@ -148,7 +159,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
             include: {
                 model: User,
-                attributes: ['id', 'firstName', 'lastName']
             }
         })
 
@@ -160,11 +170,11 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             attributes: ['spotId', 'startDate', 'endDate']
         })
     }
-    return res.json({ bookings })
+    return res.json({ Bookings: bookings })
 })
 
 // Create a Booking from a Spot based on the Spot's id
-router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
     const userId = parseInt(req.user.id)
     const spotId = parseInt(req.params.spotId)
     const { startDate, endDate } = req.body
@@ -184,7 +194,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     // console.log("***************LOOK HERE**************", spot)
 
     // spot cannot belong to current user
-    if (spot.ownerId !== userId) {
+    if (spot.dataValues.ownerId === userId) {
         const error = new Error("Forbidden");
         error.status = 403
         return next(error);
@@ -317,6 +327,27 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
 })
 
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const id = parseInt(req.params.spotId)
+    const reviews = await Spot.findByPk(id, {
+        attributes: [],
+        include: {
+            model: Review,
+            include: [
+                { model: ReviewImage, attributes: ["id", "url"] },
+                { model: User, attributes: ["id", "firstName", "lastName"] }
+            ]
+        }
+    })
+
+    if (!reviews) {
+        const error = new Error("Spot couldn't be found");
+        error.status = 404;
+        return next(error)
+    }
+    res.json(reviews)
+
+})
 // get details of a spot from an Id
 router.get('/:spotId', async (req, res, next) => {
     const id = parseInt(req.params.spotId);
@@ -329,7 +360,6 @@ router.get('/:spotId', async (req, res, next) => {
             {
                 model: User,
                 as: "Owner",
-                attributes: ['id', 'firstName', 'lastName'],
             },
             {
                 model: Review,
