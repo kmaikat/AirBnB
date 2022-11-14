@@ -18,13 +18,12 @@ export default function LoginFormPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-
         return dispatch(sessionActions.login({ credential, password }))
-        
-        .catch(async (res) => {
+          .catch(async (res) => {
             const data = await res.json();
+            console.log(data.errors)
             if (data && data.errors) setErrors(data.errors);
-        });
+            });
     }
 
     return (
