@@ -5,4 +5,31 @@ button {
     background-color: white;
     border-style: solid;
     border-width: 1px;
+    border-color: lightgray;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    color: #fd5c63;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: x-large;
+}
+
+.navBar {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    color: gray;
+}
+
+i[class="fa-solid fa-circle-user"] {
+    font-size: 27px;
 }

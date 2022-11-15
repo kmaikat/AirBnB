@@ -29,7 +29,8 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
 
     return (
         <>
-            <button onClick={openMenu}>
+            <button className="menu" onClick={openMenu}>
+                <i class="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-circle-user"></i>
 
             </button>
