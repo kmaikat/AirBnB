@@ -44,14 +44,12 @@ const validateSpot = [
 
 const validateQuery = [
     query("page")
-        .optional()
         .default(1)
-        .isInt({ min: 1, max: 20 })
+        .isInt({ min: 1, max: 10 })
         .withMessage("Page must be greater than or equal to 1"),
     query("size")
-        .optional()
         .default(20)
-        .isInt({ min: 1, max: 10 })
+        .isInt({ min: 1, max: 20 })
         .withMessage("Size must be greater than or equal to 1"),
     query("maxLat")
         .optional()
@@ -519,6 +517,7 @@ router.get('/', validateQuery, async (req, res) => {
         delete spots[index].SpotImages
     }
 
+    console.log(page, size)
     res.json({
         Spots: spots,
         page,
