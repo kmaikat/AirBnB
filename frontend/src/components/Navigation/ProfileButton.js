@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 
-export default function ProfileButton() {
+export default function ProfileButton({ user, setShowModal, setLogin }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
-    const user = useSelector(state => state.session.user)
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
@@ -34,7 +33,7 @@ export default function ProfileButton() {
                 <i className="fa-solid fa-circle-user"></i>
 
             </button>
-            {showMenu && (
+            {showMenu && (user ? (
                 <ul className="profile-dropdown">
                     <li>{user.username}</li>
                     <li>{user.email}</li>
@@ -42,7 +41,22 @@ export default function ProfileButton() {
                         <button onClick={logout}>Log Out</button>
                     </li>
                 </ul>
-            )}
+            ) :
+                (<ul className="profile-dropdown">
+                    <li onClick={() => {
+                        setShowModal(true);
+                        setLogin(true);
+                    }}>
+                        Log in
+                    </li>
+                    <li onClick={() => {
+                        setShowModal(true);
+                        setLogin(false);
+                    }}>
+                        Sign Up
+                    </li>
+                </ul>))
+            }
         </>
     );
 }
