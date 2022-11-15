@@ -17,14 +17,14 @@ input[type] {
 }
 
 main {
-  position: relative;
   height: 100000px;
-  /* background-color: gray; */
+  background-color: gray;
+  z-index: 0;
 }
 
 .header {
   position: sticky;
-  z-index: 1;
+  /* z-index: 1; */
   top: 0px;
   box-sizing: border-box;
   padding: 0px 60px;
