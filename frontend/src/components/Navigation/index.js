@@ -36,7 +36,6 @@ export default function Navigation({ isLoaded }) {
       <ul>
         <div className="logo">
           <i class="fa-solid fa-exclamation"></i>
-          <i class="fa-solid fa-exclamation"></i>
         <li>
           <NavLink exact to="/"><i class="fa-solid fa-bed"></i></NavLink>
         </li>
