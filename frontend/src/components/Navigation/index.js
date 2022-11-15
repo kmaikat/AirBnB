@@ -10,7 +10,7 @@ import { SignupFormPage } from '../SignupFormPage.js';
 import { useState } from 'react'
 
 
-export default function Navigation({ isLoaded }){
+export default function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
   console.log(sessionUser)
   const [showModal, setShowModal] = useState(false)
@@ -32,25 +32,34 @@ export default function Navigation({ isLoaded }){
   // }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && (
-          <ProfileButton
-          user={sessionUser}
-          setLogin={setLogin}
-          setShowModal={setShowModal} />
-        )}
-      </li>
-      { showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          {login ? (
-          <LoginForm setShowModal={setShowModal}/>
-          ) : (
-          <SignupFormPage setShowModal={setShowModal}/>
+    <div className='navBar'>
+      <ul>
+        <div className="logo">
+          <i class="fa-solid fa-exclamation"></i>
+          <i class="fa-solid fa-exclamation"></i>
+        <li>
+          <NavLink exact to="/"><i class="fa-solid fa-bed"></i></NavLink>
+        </li>
+        </div>
+
+        <li>
+          {isLoaded && (
+            <ProfileButton
+              user={sessionUser}
+              setLogin={setLogin}
+              setShowModal={setShowModal} />
           )}
-        </Modal>
-      )}
-    </ul>
+          {showModal && (
+            <Modal onClose={() => setShowModal(false)}>
+              {login ? (
+                <LoginForm setShowModal={setShowModal} />
+              ) : (
+                <SignupFormPage setShowModal={setShowModal} />
+              )}
+            </Modal>
+          )}
+        </li>
+      </ul>
+    </div>
   );
 }

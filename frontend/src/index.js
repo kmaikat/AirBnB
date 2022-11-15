@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './stylesheets/reset.css';
+import './stylesheets/global.css';
 import App from './App';
 
 import { Provider } from 'react-redux';
@@ -34,7 +35,7 @@ function Root() {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Root/>
+    <Root />
   </React.StrictMode>,
   document.getElementById('root')
 );

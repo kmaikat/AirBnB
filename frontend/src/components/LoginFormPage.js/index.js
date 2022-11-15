@@ -19,10 +19,10 @@ export default function LoginFormPage() {
         e.preventDefault();
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
-          .catch(async (res) => {
-            const data = await res.json();
-            console.log(data.errors)
-            if (data && data.errors) setErrors(data.errors);
+            .catch(async (res) => {
+                const data = await res.json();
+                console.log(data.errors)
+                if (data && data.errors) setErrors(data.errors);
             });
     }
 
@@ -30,30 +30,30 @@ export default function LoginFormPage() {
         <div>
             <h1>Log in or sign up</h1>
             <form onSubmit={handleSubmit}>
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-            <label>
-                Username or Email
-                <input
-                type="text"
-                value={credential}
-                onChange={(e) => setCredential(e.target.value)}
-                placeholder="Email"
-                required
-                />
-            </label>
-            <label>
-                Password
-                <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-                />
-            </label>
-            <button type="submit">Log In</button>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <label>
+                    Username or Email
+                    <input
+                        type="text"
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                        placeholder="Email"
+                        required
+                    />
+                </label>
+                <label>
+                    Password
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                    />
+                </label>
+                <button type="submit">Log In</button>
             </form>
         </div>
     );
