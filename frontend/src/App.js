@@ -17,7 +17,9 @@ function App() {
   return (
     <>
       <div className='header'>
-        <Navigation isLoaded={isLoaded} />
+        <div className='app-container'>
+          <Navigation isLoaded={isLoaded} />
+        </div>
       </div>
       <main>
         {isLoaded && (
@@ -27,13 +29,11 @@ function App() {
             </Route>
           </Switch>
         )}
-        <div>
-          i am here
-        </div>
       </main>
-
       <div className="footer">
-        <h1>come back and do this l8tr</h1>
+        <div className='app-container'>
+          <h1>come back and do this l8tr</h1>
+        </div>
       </div>
     </>
   );

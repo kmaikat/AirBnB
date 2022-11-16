@@ -1,0 +1,37 @@
+.spotIndex {
+    display: flex;
+}
+
+.spot {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 25px;
+    row-gap: 35px;
+    width: auto;
+    height: auto;
+}
+
+.eachSpot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    width: auto;
+    max-width: 400px;
+}
+
+img {
+    border: 0px solid red;
+    border-radius: 20px;
+}
+
+.description {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.rating {
+    display: flex;
+    align-items: space-between;
+}
