@@ -57,7 +57,6 @@ router.get('/current', requireAuth, async (req, res) => {
         delete bookings[index].Spot.SpotImages
     }
 
-    console.log(bookings)
     return res.json({"Bookings": bookings})
 })
 
@@ -160,7 +159,6 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
     })
 
-    console.log("***************** LOOK HERE **************", spot)
     if (booking.userId !== userId) {
         const error = new Error("Forbidden")
         error.status = 404

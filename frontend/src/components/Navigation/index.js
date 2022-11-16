@@ -12,7 +12,6 @@ import { useState } from 'react'
 
 export default function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-  console.log(sessionUser)
   const [showModal, setShowModal] = useState(false)
   const [login, setLogin] = useState(true)
 
@@ -35,9 +34,9 @@ export default function Navigation({ isLoaded }) {
     <div className='navBar'>
       <ul>
         <div className="logo">
-          <i class="fa-solid fa-exclamation"></i>
+          <i className="fa-solid fa-exclamation"></i>
         <li>
-          <NavLink exact to="/"><i class="fa-solid fa-bed"></i></NavLink>
+          <NavLink exact to="/"><i className="fa-solid fa-bed"></i></NavLink>
         </li>
         </div>
 

@@ -25,18 +25,18 @@ export const getAllSpots = () => async dispatch => {
 
 // normalize the data when yo come back you dummy
 
-const initialState = {}
+const initialState = {Spots: {}, page: 1, size: 20}
 
 /* reducer */
 const spotReducer = (state = initialState, action) => {
 
-    switch (bindActionCreators.type) {
+    switch (action.type) {
         case GET_SPOTS:{
             const newState = {...state};
-            action.spots.forEach(spot => {
-                newState[spot.id] = {...spot}
-                return newState
+            action.spots.Spots.forEach(spot => {
+                newState.Spots[spot.id] = {...spot}
             });
+            return newState
         }
         default:
             return state

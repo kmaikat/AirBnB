@@ -189,7 +189,6 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
         error.status = 404
         return next(error)
     }
-    // console.log("***************LOOK HERE**************", spot)
 
     // spot cannot belong to current user
     if (spot.dataValues.ownerId === userId) {
@@ -517,7 +516,6 @@ router.get('/', validateQuery, async (req, res) => {
         delete spots[index].SpotImages
     }
 
-    console.log(page, size)
     res.json({
         Spots: spots,
         page,
