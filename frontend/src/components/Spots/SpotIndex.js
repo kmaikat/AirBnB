@@ -19,7 +19,7 @@ export default function SpotsIndex() {
         <div className="spotIndex">
         <ul className="spot">
             {spots.map(spot => (
-                <div className="eachSpot">
+                <NavLink to={`spot/${spot.id}`} className="eachSpot">
                     <div className="previewImage">
                         <img src={`${spot.previewImage}`} />
                     </div>
@@ -34,7 +34,7 @@ export default function SpotsIndex() {
                             <p className="rating"><i className="fa-solid fa-star"></i>{Math.round(spot.avgRating)}</p>
                         </div>
                     </div>
-                </div>
+                </NavLink>
             ))}
         </ul>
         </div>
