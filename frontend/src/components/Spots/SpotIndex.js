@@ -29,7 +29,7 @@ export default function SpotsIndex() {
                             <p></p>
                         </div>
                         <div>
-                            <p><i className="fa-solid fa-star"></i>{spot.avgRating}</p>
+                            <p><i className="fa-solid fa-star"></i>{Math.round(spot.avgRating)}</p>
                         </div>
                     </div>
                 </div>
