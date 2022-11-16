@@ -1,7 +1,8 @@
 import { bindActionCreators } from 'redux'
 
 /* type */
-const GET_SPOTS = 'spot/getAllSpots';
+const GET_SPOTS = 'spot/getAllSpots'
+const GET_SPOT_BY_ID = 'spot/getSpotById'
 
 /* action creator */
 const loadSpots = (spots) => {
@@ -10,6 +11,16 @@ const loadSpots = (spots) => {
         spots
     };
 };
+
+// load spot by id
+const loadSpotByID = (spot) => {
+    return {
+        type: GET_SPOT_BY_ID,
+        spot
+    }
+}
+
+
 
 /* thunk */
 export const getAllSpots = () => async dispatch => {
@@ -21,6 +32,16 @@ export const getAllSpots = () => async dispatch => {
         return data
     }
 
+}
+
+export const getSpotById = (id) => async dispatch => {
+    const response = await fetch(`/api/spots/${id}`);
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadSpotByID(data));
+        return data
+    }
 }
 
 // normalize the data when yo come back you dummy
@@ -36,6 +57,11 @@ const spotReducer = (state = initialState, action) => {
             action.spots.Spots.forEach(spot => {
                 newState.Spots[spot.id] = {...spot}
             });
+            return newState
+        }
+        case GET_SPOT_BY_ID: {
+            const newState = {...state};
+            newState.oneSpot = action.spot
             return newState
         }
         default:
