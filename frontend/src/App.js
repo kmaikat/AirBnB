@@ -5,6 +5,7 @@ import LoginFormPage from './components/LoginFormPage.js';
 import { SignupFormPage } from './components/SignupFormPage.js';
 import Navigation from './components/Navigation/index.js';
 import SpotsIndex from './components/Spots/SpotIndex'
+import SpotShow from './components/Spots/SpotShow.js';
 import * as sessionActions from './store/session'
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <SpotsIndex />
+            </Route>
+            <Route path="/spots/:spotId">
+              <SpotShow />
             </Route>
           </Switch>
         )}

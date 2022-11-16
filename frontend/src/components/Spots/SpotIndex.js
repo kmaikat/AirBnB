@@ -19,7 +19,7 @@ export default function SpotsIndex() {
         <div className="spotIndex">
         <ul className="spot">
             {spots.map(spot => (
-                <NavLink to={`spot/${spot.id}`} className="eachSpot">
+                <NavLink to={`spots/${spot.id}`} className="eachSpot">
                     <div className="previewImage">
                         <img src={`${spot.previewImage}`} />
                     </div>
@@ -27,7 +27,7 @@ export default function SpotsIndex() {
                         <div>
                             <p>{spot.address}</p>
                             <p>Hosted by</p>
-                            <p>${spot.price}</p>
+                            <p>${spot.price} night</p>
                             <p></p>
                         </div>
                         <div>
