@@ -14,27 +14,28 @@ export default function SpotShow() {
         dispatch(getSpotById(spotId))
     }, [dispatch])
 
-    // if () return null
+    console.log("*********************************", spot)
+    // spot not saving?
+
 
     return (
         <div>
-            <div className="spotCardHeader">
-                title here
-                <div className="spotCardTitle">
-                    {spot.address}
+            <div>
+                <div className="spotCardHeader">
+                    {/* {spot.address} */}
                 </div>
-                <div className="spotCardOverview">
+                <div>
                     <div>
                         <i className="fa-solid fa-star"></i>
-                        {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
+                        {/* {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews */}
                     </div>
                     <div>
-                        {spot.city}, {spot.state}
+                        {/* {spot.city}, {spot.state} */}
                     </div>
                 </div>
             </div>
             <div>
-                pics
+                pic here
             </div>
             <div>
                 info

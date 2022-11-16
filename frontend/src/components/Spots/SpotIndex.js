@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { getAllSpots } from "../../store/spotReducer";
 import './SpotIndex.css'
 
@@ -21,7 +21,7 @@ export default function SpotsIndex() {
             {spots.map(spot => (
                 <NavLink to={`spots/${spot.id}`} className="eachSpot">
                     <div className="previewImage">
-                        <img src={`${spot.previewImage}`} />
+                        <img src={`${spot.previewImage}`} alt="spot preview"/>
                     </div>
                     <div className="description">
                         <div>
