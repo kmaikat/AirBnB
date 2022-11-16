@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { getAllSpots } from "../../store/spotReducer";
+import './SpotIndex.css'
 
 
 export default function SpotsIndex() {
@@ -15,13 +16,14 @@ export default function SpotsIndex() {
     if (spots.length === 0) return null;
 
     return (
-        <ul>
+        <div className="spotIndex">
+        <ul className="spot">
             {spots.map(spot => (
-                <div >
-                    <div>
+                <div className="eachSpot">
+                    <div className="previewImage">
                         <img src={`${spot.previewImage}`} />
                     </div>
-                    <div>
+                    <div className="description">
                         <div>
                             <p>{spot.address}</p>
                             <p>Hosted by</p>
@@ -29,11 +31,12 @@ export default function SpotsIndex() {
                             <p></p>
                         </div>
                         <div>
-                            <p><i className="fa-solid fa-star"></i>{Math.round(spot.avgRating)}</p>
+                            <p className="rating"><i className="fa-solid fa-star"></i>{Math.round(spot.avgRating)}</p>
                         </div>
                     </div>
                 </div>
             ))}
         </ul>
+        </div>
     );
 }
