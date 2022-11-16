@@ -81,7 +81,6 @@ app.use((err, _req, res, _next) => {
   }
 
   if (isProduction === false) response.stack = err.stack
-  console.log(err)
   res.json(response);
 });
 

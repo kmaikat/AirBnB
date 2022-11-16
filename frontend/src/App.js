@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import LoginFormPage from './components/LoginFormPage.js';
 import { SignupFormPage } from './components/SignupFormPage.js';
-import * as sessionActions from './store/session'
 import Navigation from './components/Navigation/index.js';
+import SpotsIndex from './components/Spots/SpotIndex'
+import * as sessionActions from './store/session'
 
 function App() {
   const dispatch = useDispatch();
@@ -21,15 +22,16 @@ function App() {
       <main>
         {isLoaded && (
           <Switch>
-            <Route path="/login">
-              <LoginFormPage />
-            </Route>
-            <Route path="/signup">
-              <SignupFormPage />
+            <Route exact path="/">
+              <SpotsIndex />
             </Route>
           </Switch>
         )}
+        <div>
+          i am here
+        </div>
       </main>
+
       <div className="footer">
         <h1>come back and do this l8tr</h1>
       </div>
