@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { createASpot } from "../../store/spotReducer"
+import * as sessionActions from "../../store/spotReducer"
 import { useEffect } from "react"
 
 export default function CreateSpotForm() {
@@ -19,6 +20,16 @@ export default function CreateSpotForm() {
 
     const onSubmit = (e) => {
         e.preventDefault();
+
+        dispatch(createASpot({
+            name,
+            description,
+            price,
+            address,
+            city,
+            state,
+            country
+        }))
 
         console.log({
             name,

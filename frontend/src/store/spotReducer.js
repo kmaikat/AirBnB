@@ -4,6 +4,8 @@ import { csrfFetch } from "./csrf";
 const GET_SPOTS = 'spot/getAllSpots'
 const GET_SPOT_BY_ID = 'spot/getSpotById'
 const CREATE_SPOT = 'spot/createSpot'
+const EDIT_SPOT = 'spot/editSpot'
+const DELETE_SPOT = 'spot/deleteSpot'
 
 /* action creator */
 const loadSpots = (spots) => {
@@ -13,7 +15,6 @@ const loadSpots = (spots) => {
     };
 };
 
-// load spot by id
 const loadSpotByID = (spot) => {
     return {
         type: GET_SPOT_BY_ID,
@@ -28,6 +29,19 @@ const createSpot = (spot) => {
     }
 }
 
+const editSpot = (spot) => {
+    return {
+        type: EDIT_SPOT,
+        spot
+    }
+}
+
+const deleteSpot = (spot) => {
+    return {
+        type: DELETE_SPOT,
+        spot
+    }
+}
 
 
 /* thunk */
@@ -65,7 +79,32 @@ export const createASpot = (spot) => async dispatch => {
     }
 }
 
-// normalize the data when yo come back you dummy
+export const editASpot = (spot) => async dispatch => {
+    const response = await csrfFetch('/api/spots', {
+        method: 'PUT',
+        body: JSON.stringify(spot)
+    })
+
+    if (response.ok) {
+        const spot = await response.json();
+        dispatch(editSpot(spot));
+        return response;
+    }
+}
+
+export const deleteASpot = (id) => async dispatch => {
+    const response = await csrfFetch('/api', {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        const spot = await response.json();
+        dispatch(deleteSpot(spot));
+        return response;
+    }
+
+}
+
 
 const initialState = {Spots: {}, page: 1, size: 20}
 
@@ -89,9 +128,20 @@ const spotReducer = (state = initialState, action) => {
             const newState = {...state};
             return newState
         }
+        case EDIT_SPOT: {
+            const newState = {...state}
+            return newState
+        }
+        case DELETE_SPOT: {
+            const newState = {...state}
+            delete newState.spot.Spots[action.id]
+            delete newState.oneSpot
+            return newState
+        }
         default:
             return state
     }
 }
 
 export default spotReducer;
+
