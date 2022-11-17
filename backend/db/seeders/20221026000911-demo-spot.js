@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     return queryInterface.bulkInsert('Spots', [
+    return queryInterface.bulkInsert('Spots', [
       {
         ownerId: 1,
         address: '123 Nunya Business St.',
@@ -52,16 +52,16 @@ module.exports = {
     ], {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     const Op = Sequelize.Op;
-     return await queryInterface.bulkDelete("Spots", {
-       address: { [Op.in]: ["Some address", "Some address2", "Some address3"] }
-     });
+    const Op = Sequelize.Op;
+    return await queryInterface.bulkDelete("Spots", {
+      address: { [Op.in]: ["Some address", "Some address2", "Some address3"] }
+    });
   }
 };

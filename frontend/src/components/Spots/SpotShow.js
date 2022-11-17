@@ -1,20 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getSpotById } from "../../store/spotReducer";
+import { useHistory, useParams } from "react-router-dom";
+import { deleteASpotThunk, getSpotByIdThunk } from "../../store/spotReducer";
 import './SpotShow.css'
 
 export default function SpotShow() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
+    const history = useHistory();
+    const [errors, setErrors] = useState([]);
 
     const spot = useSelector(state => state.spot.oneSpot);
 
     useEffect(() => {
-        dispatch(getSpotById(spotId))
+        dispatch(getSpotByIdThunk(spotId))
     }, [dispatch])
 
-    console.log("*********************************", spot)
+    const handleDelete = async () => {
+        const deleteResponse = await dispatch(deleteASpotThunk(spotId))
+        if (deleteResponse.ok) {
+            history.push("/")
+        } else {
+            setErrors([deleteResponse.message])
+        }
+        // useEffect for errors for a form
+        // for errors from a button click, create error state and set errors to returned errors
+    }
     // spot not saving?
 
     if (!spot) return null
@@ -54,15 +65,17 @@ export default function SpotShow() {
                     <div>
                         <div>${spot.price} night</div>
                         <div>
-                        <i className="fa-solid fa-star"></i>
-                        {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
+                            <i className="fa-solid fa-star"></i>
+                            {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
                         </div>
 
                     </div>
 
                 </div>
                 <div>if you are the owner, "see something wrong? edit here"</div>
-                <div>if you are the owner, "change your mind? delete button here"</div>
+                <div>if you are the owner, "change your mind? delete button here"
+                    <button onClick={handleDelete}>Delete</button>
+                </div>
             </div>
         </div>
     );

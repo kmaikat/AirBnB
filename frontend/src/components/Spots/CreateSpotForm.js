@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { createASpot } from "../../store/spotReducer"
+import { createASpotThunk } from "../../store/spotReducer"
+import * as sessionActions from "../../store/spotReducer"
 import { useEffect } from "react"
 
 export default function CreateSpotForm() {
@@ -20,15 +21,17 @@ export default function CreateSpotForm() {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        console.log({
+        dispatch(createASpotThunk({
             name,
             description,
             price,
+            lat: 10,
+            lng: 10,
             address,
             city,
             state,
             country
-        })
+        }))
 
         return history.push("/")
     }
@@ -39,57 +42,57 @@ export default function CreateSpotForm() {
             <label>
                 Name
                 <input
-                type="text"
-                value={name}
-                onChange={e => setName(e.target.value)}
+                    type="text"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
                 />
             </label>
             <label>
                 Description
                 <input
-                type="text"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
+                    type="text"
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
                 />
             </label>
             <label>
                 Price
                 <input
-                type="number"
-                value={price}
-                onChange={e => setPrice(e.target.value)}
+                    type="number"
+                    value={price}
+                    onChange={e => setPrice(e.target.value)}
                 />
             </label>
             <label>
                 Address
                 <input
-                type="text"
-                value={address}
-                onChange={e => setAddress(e.target.value)}
+                    type="text"
+                    value={address}
+                    onChange={e => setAddress(e.target.value)}
                 />
             </label>
             <label>
                 City
                 <input
-                type="text"
-                value={city}
-                onChange={e => setCity(e.target.value)}
+                    type="text"
+                    value={city}
+                    onChange={e => setCity(e.target.value)}
                 />
             </label>
             <label>
                 State
                 <input
-                type="text"
-                value={state}
-                onChange={e => setState(e.target.value)}
+                    type="text"
+                    value={state}
+                    onChange={e => setState(e.target.value)}
                 />
             </label>
             <label>
                 Country
                 <input
-                type="text"
-                value={country}
-                onChange={e => setCountry(e.target.value)}
+                    type="text"
+                    value={country}
+                    onChange={e => setCountry(e.target.value)}
                 />
             </label>
             <button type="submit">Submit</button>
