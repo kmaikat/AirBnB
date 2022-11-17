@@ -17,28 +17,52 @@ export default function SpotShow() {
     console.log("*********************************", spot)
     // spot not saving?
 
-
+    if (!spot) return null
     return (
         <div>
-            <div>
+            <div className="spot-header">
                 <div className="spotCardHeader">
-                    {/* {spot.address} */}
+                    {spot.name}
                 </div>
                 <div>
                     <div>
                         <i className="fa-solid fa-star"></i>
-                        {/* {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews */}
+                        {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
                     </div>
                     <div>
-                        {/* {spot.city}, {spot.state} */}
+                        {spot.city}, {spot.state}
                     </div>
                 </div>
             </div>
-            <div>
-                pic here
+            <div className="spot-images">
+                <div>
+                    <img src={`${spot.SpotImages[0].url}`} className="main-preview"></img>
+                </div>
+                <div>
+                    {spot.SpotImages.slice(1).map(image => {
+                        <div>
+                            <img src={`${image.url}`}></img>
+                        </div>
+                    })}
+                </div>
+
             </div>
-            <div>
-                info
+            <div className="spot-details">
+                
+                <div>
+                    <div>{spot.description}</div>
+                    <div>
+                        <div>${spot.price} night</div>
+                        <div>
+                        <i className="fa-solid fa-star"></i>
+                        {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
+                        </div>
+
+                    </div>
+
+                </div>
+                <div>if you are the owner, "see something wrong? edit here"</div>
+                <div>if you are the owner, "change your mind? delete button here"</div>
             </div>
         </div>
     );
