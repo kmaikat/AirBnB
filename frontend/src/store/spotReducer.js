@@ -1,4 +1,4 @@
-import { bindActionCreators } from 'redux'
+
 
 /* type */
 const GET_SPOTS = 'spot/getAllSpots'
