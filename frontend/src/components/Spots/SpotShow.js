@@ -21,16 +21,16 @@ export default function SpotShow() {
     return (
         <div>
             <div className="spot-header">
-                <div className="spotCardHeader">
+                <div className="spot-header-name">
                     {spot.name}
                 </div>
-                <div>
+                <div className="spot-header-reviews">
                     <div>
                         <i className="fa-solid fa-star"></i>
                         {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
                     </div>
                     <div>
-                        {spot.city}, {spot.state}
+                        {spot.city}, {spot.state}, {spot.country}
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@ export default function SpotShow() {
 
             </div>
             <div className="spot-details">
-                
+
                 <div>
                     <div>{spot.description}</div>
                     <div>

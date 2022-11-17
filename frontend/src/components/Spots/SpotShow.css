@@ -1,3 +1,9 @@
-.spotCardHeader {
-    background-color: red;
+.spot-header-name {
+    font-size: 1.625em;
+}
+
+.spot-header-reviews {
+    font-size: 14px;
+    display: inline-flex;
+
 }

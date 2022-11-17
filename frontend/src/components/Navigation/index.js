@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
@@ -35,28 +35,34 @@ export default function Navigation({ isLoaded }) {
       <ul>
         <div className="logo">
           <i className="fa-solid fa-exclamation"></i>
-        <li>
-          <NavLink exact to="/"><i className="fa-solid fa-bed"></i></NavLink>
-        </li>
+          <li>
+            <NavLink exact to="/"><i className="fa-solid fa-bed"></i></NavLink>
+          </li>
         </div>
 
-        <li>
-          {isLoaded && (
-            <ProfileButton
-              user={sessionUser}
-              setLogin={setLogin}
-              setShowModal={setShowModal} />
-          )}
-          {showModal && (
-            <Modal onClose={() => setShowModal(false)}>
-              {login ? (
-                <LoginForm setShowModal={setShowModal} />
-              ) : (
-                <SignupFormPage setShowModal={setShowModal} />
-              )}
-            </Modal>
-          )}
-        </li>
+        <div>
+          <Link to="/spot/create">Become a Host</Link>
+          <li>
+            {isLoaded && (
+              <ProfileButton
+                user={sessionUser}
+                setLogin={setLogin}
+                setShowModal={setShowModal} />
+            )}
+            {showModal && (
+              <Modal onClose={() => setShowModal(false)}>
+                {login ? (
+                  <LoginForm setShowModal={setShowModal} />
+                ) : (
+                  <SignupFormPage setShowModal={setShowModal} />
+                )}
+              </Modal>
+            )}
+          </li>
+
+        </div>
+
+
       </ul>
     </div>
   );
