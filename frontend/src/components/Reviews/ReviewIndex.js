@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 import { getReviewsThunk } from "../../store/review";
 
 export default function ReviewIndex({spot}) {
@@ -12,7 +13,7 @@ export default function ReviewIndex({spot}) {
     }, [dispatch])
 
     if (!reviews) return (
-        <div>write a review</div>
+        <div>No reviews (yet)</div>
     );
 
     return (
@@ -28,11 +29,17 @@ export default function ReviewIndex({spot}) {
                     {spot.numReviews} Reviews
                 </div>
             </div>
+            <div>
+                <button>
+                    <Link to={`/spot/${spot.id}/reviews/create`}>Write a Review</Link>
+                </button>
+            </div>
             <ul>
                {reviews.map(spot => (
                 <div>{spot.review}</div>
                ))}
             </ul>
+
         </div>
     )
 }
