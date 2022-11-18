@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteASpotThunk, getSpotByIdThunk } from "../../store/spotReducer";
 import './SpotShow.css'
+import { Link } from "react-router-dom";
 
 export default function SpotShow() {
     const dispatch = useDispatch();
@@ -26,7 +27,6 @@ export default function SpotShow() {
         // useEffect for errors for a form
         // for errors from a button click, create error state and set errors to returned errors
     }
-    // spot not saving?
 
     if (!spot) return null
     return (
@@ -47,7 +47,7 @@ export default function SpotShow() {
             </div>
             <div className="spot-images">
                 <div>
-                    <img src={`${spot.SpotImages[0].url}`} className="main-preview"></img>
+                    <img src={`${spot.SpotImages[0]?.url}`} className="main-preview"></img>
                 </div>
                 <div>
                     {spot.SpotImages.slice(1).map(image => {
@@ -72,7 +72,9 @@ export default function SpotShow() {
                     </div>
 
                 </div>
-                <div>if you are the owner, "see something wrong? edit here"</div>
+                <div>if you are the owner, "see something wrong? edit here"
+                    <button ><Link to={`/spot/${spotId}/edit`}>Edit</Link></button>
+                </div>
                 <div>if you are the owner, "change your mind? delete button here"
                     <button onClick={handleDelete}>Delete</button>
                 </div>

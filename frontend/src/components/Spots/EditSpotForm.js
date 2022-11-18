@@ -1,3 +1,6 @@
+
 export default function EditSpotForm() {
-    return null
+    return (
+        <div>helklo</div>
+    )
 }

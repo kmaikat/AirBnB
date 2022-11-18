@@ -80,7 +80,7 @@ export const createASpotThunk = (spot) => async dispatch => {
 }
 
 export const editASpotThunk = (spot) => async dispatch => {
-    const response = await csrfFetch('/api/spots', {
+    const response = await csrfFetch(`/api/spots/${spot.id}`, {
         method: 'PUT',
         body: JSON.stringify(spot)
     })
