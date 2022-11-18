@@ -7,10 +7,10 @@ const EDIT_REVIEW = 'review/editReview'
 const DELETE_REVIEW = 'review/deleteReview'
 
 /* action */
-const getReviewsAction = (spotId) => {
+const getReviewsAction = (reviews) => {
     return {
         type: GET_REVIEWS,
-        spotId
+        reviews
     }
 }
 const createReviewAction = (reviews) => {

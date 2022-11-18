@@ -44,7 +44,7 @@ function App() {
       </main>
       <div className="footer">
         <div className='app-container'>
-          <h1>come back and do this l8tr</h1>
+          <h1>come back and do this l8tr, this is my foot</h1>
         </div>
       </div>
     </>
