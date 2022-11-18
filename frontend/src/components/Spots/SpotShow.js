@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { deleteASpotThunk, getSpotByIdThunk } from "../../store/spotReducer";
 import './SpotShow.css'
 import { Link } from "react-router-dom";
+import ReviewIndex from "../Reviews/ReviewIndex";
 
 export default function SpotShow() {
     const dispatch = useDispatch();
@@ -61,7 +62,10 @@ export default function SpotShow() {
             <div className="spot-details">
 
                 <div>
-                    <div>{spot.description}</div>
+                    <div>
+                        {spot.description}
+
+                    </div>
                     <div>
                         <div>${spot.price} night</div>
                         <div>
@@ -72,11 +76,14 @@ export default function SpotShow() {
                     </div>
 
                 </div>
-                <div>if you are the owner, "see something wrong? edit here"
+                <div>
                     <button ><Link to={`/spot/${spotId}/edit`}>Edit</Link></button>
                 </div>
-                <div>if you are the owner, "change your mind? delete button here"
+                <div>
                     <button onClick={handleDelete}>Delete</button>
+                </div>
+                <div>
+                    <ReviewIndex spot={spot} />
                 </div>
             </div>
         </div>
