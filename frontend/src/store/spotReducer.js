@@ -84,7 +84,7 @@ export const createASpotThunk = (spot) => async dispatch => {
     if (response.ok) {
         const spot = await response.json();
         dispatch(createSpotAction(spot));
-        return response;
+        return spot;
     }
 }
 
@@ -114,9 +114,10 @@ export const deleteASpotThunk = (id) => async dispatch => {
 
 }
 
-export const creatImageThunk = (spotId) => async dispatch => {
+export const createImageThunk = (spotId, imageUrl) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
-        method: "POST"
+        method: "POST",
+        body: JSON.stringify(imageUrl)
     })
 
     if (response.ok) {
@@ -134,11 +135,7 @@ const spotReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case GET_SPOTS: {
-            const newState = { ...state };
-            action.spots.Spots.forEach(spot => {
-                newState.Spots[spot.id] = { ...spot }
-            });
-            return newState
+            return action.spots
         }
         case GET_SPOT_BY_ID: {
             const newState = { ...state };
