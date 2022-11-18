@@ -1,98 +1,51 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useLocation, useParams } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { createASpotThunk } from "../../store/spotReducer"
-import * as sessionActions from "../../store/spotReducer"
-import { useEffect } from "react"
+
 
 export default function CreateSpotForm() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.session.user)
-    const { spotId } = useParams();
 
-    useEffect(() => {
-        dispatch(sessionActions.getSpotByIdThunk(spotId));
-    }, []);
-
-    const spot = useSelector(state => state.spot.oneSpot) ?? {
-        name: "",
-        description: "",
-        price: "",
-        address: "",
-        city: "",
-        state: "",
-        country: ""
-    }
-    useEffect(() => {
-
-    }, [spot])
-
-
-    const [name, setName] = useState(spot.name)
-    const [description, setDescription] = useState(spot.description)
-    const [price, setPrice] = useState(spot.price)
-    const [address, setAddress] = useState(spot.address)
-    const [city, setCity] = useState(spot.city)
-    const [state, setState] = useState(spot.state)
-    const [country, setCountry] = useState(spot.country)
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+    const [price, setPrice] = useState('')
+    const [address, setAddress] = useState('')
+    const [city, setCity] = useState('')
+    const [state, setState] = useState('')
+    const [country, setCountry] = useState('')
     const [errors, setErrors] = useState([]);
-
-    console.log(spot)
 
     if (!user) return null
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
-        if (spot.id) {
-            try {
-                await dispatch(sessionActions.editASpotThunk({
-                    id: spot.id,
-                    name,
-                    description,
-                    price,
-                    lat: 10,
-                    lng: 10,
-                    address,
-                    city,
-                    state,
-                    country
-                }))
-            } catch (errors) {
-                const data = await errors.json();
-                setErrors(data.errors);
-                return;
-            }
-        } else {
-            try {
-                await dispatch(createASpotThunk({
-                name,
-                description,
-                price,
-                lat: 10,
-                lng: 10,
-                address,
-                city,
-                state,
-                country
-            }))
-            } catch (errors) {
-                const data = await errors.json();
-                setErrors(data.errors);
-                return;
-            }
-
+        try {
+            await dispatch(createASpotThunk({
+            name,
+            description,
+            price,
+            lat: 10,
+            lng: 10,
+            address,
+            city,
+            state,
+            country
+        }))
+        } catch (errors) {
+            const data = await errors.json();
+            setErrors(data.errors);
+            return;
         }
 
-        console.log(errors)
-
-        return history.push(`/spots/${spot.id}`)
+        return history.push(`/`)
     }
 
     return (
         <form onSubmit={onSubmit}>
-            <h1>{spot.id ? "Edit a spot 🐥" : "Create a Spot 🐥"}</h1>
+            <h1>Create a Spot 🐥</h1>
             <ul>
                 {errors.map(error => (<li key={error}>{error}</li>))}
             </ul>

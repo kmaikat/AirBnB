@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import LoginFormPage from './components/LoginFormPage.js';
-import { SignupFormPage } from './components/SignupFormPage.js';
+// import LoginFormPage from './components/LoginFormPage.js';
+// import { SignupFormPage } from './components/SignupFormPage.js';
 import Navigation from './components/Navigation/index.js';
 import SpotsIndex from './components/Spots/SpotIndex'
 import SpotShow from './components/Spots/SpotShow.js';
@@ -37,7 +37,7 @@ function App() {
               <CreateSpotForm />
             </Route>
             <Route path="/spot/:spotId/edit">
-              <CreateSpotForm />
+              <EditSpotForm />
             </Route>
           </Switch>
         )}

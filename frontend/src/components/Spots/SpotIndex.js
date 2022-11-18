@@ -39,7 +39,7 @@ export default function SpotsIndex() {
                         </div>
                         <div className="description">
                             <div>
-                                <p>{spot.address}</p>
+                                <p>{spot.city}, {spot.state}</p>
                                 <p>Hosted by</p>
                                 <p>${spot.price} night</p>
                                 <p></p>

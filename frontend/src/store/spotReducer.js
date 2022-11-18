@@ -6,6 +6,7 @@ const GET_SPOT_BY_ID = 'spot/getSpotByIdAction'
 const CREATE_SPOT = 'spot/createSpotAction'
 const EDIT_SPOT = 'spot/editSpotAction'
 const DELETE_SPOT = 'spot/deleteSpotAction'
+const CREATE_IMAGE = 'spot/createImageAction'
 
 /* action creator */
 const loadSpotsAction = (spots) => {
@@ -40,6 +41,14 @@ const deleteSpotAction = (spotId) => {
     return {
         type: DELETE_SPOT,
         spotId
+    }
+}
+
+const createImageAction = (spotId) => {
+    return {
+        type: CREATE_IMAGE,
+        spotId
+
     }
 }
 
@@ -93,7 +102,6 @@ export const editASpotThunk = (spot) => async dispatch => {
 }
 
 export const deleteASpotThunk = (id) => async dispatch => {
-    console.log("delete thunk running", id)
     const response = await csrfFetch(`/api/spots/${id}`, {
         method: 'DELETE'
     })
@@ -104,6 +112,18 @@ export const deleteASpotThunk = (id) => async dispatch => {
         return response;
     }
 
+}
+
+export const creatImageThunk = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: "POST"
+    })
+
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(createImageAction(image));
+        return response;
+    }
 }
 
 
@@ -134,10 +154,13 @@ const spotReducer = (state = initialState, action) => {
             return newState
         }
         case DELETE_SPOT: {
-            console.log("reducer delete key running")
             const newState = { ...state }
             delete newState.Spots[action.spotId]
             delete newState.oneSpot
+            return newState
+        }
+        case CREATE_IMAGE: {
+            const newState = {...state}
             return newState
         }
         default:
