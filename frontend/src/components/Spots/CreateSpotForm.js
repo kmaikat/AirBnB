@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { createASpotThunk } from "../../store/spotReducer"
+import { createASpotThunk, createImageThunk } from "../../store/spotReducer"
 
 
 export default function CreateSpotForm() {
@@ -16,6 +16,7 @@ export default function CreateSpotForm() {
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [country, setCountry] = useState('')
+    const [image, setImage] = useState('')
     const [errors, setErrors] = useState([]);
 
     if (!user) return null
@@ -23,24 +24,31 @@ export default function CreateSpotForm() {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(createASpotThunk({
-            name,
-            description,
-            price,
-            lat: 10,
-            lng: 10,
-            address,
-            city,
-            state,
-            country
-        }))
+            const newSpot = await dispatch(createASpotThunk({
+                name,
+                description,
+                price,
+                lat: 10,
+                lng: 10,
+                address,
+                city,
+                state,
+                country
+            }))
+
+            console.log(newSpot)
+            dispatch(createImageThunk(newSpot.id, {
+                url: image,
+                preview: true
+            }))
+
         } catch (errors) {
             const data = await errors.json();
             setErrors(data.errors);
             return;
         }
 
-        return history.push(`/`)
+        return history.push("/")
     }
 
     return (
@@ -103,6 +111,14 @@ export default function CreateSpotForm() {
                     type="text"
                     value={country}
                     onChange={e => setCountry(e.target.value)}
+                />
+            </label>
+            <label>
+                Image Link
+                <input
+                    type="text"
+                    value={image}
+                    onChange={e => setImage(e.target.value)}
                 />
             </label>
             <button type="submit">Submit</button>
