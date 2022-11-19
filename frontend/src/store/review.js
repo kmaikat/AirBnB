@@ -43,11 +43,12 @@ export const getReviewsThunk = (spotId) => async dispatch => {
     }
 
 }
-export const createReviewThunk = (spotId) => async dispatch => {
+export const createReviewThunk = (spotId, review) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
-        body: JSON.stringify(response)
+        body: JSON.stringify(review)
     });
+    console.log(response)
 
     if (response.ok) {
         const data = await response.json();
@@ -88,6 +89,10 @@ const reviewReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_REVIEWS: {
             return action.reviews
+        }
+        case CREATE_REVIEW: {
+            const newState = {...state}
+            return newState
         }
         default:
             return state

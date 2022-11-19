@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import { getReviewsThunk } from "../../store/review";
 
-export default function ReviewIndex({spot}) {
+export default function ReviewIndex({ spot }) {
     const dispatch = useDispatch();
     const ownerId = spot.ownerId
     const reviews = useSelector(state => state.review.Reviews)
@@ -13,16 +13,23 @@ export default function ReviewIndex({spot}) {
     }, [dispatch])
 
     if (!reviews) return (
-        <div>No reviews (yet)</div>
+        <div>
+            <div>No reviews (yet)</div>
+            <div>
+                <button>
+                    <Link to={`/spot/${spot.id}/reviews/create`}>Write a Review</Link>
+                </button>
+            </div>
+        </div>
     );
 
     return (
         <div>
             <div className="review-heading">
                 <div>
-                    <p className="review-rating">
-                        <i className="fa-solid fa-star"></i>
-                        {spot.avgStarRating}
+                    <p className="review-rating"> {reviews.length === 0 ? (<div>No reviews (yet)</div>) : <> <i className="fa-solid fa-star"></i>
+                        {spot.avgStarRating.toFixed(2)}</>}
+
                     </p>
                 </div>
                 <div>
@@ -35,9 +42,15 @@ export default function ReviewIndex({spot}) {
                 </button>
             </div>
             <ul>
-               {reviews.map(spot => (
-                <div>{spot.review}</div>
-               ))}
+                {reviews.map(spot => (
+                    <div>
+                        <div>{spot.User.firstName}</div>
+                        <div>{new Date(spot.createdAt).toLocaleString("en-US", { month: "long" })}</div>
+
+                        <div>{spot.review}</div>
+
+                    </div>
+                ))}
             </ul>
 
         </div>

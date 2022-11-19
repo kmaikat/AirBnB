@@ -45,7 +45,7 @@ export default function SpotsIndex() {
                                 <p></p>
                             </div>
                             <div>
-                                <p className="rating"><i className="fa-solid fa-star"></i>{Math.round(spot.avgRating)}</p>
+                                <p className="rating"><i className="fa-solid fa-star"></i>{(spot.avgRating).toFixed(2)}</p>
                             </div>
                         </div>
                     </NavLink>
