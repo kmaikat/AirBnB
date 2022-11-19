@@ -37,6 +37,7 @@ export default function CreateReviewForm() {
                 <div>
                     Tell us about your experience
                 </div>
+                <ul>{errors.map(error => (<li key={error}>{error}</li>))}</ul>
                 <div>
                     <label>Rate your stay on a scale of 1-5</label>
                     <select

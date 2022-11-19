@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom"
 import * as sessionActions from "../../store/spotReducer"
 import { useEffect } from "react"
 
-export default function CreateSpotForm() {
+export default function EditSpotForm() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.session.user)

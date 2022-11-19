@@ -70,7 +70,7 @@ export default function SpotShow() {
                         <div>${spot.price} night</div>
                         <div>
                             <i className="fa-solid fa-star"></i>
-                            {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
+                            {(spot.avgStarRating).toFixed(2)} · {spot.numReviews} Reviews
                         </div>
 
                     </div>

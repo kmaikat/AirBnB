@@ -48,36 +48,37 @@ export const createReviewThunk = (spotId, review) => async dispatch => {
         method: 'POST',
         body: JSON.stringify(review)
     });
-    console.log(response)
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getReviewsAction(data));
+        dispatch(createReviewAction
+            (data));
         return data
     }
 
 }
-export const editReviewThunk = (spotId) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
-        method: 'POST',
-        body: JSON.stringify(response)
+export const editReviewThunk = (reviewId, review) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'PUT',
+        body: JSON.stringify(review)
     });
+    console.log("in the thunk",response)
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getReviewsAction(data));
+        dispatch(editReviewAction(data));
         return data
     }
 
 }
-export const deleteReviewThunk = (spotId, reviewId) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spotId}/reviews/${reviewId}`, {
+export const deleteReviewThunk = (reviewId) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     });
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getReviewsAction(data));
+        dispatch(deleteReviewAction(data));
         return data
     }
 
@@ -93,6 +94,15 @@ const reviewReducer = (state = initialState, action) => {
         case CREATE_REVIEW: {
             const newState = {...state}
             return newState
+        }
+        case EDIT_REVIEW: {
+            const newState = {...state}
+            return newState
+        }
+        case DELETE_REVIEW: {
+            const newState = {...state}
+            return newState
+            // delete newState.review
         }
         default:
             return state
