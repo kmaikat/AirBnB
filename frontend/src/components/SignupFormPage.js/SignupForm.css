@@ -1,0 +1,14 @@
+.signuplogin-form-header {
+    display: flex;
+}
+
+.signuplogin-form-header input[type]{
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border-width: 1px;
+    margin: 20px 0px;
+    border: 1px solid black
+}

@@ -22,32 +22,41 @@ function LoginForm({ setShowModal }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
-      <label>
-        Username or Email
+    <div className='loginsignup-form'>
+      <div className="signuplogin-form-header">
+        <div className="signuplogin-form-x" onClick={() => setShowModal(false)}>
+          <i className="fa-solid fa-xmark"></i>
+        </div>
+        <div className="signuplogin-form-title">
+          <h2>Log in or sign up</h2>
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className="form">
+        <ul className="errors">
+          {errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
+          ))}
+        </ul>
         <input
+          className="form-first-input"
           type="text"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
+          placeholder='Username or email'
           required
         />
-      </label>
-      <label>
-        Password
         <input
+          className="form-last-input"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder='Password'
           required
         />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+        <button type="submit" className="submit">Log In</button>
+        <button className="submit" id="demo-user" onClick={() => dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }).then(() => setShowModal(false)))}>Log In as Demo User</button>
+      </form>
+    </div >
   );
 }
 

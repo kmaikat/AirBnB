@@ -138,8 +138,7 @@ const spotReducer = (state = initialState, action) => {
             return action.spots
         }
         case GET_SPOT_BY_ID: {
-            const newState = { ...state };
-            newState.oneSpot = action.spot
+            const newState = { ...state, oneSpot: action.spot };
             return newState
         }
         case CREATE_SPOT: {
@@ -157,7 +156,7 @@ const spotReducer = (state = initialState, action) => {
             return newState
         }
         case CREATE_IMAGE: {
-            const newState = {...state}
+            const newState = { ...state }
             return newState
         }
         default:

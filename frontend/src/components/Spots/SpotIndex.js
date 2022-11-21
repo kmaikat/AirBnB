@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { getAllSpotsThunk } from "../../store/spotReducer";
 import './SpotIndex.css'
 
@@ -30,27 +30,28 @@ export default function SpotsIndex() {
     if (spots.length === 0) return null;
 
     return (
-        <div className="spotIndex">
-            <ul className="spot">
-                {spots.map(spot => (
-                    <NavLink to={`spots/${spot.id}`} className="eachSpot">
-                        <div className="previewImage">
-                            <img src={`${spot.previewImage}`} alt="spot preview" />
+        <div id="spotIndex">
+            {spots.map(spot => (
+                <Link to={`spots/${spot.id}`} className="eachspot-content">
+                    <div className="eachspot-content-image-container">
+                        {spot.previewImage ?
+                            (<img src={`${spot.previewImage}`} alt="spot preview" />) :
+                            (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
+                    </div>
+                    <div className="eachspot-content-description">
+                        <div className="eachspot-content-description-left">
+                            <p className="eachspot-content-description-location">{spot.city}, {spot.state}</p>
+                            <p className="eachspot-content-description-hosted">Available Now!</p>
+                            <p>
+                                <span className="eachspot-content-description-price">${spot.price}</span> night
+                            </p>
                         </div>
-                        <div className="description">
-                            <div>
-                                <p>{spot.city}, {spot.state}</p>
-                                <p>Hosted by</p>
-                                <p>${spot.price} night</p>
-                                <p></p>
-                            </div>
-                            <div>
-                                <p className="rating"><i className="fa-solid fa-star"></i>{(spot.avgRating).toFixed(2)}</p>
-                            </div>
+                        <div>
+                            <p className="eachspot-content-rating"><i className="fa-solid fa-star"></i>{(spot.avgRating ? (spot.avgRating).toFixed(2) : (<p>new</p>))}</p>
                         </div>
-                    </NavLink>
-                ))}
-            </ul>
+                    </div>
+                </Link>
+            ))}
         </div>
     );
 }

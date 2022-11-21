@@ -1,4 +1,93 @@
-button {
+.logo {
+    display: inline-flex;
+    align-items: center;
+    color: #fd5c63;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-large;
+}
+
+.navBar {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    max-width: 2620px;
+}
+
+#floating-menu {
+    position: relative;
+}
+
+.menu {
+    color: gray;
+}
+
+.menu:hover {
+    box-shadow: 0px 5px 10px rgb(225, 224, 224);
+}
+
+.profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 1px;
+    top: 120%;
+    width: 175px;
+    border-radius: 9px;
+    background-color: white;
+    box-shadow: 0px 1px 10px rgb(172, 172, 172);
+    overflow: hidden;
+}
+
+.profile-dropdown li {
+    padding: .5rem;
+    cursor: pointer;
+}
+
+.profile-dropdown li:hover {
+    background-color: rgb(237, 237, 237);
+}
+
+#profile-dropdown-user-info {
+    padding: .5rem;
+    border-bottom: 1px solid lightgray;
+}
+
+#profile-dropdown-user-info>p {
+    padding: .25rem 0;
+}
+
+i[class="fa-solid fa-circle-user"] {
+    font-size: 27px;
+}
+
+.top-right {
+    display: flex;
+}
+
+#become-a-host-button {
+    padding: .7rem 1.25rem;
+    border-radius: 100px;
+    height: min-content;
+    align-self: center;
+    margin-right: .75rem;
+}
+
+
+#become-a-host-button:hover {
+    background-color: rgb(237, 237, 237);
+}
+
+#navigation-logo {
+    height: fit-content;
+    align-self: center;
+}
+
+#navigation-notairbnb {
+    margin-left: .75rem;
+}
+
+#profile-button button{
     width: 77px;
     height: 42px;
     border-radius: 30px;
@@ -9,27 +98,4 @@ button {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-}
-
-.logo {
-    display: inline-flex;
-    align-items: center;
-    color: #fd5c63;
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: x-large;
-}
-
-.navBar {
-    height: 80px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.menu {
-    color: gray;
-}
-
-i[class="fa-solid fa-circle-user"] {
-    font-size: 27px;
 }

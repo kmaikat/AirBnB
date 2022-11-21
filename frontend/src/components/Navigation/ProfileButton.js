@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
-
+import "./Navigation.css"
 export default function ProfileButton({ user, setShowModal, setLogin }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
@@ -28,7 +28,7 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
     };
 
     return (
-        <>
+        <div id="floating-menu">
             <button className="menu" onClick={openMenu}>
                 <i className="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-circle-user"></i>
@@ -36,10 +36,12 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
             </button>
             {showMenu && (user ? (
                 <ul className="profile-dropdown">
-                    <li>{user.username}</li>
-                    <li>{user.email}</li>
-                    <li>
-                        <button onClick={logout}>Log Out</button>
+                    <div id="profile-dropdown-user-info">
+                        <p>{user.username}</p>
+                        <p>{user.email}</p>
+                    </div>
+                    <li onClick={logout}>
+                        Log Out
                     </li>
                 </ul>
             ) :
@@ -58,6 +60,6 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
                     </li>
                 </ul>))
             }
-        </>
+        </div>
     );
 }
