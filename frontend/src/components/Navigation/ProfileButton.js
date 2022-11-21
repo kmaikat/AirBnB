@@ -28,7 +28,7 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
     };
 
     return (
-        <>
+        <div id="floating-menu">
             <button className="menu" onClick={openMenu}>
                 <i className="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-circle-user"></i>
@@ -58,6 +58,6 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
                     </li>
                 </ul>))
             }
-        </>
+        </div>
     );
 }

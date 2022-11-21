@@ -14,7 +14,7 @@ export default function EditSpotForm() {
         dispatch(sessionActions.getSpotByIdThunk(spotId));
     }, [dispatch, spotId]);
 
-    const spot = useSelector(state => state.spot.oneSpot)
+    const spot = useSelector(state => state.spot.oneSpot) ?? {}
     useEffect(() => {
 
     }, [spot])
@@ -29,7 +29,7 @@ export default function EditSpotForm() {
     const [country, setCountry] = useState(spot.country)
     const [errors, setErrors] = useState([]);
 
-    if (!user) return null
+    if (!user) return history.push(`/spots/${spotId}`)
 
     const onSubmit = async (e) => {
         e.preventDefault();

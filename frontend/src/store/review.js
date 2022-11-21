@@ -38,6 +38,7 @@ export const getReviewsThunk = (spotId) => async dispatch => {
 
     if (response.ok) {
         const data = await response.json();
+        console.log(data)
         dispatch(getReviewsAction(data));
         return data
     }
@@ -62,7 +63,7 @@ export const editReviewThunk = (reviewId, review) => async dispatch => {
         method: 'PUT',
         body: JSON.stringify(review)
     });
-    console.log("in the thunk",response)
+
 
     if (response.ok) {
         const data = await response.json();
@@ -92,17 +93,12 @@ const reviewReducer = (state = initialState, action) => {
             return action.reviews
         }
         case CREATE_REVIEW: {
-            const newState = {...state}
+            const newState = { ...state }
             return newState
         }
         case EDIT_REVIEW: {
-            const newState = {...state}
+            const newState = { ...state }
             return newState
-        }
-        case DELETE_REVIEW: {
-            const newState = {...state}
-            return newState
-            // delete newState.review
         }
         default:
             return state

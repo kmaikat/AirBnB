@@ -10,7 +10,7 @@ export default function ReviewIndex({ spot }) {
     const user = useSelector(state => state.session.user)
     let userReview;
     useEffect(() => {
-        dispatch(getReviewsThunk(ownerId));
+        dispatch(getReviewsThunk(spot.id));
     }, [dispatch])
 
     if (!reviews) return (
@@ -21,18 +21,16 @@ export default function ReviewIndex({ spot }) {
         userReview = reviews.find(review => user.id === review.User.id);
     }
 
+    console.log(spot)
 
     return (
         <div>
             <div className="review-heading">
                 <div>
-                    <p className="review-rating"> {reviews.length === 0 ? (<div>No reviews (yet)</div>) : <> <i className="fa-solid fa-star"></i>
-                        {spot.avgStarRating.toFixed(2)}</>}
+                    <p className="review-rating"> {spot.numReviews === 0 ? (<div>No reviews (yet)</div>) : <> <i className="fa-solid fa-star"></i>
+                        {spot.avgStarRating.toFixed(2)} · {spot.numReviews} Reviews</>}
 
                     </p>
-                </div>
-                <div>
-                    {spot.numReviews} Reviews
                 </div>
             </div>
             <div>
@@ -41,7 +39,7 @@ export default function ReviewIndex({ spot }) {
                         <Link to={`/spot/${spot.id}/reviews/create`}>Write a Review</Link>
                     </button> :
                     <button>
-                        <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview}}>Edit Review</Link>
+                        <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }}>Edit Review</Link>
                     </button>
                 }
             </div>

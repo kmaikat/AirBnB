@@ -1,9 +1,14 @@
 .spot-header-name {
-    font-size: 1.625em;
+    font-size: 1.625rem;
 }
 
 .spot-header-reviews {
-    font-size: 14px;
+    font-size: 1rem;
     display: inline-flex;
+    column-gap: .5rem;
+    justify-content: space-between;
+}
 
+.spot-header-rating-reviews {
+    display: flex;
 }

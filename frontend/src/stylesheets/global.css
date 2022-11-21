@@ -18,13 +18,17 @@ input[type] {
 
 main {
   z-index: 0;
-  max-width: 2500px;
+  max-width: 2620px;
   padding: 0 60px;
-  margin-bottom: 60px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  min-width: 390px;
   /* font-family: Roboto,'Helvetica Neue', sans-serif; */
 }
 
 .header {
+  display: flex;
+  justify-content: center;
   position: sticky;
   /* z-index: 1; */
   top: 0px;
@@ -41,11 +45,11 @@ main {
   width: 100%;
 }
 
-.app-container {
-  display: flex;
-  max-width: 2500px;
+#header-navbar {
+  max-width: 2620px;
   width: 100%;
   padding: 0 60px;
+  min-width: 390px;
 }
 
 .footer {
@@ -61,4 +65,5 @@ main {
   box-sizing: border-box;
   position: relative;
   font-family: "Figtree", Arial, Helvetica, sans-serif;
+  margin: 0 auto;
 }

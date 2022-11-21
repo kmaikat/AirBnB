@@ -33,15 +33,16 @@ export default function Navigation({ isLoaded }) {
   return (
     <div className='navBar'>
       <ul>
-        <div className="logo">
-          <i className="fa-solid fa-exclamation"></i>
-          <li>
-            <NavLink exact to="/"><i className="fa-solid fa-bed"></i></NavLink>
-          </li>
+        <div id="navigation-logo">
+          <NavLink exact to="/" className="logo">
+            <i className="fa-solid fa-exclamation"></i>
+            <i className="fa-solid fa-bed"></i>
+            <p id="navigation-notairbnb">notairbnb</p>
+          </NavLink>
         </div>
 
-        <div>
-          <Link to="/spot/create">Become a Host</Link>
+        <div className='top-right'>
+          <Link id="become-a-host-button" to="/spot/create">Become a Host</Link>
           <li>
             {isLoaded && (
               <ProfileButton

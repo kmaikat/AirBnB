@@ -37,11 +37,16 @@ export default function SpotShow() {
                     {spot.name}
                 </div>
                 <div className="spot-header-reviews">
-                    <div>
-                        <i className="fa-solid fa-star"></i>
-                        {Math.round(spot.avgStarRating)} · {spot.numReviews} Reviews
+                    <div className="spot-header-rating-reviews">
+                        <div>
+                            <i className="fa-solid fa-star"></i>
+                        </div>
+                        <div className="spot-header-review-text">
+                            {Math.round(spot.avgStarRating) || "New"} · {spot.numReviews} Reviews
+                        </div>
                     </div>
-                    <div>
+                    <div className="spot-header-spacer">.</div>
+                    <div className="spot-header-location">
                         {spot.city}, {spot.state}, {spot.country}
                     </div>
                 </div>
@@ -68,11 +73,11 @@ export default function SpotShow() {
                     </div>
                     <div>
                         <div>${spot.price} night</div>
-                        <div>
+                        {spot.numReviews > 0 && < div >
                             <i className="fa-solid fa-star"></i>
-                            {(spot.avgStarRating).toFixed(2)} · {spot.numReviews} Reviews
+                            {spot.avgStarRating?.toFixed(2) || "New"} · {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}
                         </div>
-
+                        }
                     </div>
 
                 </div>
@@ -86,6 +91,6 @@ export default function SpotShow() {
                     <ReviewIndex spot={spot} />
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

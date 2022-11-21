@@ -19,7 +19,7 @@ export default function CreateSpotForm() {
     const [image, setImage] = useState('')
     const [errors, setErrors] = useState([]);
 
-    if (!user) return null
+    if (!user) return history.push("/")
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -116,7 +116,7 @@ export default function CreateSpotForm() {
             <label>
                 Image Link
                 <input
-                    type="text"
+                    type="url"
                     value={image}
                     onChange={e => setImage(e.target.value)}
                 />

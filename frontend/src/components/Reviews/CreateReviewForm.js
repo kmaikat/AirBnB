@@ -21,8 +21,7 @@ export default function CreateReviewForm() {
 
         } catch (errors) {
             const data = await errors.json();
-            console.log(data)
-            setErrors(data.errors);
+            setErrors(data.errors || [data.message]);
             return;
 
         }

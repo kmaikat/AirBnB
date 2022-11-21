@@ -22,8 +22,8 @@ function App() {
   return (
     <>
       <div className='header'>
-        <div className='app-container'>
-          <Navigation isLoaded={isLoaded} />
+        <div id='header-navbar'>
+          <Navigation isLoaded={isLoaded} id="header-navbar" />
         </div>
       </div>
       <main>
@@ -50,11 +50,6 @@ function App() {
           </Switch>
         )}
       </main>
-      <div className="footer">
-        <div className='app-container'>
-          <h1>come back and do this l8tr, this is my foot</h1>
-        </div>
-      </div>
     </>
   );
 }

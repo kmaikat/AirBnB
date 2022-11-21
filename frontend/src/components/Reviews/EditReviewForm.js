@@ -14,7 +14,7 @@ export default function EditReviewForm() {
     const [feedback, setFeedback] = useState(userReview.review);
     const [errors, setErrors] = useState([]);
 
-    console.log(userReview, stars)
+    console.log("***************", userReview)
     if (!userReview.stars) return history.push(`/spots/${2}`)
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -38,11 +38,11 @@ export default function EditReviewForm() {
     }
 
     const handleDelete = async () => {
-        const deleteResponse = await dispatch(deleteReviewThunk(spotId))
-        if (deleteResponse.ok) {
+        const deleteResponse = await dispatch(deleteReviewThunk(userReview.id))
+        if (deleteResponse.message === "Successfully deleted") {
             history.push(`/spots/${spotId}`)
         } else {
-            setErrors([deleteResponse.message])
+            setErrors(["Review couldn't be found"])
         }
     }
 
@@ -71,7 +71,7 @@ export default function EditReviewForm() {
                     <textarea value={feedback} onChange={event => setFeedback(event.target.value)} placeholder="I loved it here .." />
                 </div>
                 <div>
-                    <button onClick={handleDelete}>Delete this spot</button>
+                    <button onClick={handleDelete}>Delete this review</button>
                 </div>
                 <div>
                     <button type="submit">Submit</button>
