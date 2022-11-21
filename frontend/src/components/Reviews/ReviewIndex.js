@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import { getReviewsThunk } from "../../store/review";
-
+import "../Spots/SpotShow.css"
 export default function ReviewIndex({ spot }) {
     const dispatch = useDispatch();
     const ownerId = spot.ownerId
@@ -33,28 +33,37 @@ export default function ReviewIndex({ spot }) {
                     </p>
                 </div>
             </div>
-            <div>
+
+                <div className="review-outer-container">
+                    {reviews.map(spot => (
+                        <div className="review-container">
+                            <div className="review-top">
+                                <div className="review-top-left">
+                                    <i className="fa-solid fa-circle-user"></i>
+                                </div>
+                                <div className="review-top-right">
+                                    <div className="review-name">{spot.User.firstName}</div>
+                                    <div className="review-date">{new Date(spot.createdAt).toLocaleString("en-US", { month: "long" })}</div>
+                                </div>
+                            </div>
+                            <div className="review-bottom-description">
+                                <div>{spot.review}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            <div className="review-edit-or-write">
                 {!userReview ?
-                    <button>
-                        <Link to={`/spot/${spot.id}/reviews/create`}>Write a Review</Link>
-                    </button> :
-                    <button>
-                        <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }}>Edit Review</Link>
-                    </button>
+                    (user && <div><button>
+                        <Link to={`/spot/${spot.id}/reviews/create`} id="write-review">Write a Review</Link>
+                    </button></div>) :
+                    <div>
+                        <button>
+                            <Link to={{ pathname: `/spot/${spot.id}/reviews/${userReview.id}/edit`, userReview }} id="write-review">Edit Review</Link>
+                        </button>
+                    </div>
                 }
             </div>
-            <ul>
-                {reviews.map(spot => (
-                    <div>
-                        <div>{spot.User.firstName}</div>
-                        <div>{new Date(spot.createdAt).toLocaleString("en-US", { month: "long" })}</div>
-
-                        <div>{spot.review}</div>
-
-                    </div>
-                ))}
-            </ul>
-
         </div>
     )
 }

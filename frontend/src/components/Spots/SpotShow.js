@@ -13,7 +13,7 @@ export default function SpotShow() {
     const [errors, setErrors] = useState([]);
 
     const spot = useSelector(state => state.spot.oneSpot);
-
+    const user = useSelector(state => state.session.user)
     useEffect(() => {
         dispatch(getSpotByIdThunk(spotId))
     }, [dispatch])
@@ -29,7 +29,14 @@ export default function SpotShow() {
         // for errors from a button click, create error state and set errors to returned errors
     }
 
+
     if (!spot) return null
+
+    for (let index = 1; index < 5; index++) {
+        spot.SpotImages[index] ??= { url: "https://images.pexels.com/photos/4439444/pexels-photo-4439444.jpeg" }
+    }
+
+    console.log(spot.SpotImages)
     return (
         <div>
             <div className="spot-header">
@@ -52,12 +59,12 @@ export default function SpotShow() {
                 </div>
             </div>
             <div className="spot-images">
-                <div>
+                <div className="spot-main-image">
                     <img src={`${spot.SpotImages[0]?.url}`} className="main-preview"></img>
                 </div>
-                <div>
+                <div className="spot-small-images">
                     {spot.SpotImages.slice(1).map(image => {
-                        <div>
+                        return <div className="small-image-container">
                             <img src={`${image.url}`}></img>
                         </div>
                     })}
@@ -65,31 +72,57 @@ export default function SpotShow() {
 
             </div>
             <div className="spot-details">
-
-                <div>
-                    <div>
-                        {spot.description}
-
-                    </div>
-                    <div>
-                        <div>${spot.price} night</div>
-                        {spot.numReviews > 0 && < div >
-                            <i className="fa-solid fa-star"></i>
-                            {spot.avgStarRating?.toFixed(2) || "New"} · {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}
+                <div className="spot-details-left">
+                    <div className="spot-hosted-by">
+                        <div>
+                            <div>Entire home hosted by {spot.Owner.firstName}</div>
+                            <div className="spot-rooms-guests">16 guests5 bedrooms10 beds3 baths</div>
                         </div>
-                        }
+                    </div>
+                    <div className="aircover-container">
+                        <div className="air-cover-title">
+                            <span className="air-cover-air">air</span>cover
+                        </div>
+                        <div className="air-cover-description">
+                            Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
+                        </div>
+                    </div>
+
+                    <div className="spot-description">
+                        {spot.description}
                     </div>
 
                 </div>
-                <div>
-                    <button ><Link to={`/spot/${spotId}/edit`}>Edit</Link></button>
+                <div className="spot-details-right">
+                    <div className="spot-details-right-container">
+                        <div className="spot-details-right-top">
+                            <div className="spot-details-right-price"> <span id="right-spot-price">${spot.price}</span> night</div>
+                            <div className="spot-details-right-reviews">
+
+                                {spot.numReviews > 0 && <>
+                                    <div>
+                                        <i className="fa-solid fa-star"></i>
+                                        {spot.avgStarRating?.toFixed(2) || "New"}
+                                    </div>
+                                    <div>
+                                        {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}
+                                    </div>
+                                </>
+                                }
+                            </div>
+                        </div>
+                        {user && user.id === spot.Owner.id && <div className="spot-details-right-bottom">
+
+                            <Link to={`/spot/${spotId}/edit`} className="submit" id="spot-edit"> <button>Edit</button></Link>
+
+                            <button className="submit" id="spot-delete" onClick={handleDelete}>Delete</button>
+
+                        </div>}
+                    </div>
                 </div>
-                <div>
-                    <button onClick={handleDelete}>Delete</button>
-                </div>
-                <div>
-                    <ReviewIndex spot={spot} />
-                </div>
+            </div>
+            <div className="reviews-container">
+                <ReviewIndex spot={spot} />
             </div>
         </div >
     );

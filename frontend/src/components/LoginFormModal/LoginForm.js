@@ -54,7 +54,7 @@ function LoginForm({ setShowModal }) {
           required
         />
         <button type="submit" className="submit">Log In</button>
-        <button type="submit" className="submit" id="demo-user" onClick={() => dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }).then(() => setShowModal(false)))}>Log In as Demo User</button>
+        <button className="submit" id="demo-user" onClick={() => dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }).then(() => setShowModal(false)))}>Log In as Demo User</button>
       </form>
     </div >
   );

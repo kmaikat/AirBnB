@@ -3,6 +3,18 @@ import { useDispatch, useSelector } from "react-redux"
 import { deleteReviewThunk, editReviewThunk } from "../../store/review"
 import { useHistory, useLocation, useParams } from "react-router-dom"
 
+
+
+function formValidator(stars, feedback) {
+    const errors = []
+
+    if (stars < 0 || stars > 5) errors.push("Please select one of the valid options")
+    if (!feedback) errors.push("Please provide some feedback")
+    else if (feedback.length > 255) errors.push("Please keep your review under 255 characters")
+
+    return errors;
+}
+
 export default function EditReviewForm() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
@@ -18,7 +30,12 @@ export default function EditReviewForm() {
     if (!userReview.stars) return history.push(`/spots/${2}`)
     const onSubmit = async (e) => {
         e.preventDefault();
+        const errors = formValidator(stars, feedback)
 
+        if (errors.length > 0) {
+            setErrors(errors)
+            return
+        }
         // try {
         await dispatch(editReviewThunk(userReview.id, {
             review: feedback,
@@ -47,17 +64,21 @@ export default function EditReviewForm() {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                <div>
-                    Tell us about your experience
+        <div className="spots-form">
+            <div className="loginsignup-form" id="edit-review-form">
+                <div className="signuplogin-form-header">
+                    <div className="signuplogin-form-title">
+                        <h2>Tell us about your experience</h2>
+                    </div>
                 </div>
+            <form onSubmit={onSubmit}>
                 <ul>{errors.map(error => (<li key={error}>{error}</li>))}</ul>
                 <div>
-                    <label>Rate your stay on a scale of 1-5</label>
                     <select
                         onChange={e => setStars(e.target.value)}
                         value={stars}
+                        className="form-first-input"
+                            id="create-review-select"
                     >
                         <option value="" disabled>--Please choose an option--</option>
                         <option value={1}>1 - terrible</option>
@@ -68,15 +89,16 @@ export default function EditReviewForm() {
                     </select>
                 </div>
                 <div>
-                    <textarea value={feedback} onChange={event => setFeedback(event.target.value)} placeholder="I loved it here .." />
+                    <textarea id="create-review-text-area" className="form-last-input" value={feedback} onChange={event => setFeedback(event.target.value)} placeholder="I loved it here .." />
                 </div>
                 <div>
-                    <button onClick={handleDelete}>Delete this review</button>
+                    <button id='edit-delete' onClick={handleDelete} className="submit">Delete this review</button>
                 </div>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button id='edit-submit' type="submit" className="submit">Submit</button>
                 </div>
             </form>
+        </div>
         </div>
     )
 }

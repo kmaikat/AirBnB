@@ -3,6 +3,26 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { createASpotThunk, createImageThunk } from "../../store/spotReducer"
 
+function formValidator(name, description, price, address, city, state, country, image) {
+    const errors = []
+
+    if (!name) errors.push("Please provide your spot's name")
+    else if (name.length > 255) errors.push("Name cannot be longer than 255 characters")
+    if (description.length === 0) errors.push("Description cannot be empty")
+    else if (description.length > 255) errors.push("Description cannot be over 255 characters");
+    if (price < 0 || price > 100000) errors.push("Price cannot exceed $100,000")
+    if (address.length === 0) errors.push("Please enter your address")
+    if (address.length > 256) errors.push("Please keep address under 255 characters")
+    if (city.length === 0) errors.push("Please enter your city")
+    if (city.length > 256) errors.push("Please keep city under 255 characters")
+    if (state.length === 0) errors.push("Please enter your state")
+    if (state.length > 256) errors.push("Please keep state under 255 characters")
+    if (country.length === 0) errors.push("Please enter your country")
+    if (country.length > 256) errors.push("Please keep country under 255 characters")
+    if (!image) errors.push("Please provide a preview image")
+
+    return errors;
+}
 
 export default function CreateSpotForm() {
     const dispatch = useDispatch();
@@ -23,6 +43,11 @@ export default function CreateSpotForm() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        const errors = formValidator(name, description, price, address, city, state, country, image)
+        if (errors.length > 0) {
+            return setErrors(errors)
+        }
+
         try {
             const newSpot = await dispatch(createASpotThunk({
                 name,
@@ -60,7 +85,7 @@ export default function CreateSpotForm() {
                     </div>
                 </div>
                 <form onSubmit={onSubmit} className="form">
-                    <ul>
+                    <ul className="errors">
                         {errors.map(error => (<li key={error}>{error}</li>))}
                     </ul>
                     <input

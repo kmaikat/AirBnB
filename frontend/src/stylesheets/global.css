@@ -9,6 +9,7 @@ main {
   margin: 0 auto;
   box-sizing: border-box;
   min-width: 390px;
+  margin-bottom: 2.5rem;
   /* font-family: Roboto,'Helvetica Neue', sans-serif; */
 }
 
@@ -22,6 +23,7 @@ main {
   background-color: white;
   border-bottom: 1px solid rgb(239, 239, 239);
   box-shadow: 0px 1px 8px rgb(239, 238, 238);
+  z-index: 5;
   /* font-family: Roboto,'Helvetica Neue', sans-serif; */
 }
 
@@ -38,14 +40,14 @@ main {
   min-width: 390px;
 }
 
-.footer {
+/* .footer {
   position: fixed;
   background-color: white;
   bottom: 0px;
   width: 100%;
   height: 40px;
   border-top: 2px solid lightgray;
-}
+} */
 
 #root {
   box-sizing: border-box;
@@ -138,7 +140,7 @@ main {
   margin-top: .75rem;
 }
 
-.spots-form-outer{
+.spots-form-outer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,4 +154,8 @@ main {
   border: 2px rgb(239, 239, 239) solid;
   border-radius: 12px;
   width: fit-content;
+}
+
+.errors {
+  color: red;
 }
