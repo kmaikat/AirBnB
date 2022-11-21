@@ -52,76 +52,77 @@ export default function CreateSpotForm() {
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <h1>Create a Spot 🐥</h1>
-            <ul>
-                {errors.map(error => (<li key={error}>{error}</li>))}
-            </ul>
-            <label>
-                Name
-                <input
-                    type="text"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                />
-            </label>
-            <label>
-                Description
-                <input
-                    type="text"
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                />
-            </label>
-            <label>
-                Price
-                <input
-                    type="number"
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                />
-            </label>
-            <label>
-                Address
-                <input
-                    type="text"
-                    value={address}
-                    onChange={e => setAddress(e.target.value)}
-                />
-            </label>
-            <label>
-                City
-                <input
-                    type="text"
-                    value={city}
-                    onChange={e => setCity(e.target.value)}
-                />
-            </label>
-            <label>
-                State
-                <input
-                    type="text"
-                    value={state}
-                    onChange={e => setState(e.target.value)}
-                />
-            </label>
-            <label>
-                Country
-                <input
-                    type="text"
-                    value={country}
-                    onChange={e => setCountry(e.target.value)}
-                />
-            </label>
-            <label>
-                Image Link
-                <input
-                    type="url"
-                    value={image}
-                    onChange={e => setImage(e.target.value)}
-                />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+        <div className="spots-form">
+            <div className='loginsignup-form'>
+                <div className="signuplogin-form-header">
+                    <div className="signuplogin-form-title">
+                        <h2>Create a Spot</h2>
+                    </div>
+                </div>
+                <form onSubmit={onSubmit} className="form">
+                    <ul>
+                        {errors.map(error => (<li key={error}>{error}</li>))}
+                    </ul>
+                    <input
+                        className="form-first-input"
+                        type="text"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        placeholder="Name"
+
+                    />
+                    <input
+                        className="form-mid-input"
+                        type="text"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        placeholder="Description"
+                    />
+                    <input
+                        className="form-mid-input"
+                        type="number"
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                        placeholder="Price"
+                    />
+                    <input
+                        className="form-mid-input"
+                        type="text"
+                        value={address}
+                        onChange={e => setAddress(e.target.value)}
+                        placeholder="Address"
+                    />
+                    <input
+                        className="form-mid-input"
+                        type="text"
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
+                        placeholder="City"
+                    />
+                    <input
+                        className="form-mid-input"
+                        type="text"
+                        value={state}
+                        onChange={e => setState(e.target.value)}
+                        placeholder="State"
+                    />
+                    <input
+                        className="form-mid-input"
+                        type="text"
+                        value={country}
+                        onChange={e => setCountry(e.target.value)}
+                        placeholder="Country"
+                    />
+                    <input
+                        className="form-last-input"
+                        type="url"
+                        value={image}
+                        onChange={e => setImage(e.target.value)}
+                        placeholder="Image Url"
+                    />
+                    <button type="submit" className="submit">Submit</button>
+                </form>
+            </div>
+        </div>
     )
 }

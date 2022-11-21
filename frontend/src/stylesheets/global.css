@@ -2,20 +2,6 @@
   box-sizing: border-box;
 }
 
-input[type] {
-  border-radius: 10px;
-  width: 520px;
-  height: 52px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  border-width: 1px;
-  /* font-family: Roboto,'Helvetica Neue', sans-serif; */
-  margin: 20px 0px;
-  border: 1px solid black
-}
-
 main {
   z-index: 0;
   max-width: 2620px;
@@ -39,7 +25,7 @@ main {
   /* font-family: Roboto,'Helvetica Neue', sans-serif; */
 }
 
-.header ul {
+#navigation-header-main {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -66,4 +52,104 @@ main {
   position: relative;
   font-family: "Figtree", Arial, Helvetica, sans-serif;
   margin: 0 auto;
+}
+
+
+.loginsignup-form {
+  min-width: 300px;
+  width: 50vw;
+  max-width: 450px;
+}
+
+.signuplogin-form-header {
+  border-bottom: 1px solid rgb(235, 235, 235);
+  padding: 1.25rem 1rem;
+}
+
+.signuplogin-form-x {
+  display: flex;
+  justify-content: center;
+  padding: 2px 2px;
+  font-size: 1rem;
+  margin-right: .5rem;
+  width: 1.75rem;
+  height: auto;
+  border-radius: 50%;
+  cursor: pointer;
+  align-items: center;
+}
+
+.signuplogin-form-x:hover {
+  background-color: rgb(239, 239, 239);
+}
+
+.signuplogin-form-title {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.25rem;
+}
+
+.form-first-input {
+  border-top: 1px solid lightgray;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgray;
+  border-radius: 8px 8px 0 0;
+  padding: .75rem 1rem;
+  margin-top: .25rem;
+}
+
+.form-mid-input {
+  padding: .75rem 1rem;
+  border-top: 1px solid lightgray;
+  border-left: 1px solid lightgrey;
+  border-right: 1px solid lightgray;
+}
+
+.form-last-input {
+  padding: .75rem 1rem;
+  border: 1px solid lightgray;
+  margin-bottom: 1rem;
+  border-radius: 0 0 8px 8px;
+}
+
+.submit {
+  background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+  width: 100%;
+  padding: .75rem 1rem;
+  border-radius: 7px;
+  text-align: center;
+  font-weight: 700;
+  color: white;
+}
+
+.submit:hover {
+  background-color: white;
+  background: none;
+  color: #fd5c63;
+  border: 1px solid #fd5c63
+}
+
+#demo-user {
+  margin-top: .75rem;
+}
+
+.spots-form-outer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.spots-form {
+  margin: 0 auto;
+  margin-top: 2rem;
+  border: 2px rgb(239, 239, 239) solid;
+  border-radius: 12px;
+  width: fit-content;
 }

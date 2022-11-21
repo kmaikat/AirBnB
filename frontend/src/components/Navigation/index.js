@@ -12,6 +12,7 @@ import { useState } from 'react'
 
 export default function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
+  const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false)
   const [login, setLogin] = useState(true)
 
@@ -32,7 +33,7 @@ export default function Navigation({ isLoaded }) {
 
   return (
     <div className='navBar'>
-      <ul>
+      <ul id="navigation-header-main">
         <div id="navigation-logo">
           <NavLink exact to="/" className="logo">
             <i className="fa-solid fa-exclamation"></i>
@@ -42,8 +43,8 @@ export default function Navigation({ isLoaded }) {
         </div>
 
         <div className='top-right'>
-          <Link id="become-a-host-button" to="/spot/create">Become a Host</Link>
-          <li>
+          {user && <Link id="become-a-host-button" to="/spot/create">Become a Host</Link>}
+          <li id="profile-button">
             {isLoaded && (
               <ProfileButton
                 user={sessionUser}
