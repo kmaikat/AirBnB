@@ -28,7 +28,7 @@ export default function ReviewIndex({ spot }) {
             <div className="review-heading">
                 <div>
                     <p className="review-rating"> {spot.numReviews === 0 ? (<div>No reviews (yet)</div>) : <> <i className="fa-solid fa-star"></i>
-                        {spot.avgStarRating.toFixed(2)} · {spot.numReviews} Reviews</>}
+                        {Number(spot.avgStarRating).toFixed(2)} · {spot.numReviews} Reviews</>}
 
                     </p>
                 </div>

@@ -117,7 +117,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
         })
         let avgRating = spotReview[0].dataValues.avgRating
-        spot.dataValues.avgRating = parseFloat(Number(avgRating).toFixed(1))
+        spot.dataValues.avgRating = Number(avgRating).toFixed(1)
 
 
         const spotImage = await SpotImage.findOne({
