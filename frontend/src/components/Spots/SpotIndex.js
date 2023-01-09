@@ -48,7 +48,6 @@ export default function SpotsIndex() {
                             </p>
                         </div>
                         <div>
-                            {console.log(spot, Number(spot.avgRating))}
                             <p className="eachspot-content-rating"><i className="fa-solid fa-star"></i>{(spot.avgRating ? (Number(spot.avgRating)).toFixed(2) : (<p>new</p>))}</p>
                         </div>
                     </div>

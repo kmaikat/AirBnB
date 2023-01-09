@@ -36,7 +36,6 @@ export default function SpotShow() {
         spot.SpotImages[index] ??= { url: "https://images.pexels.com/photos/4439444/pexels-photo-4439444.jpeg" }
     }
 
-    console.log(spot.SpotImages)
     return (
         <div>
             <div className="spot-header">
@@ -102,7 +101,7 @@ export default function SpotShow() {
                                 {spot.numReviews > 0 && <>
                                     <div>
                                         <i className="fa-solid fa-star"></i>
-                                        {spot.avgStarRating?.toFixed(2) || "New"}
+                                        {Number(spot.avgStarRating).toFixed(2) || "New"}
                                     </div>
                                     <div>
                                         {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}

@@ -23,7 +23,6 @@ export function SignupFormPage({ setShowModal }) {
 
     function validator() {
         const errors = []
-        console.log(username.length)
         if (!firstName) errors.push("Please provide your first name")
         if (firstName.length > 256) errors.push("First name cannot be longer than 256 characters")
         if (!lastName) errors.push("Please provide your last name")

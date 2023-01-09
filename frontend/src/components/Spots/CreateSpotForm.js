@@ -61,7 +61,6 @@ export default function CreateSpotForm() {
                 country
             }))
 
-            console.log(newSpot)
             dispatch(createImageThunk(newSpot.id, {
                 url: image,
                 preview: true

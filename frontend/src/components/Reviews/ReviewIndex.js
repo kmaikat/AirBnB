@@ -21,7 +21,7 @@ export default function ReviewIndex({ spot }) {
         userReview = reviews.find(review => user.id === review.User.id);
     }
 
-    console.log(spot)
+
 
     return (
         <div>

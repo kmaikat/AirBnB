@@ -26,7 +26,6 @@ export default function EditReviewForm() {
     const [feedback, setFeedback] = useState(userReview.review);
     const [errors, setErrors] = useState([]);
 
-    console.log("***************", userReview)
     if (!userReview.stars) return history.push(`/spots/${2}`)
     const onSubmit = async (e) => {
         e.preventDefault();
