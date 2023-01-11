@@ -8,6 +8,12 @@ function LoginForm({ setShowModal }) {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  function demoLogin(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }))
+    setShowModal(false);
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -54,7 +60,7 @@ function LoginForm({ setShowModal }) {
           required
         />
         <button type="submit" className="submit">Log In</button>
-        <button className="submit" id="demo-user" onClick={() => dispatch(sessionActions.login({ credential: "Demo-lition", password: "password" }).then(() => setShowModal(false)))}>Log In as Demo User</button>
+        <button className="submit" id="demo-user" onClick={demoLogin}>Log In as Demo User</button>
       </form>
     </div >
   );
