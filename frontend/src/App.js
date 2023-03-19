@@ -11,6 +11,7 @@ import EditSpotForm from './components/Spots/EditSpotForm.js'
 import CreateReviewForm from './components/Reviews/CreateReviewForm.js';
 import EditReviewForm from './components/Reviews/EditReviewForm.js';
 import * as sessionActions from './store/session'
+import WishlistIndex from './components/Wishlist/WishlistIndex.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,9 @@ function App() {
             </Route>
             <Route path="/spot/:spotId/reviews/:reviewId/edit">
               <EditReviewForm />
+            </Route>
+            <Route path="/wishlists">
+              <WishlistIndex/>
             </Route>
           </Switch>
         )}

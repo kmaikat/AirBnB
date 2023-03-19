@@ -43,7 +43,12 @@ export default function Navigation({ isLoaded }) {
         </div>
 
         <div className='top-right'>
-          {user && <Link id="become-a-host-button" to="/spot/create">Become a Host</Link>}
+          {user &&
+            <div>
+              <Link id="become-a-host-button" to="/spot/create">Become a Host</Link>
+              <Link  to="/wishlists" ><i id="become-a-host-button" className="fa-regular fa-heart"></i></Link>
+            </div>
+          }
           <li id="profile-button">
             {isLoaded && (
               <ProfileButton
