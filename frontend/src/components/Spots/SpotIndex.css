@@ -10,8 +10,21 @@
     border-radius: 12px;
     overflow: hidden;
     height: 80%;
+    position: relative;
 }
 
+#eachspot-heart {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: rgba(0,0,0,.5);
+    transition: font-size ease-in .2s;
+}
+
+#eachspot-heart:active {
+    font-size: 1.4rem;
+}
 
 .eachspot-content-image-container img {
     object-fit: cover;
