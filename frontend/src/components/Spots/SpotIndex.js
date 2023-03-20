@@ -32,8 +32,6 @@ export default function SpotsIndex() {
     const saveSpot = (e) => {
         e.preventDefault()
         e.stopPropagation()
-
-        console.log("I'm getting clicked... ")
     }
 
     return (
