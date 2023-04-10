@@ -13,6 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       WishlistItem.belongsTo(models.Wishlist, {
         targetKey: "id",
         foreignKey: "wishlistId"
+      });
+
+      WishlistItem.belongsTo(models.User, {
+        targetKey: "id",
+        foreignKey: "userId"
+      });
+
+      WishlistItem.belongsTo(models.Spot, {
+        targetKey: "id",
+        foreignKey: "spotId"
       })
     }
   }

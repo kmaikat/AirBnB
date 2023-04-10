@@ -12,6 +12,23 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   await queryInterface.bulkInsert("WishlistItems", [
+    {
+      wishlistId: 1,
+      userId: 1,
+      spotId: 1
+    },
+    {
+      wishlistId: 1,
+      userId: 1,
+      spotId: 2
+    },
+    {
+      wishlistId: 1,
+      userId: 1,
+      spotId: 3
+    },
+   ])
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +38,9 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+    await queryInterface.bulkDelete("WishlistItems", {
+      id: [1, 2, 3]
+    })
   }
 };
