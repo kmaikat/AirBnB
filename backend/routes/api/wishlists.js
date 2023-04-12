@@ -1,5 +1,5 @@
 const express = require("express");
-const { Wishlist, WishlistItem, User } = require("../../db/models");
+const { Wishlist, WishlistItem, Spot, User } = require("../../db/models");
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
@@ -8,9 +8,10 @@ router.get('/', async (req, res, next) => {
         where: {
             userId
         },
-        include: {
-            model: WishlistItem
-        }
+        include: [{
+            model: WishlistItem,
+            include: Spot
+        }]
     })
 
     return res.json({Wishlists: wishlists})
