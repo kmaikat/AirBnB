@@ -1,6 +1,8 @@
 const express = require("express");
-const { Wishlist, WishlistItem, Spot, User } = require("../../db/models");
+const { check } = require("express-validator")
+const { Wishlist, WishlistItem, Spot } = require("../../db/models");
 const { handleValidationErrors } = require("../../utils/validation");
+const { requireAuth } = require("../../utils/auth")
 const router = express.Router();
 
 const validateWishlistName = [
@@ -8,8 +10,10 @@ const validateWishlistName = [
         .exists({ checkFalsy: true })
         .withMessage("Please provide your wishlist with a name")
         .isLength({ max: 50 })
-        .withMessage("Name must be less than 50 characters")
+        .withMessage("Name must be less than 50 characters"),
+    handleValidationErrors
 ]
+
 // Get all wishlists
 router.get('/', async (req, res, next) => {
     const userId = parseInt(req.user.id)
@@ -27,8 +31,17 @@ router.get('/', async (req, res, next) => {
 })
 
 // create a wishlist
-router.post('/', validateWishlistName, async (req, res, next) => {
+router.post('/', requireAuth, validateWishlistName, async (req, res) => {
+    const { name } = req.body
+    const userId = req.user.id
 
+    const newWishlist = await Wishlist.create({
+        userId,
+        name
+    })
+
+    res.status(201)
+    return res.json(newWishlist)
 })
 
 // edit a wishlist (name)
