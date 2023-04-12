@@ -65,6 +65,23 @@ router.put('/:wishlistId', requireAuth, validateWishlistName, async (req, res, n
 })
 
 // delete a wishlist
+router.delete('/:wishlistId', requireAuth, async (req, res, next) => {
+    const id = req.params.wishlistId
+    const wishlist = await Wishlist.findByPk(id)
+
+    if (!wishlist) {
+        const error = new Error("Wishlist couldn't be found")
+        error.status = 404;
+        return next(error)
+    }
+
+    await wishlist.destroy()
+
+    return res.json({
+        "message": "Wishlist deleted successfully",
+        "statusCode": 200
+    })
+})
 
 // add spot to wishlist
 
