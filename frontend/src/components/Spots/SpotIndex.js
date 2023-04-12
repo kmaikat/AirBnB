@@ -29,6 +29,10 @@ export default function SpotsIndex() {
 
     if (spots.length === 0) return null;
 
+    const saveSpot = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+    }
 
     return (
         <div id="spotIndex">
@@ -38,6 +42,7 @@ export default function SpotsIndex() {
                         {spot.previewImage ?
                             (<img src={`${spot.previewImage}`} alt="spot preview" />) :
                             (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
+                            <i onClick={saveSpot} id="eachspot-heart" className="fa-solid fa-heart"></i>
                     </div>
                     <div className="eachspot-content-description">
                         <div className="eachspot-content-description-left">
