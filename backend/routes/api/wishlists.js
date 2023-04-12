@@ -45,6 +45,24 @@ router.post('/', requireAuth, validateWishlistName, async (req, res) => {
 })
 
 // edit a wishlist (name)
+router.put('/:wishlistId', requireAuth, validateWishlistName, async (req, res, next) => {
+    const id = req.params.wishlistId
+    const wishlist = await Wishlist.findByPk(id)
+
+    if (!wishlist) {
+        const error = new Error("Wishlist couldn't be found")
+        error.status = 404;
+        return next(error)
+    }
+
+    const { name } = req.body
+
+    wishlist.update({
+        name
+    })
+
+    return res.json(wishlist)
+})
 
 // delete a wishlist
 
