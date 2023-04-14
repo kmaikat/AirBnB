@@ -84,6 +84,21 @@ router.delete('/:wishlistId', requireAuth, async (req, res, next) => {
 })
 
 // add spot to wishlist
+router.post('/:watchlistId/add-spot', requireAuth, async (req, res, next) => {
+    const wishlistId = req.params.wishlistId
+    const spotId = req.body.spotId
+
+    const wishlist = Wishlist.findByPk(wishlistId)
+
+    if (!wishlist) {
+        const error = new Error("Wishlist couldn't be found")
+        error.status = 404;
+        return next(error)
+    }
+
+    // make new instance of wishlist item 
+
+})
 
 // delete a spot in wishlist
 
