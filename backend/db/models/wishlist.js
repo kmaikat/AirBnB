@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "wishlistId"
       })
 
-      Wishlist.belongsToMany()
+      Wishlist.belongsToMany(models.Spot, {
+        through: "WishlistItem",
+        foreignKey: "wishlistId"
+      })
     }
   }
   Wishlist.init({
