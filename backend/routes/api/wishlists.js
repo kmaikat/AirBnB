@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
         }]
     })
 
-    return res.json({Wishlists: wishlists})
+    return res.json({ Wishlists: wishlists })
 })
 
 // create a wishlist
@@ -84,9 +84,10 @@ router.delete('/:wishlistId', requireAuth, async (req, res, next) => {
 })
 
 // add spot to wishlist
-router.post('/:watchlistId/add-spot', requireAuth, async (req, res, next) => {
+router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
     const wishlistId = req.params.wishlistId
     const spotId = req.body.spotId
+    const userId = req.user.id
 
     const wishlist = Wishlist.findByPk(wishlistId)
 
@@ -96,11 +97,73 @@ router.post('/:watchlistId/add-spot', requireAuth, async (req, res, next) => {
         return next(error)
     }
 
-    // make new instance of wishlist item 
+    const existingItem = await WishlistItem.findOne({
+        where: {
+            spotId,
+            wishlistId
+        }
+    })
+
+    if (existingItem) {
+        const error = new Error("Spot is already in wishlist")
+        error.status = 404;
+        return next(error)
+    }
+
+    const wishlistItem = await WishlistItem.create({
+        wishlistId,
+        spotId,
+        userId
+    })
+
+
+    const updatedWishlist = await Wishlist.findByPk(wishlistId, {
+        include: {
+            model: WishlistItem,
+            include: {
+                model: Spot
+            }
+        }
+    })
+
+    return res.json(updatedWishlist)
 
 })
 
 // delete a spot in wishlist
+router.delete('/:wishlistId/delete-spot', requireAuth, async (req, res, next) => {
+    const wishlistId = req.params.wishlistId
+    const spotId = req.body.spotId
+    const userId = req.user.id
+
+    const wishlistItem = await WishlistItem.findOne({
+        where: {
+            wishlistId,
+            spotId
+        }
+    })
+
+    if (!wishlistItem) {
+        const error = new Error("No spot found in wishlist")
+        error.status = 404;
+        return next(error)
+    }
+
+    await wishlistItem.destroy()
+
+    const wishlist = await Wishlist.findOne({
+        where: {
+            id: wishlistId,
+            userId
+        },
+        include: {
+            model: Spot,
+        }
+    });
+
+    return res.json(wishlist);
+
+})
 
 
 module.exports = router;
