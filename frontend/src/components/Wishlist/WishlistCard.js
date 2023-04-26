@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom"
+import "./WishlistCard.css"
 
 const WishlistCard = ({wishlist}) => {
     return (
-        <div>
+        <div className="wishlist-container">
             <Link to={`/wishlists/${wishlist.id}`}>
-                <div>
-                    <img src="https://www.mockuptiger.com/wp-content/uploads/2018/03/image-665.jpg"></img>
+                <div className="wishlist-photo-container">
+                    <img src="https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/median/web/DAL_MN41_24x24_Beige_Matte.jpg/jcr:content/renditions/cq5dam.web.2000.2000.jpeg"></img>
                 </div>
-                <div>{wishlist.name}</div>
+                <p className="wishlist-index-name">{wishlist.name}</p>
             </Link>
         </div>
     )

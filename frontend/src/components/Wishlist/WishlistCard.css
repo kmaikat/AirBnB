@@ -1,0 +1,14 @@
+.wishlist-photo-container {
+    height: 13rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.wishlist-photo-container>img{
+    height: 100%
+}
+
+.wishlist-index-name{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: .5rem;
+}

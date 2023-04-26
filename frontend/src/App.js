@@ -50,11 +50,11 @@ function App() {
             <Route path="/spot/:spotId/reviews/:reviewId/edit">
               <EditReviewForm />
             </Route>
-            <Route path="/wishlists">
-              <WishlistIndex/>
-            </Route>
             <Route path="/wishlists/:wishlistId">
               <WishlistShow/>
+            </Route>
+            <Route path="/wishlists">
+              <WishlistIndex/>
             </Route>
           </Switch>
         )}

@@ -25,7 +25,7 @@ const WishlistIndex = () => {
                     <p>
                         As you search, tap the heart icon to save your favorite places to stay or things to do to a wishlist.
                     </p>
-                </div> : <div>{wishlists.map(wishlist => (<WishlistCard key={wishlist.id} wishlist={wishlist}/>))}</div>
+                </div> : <div className="wishlist-container">{wishlists.map(wishlist => (<WishlistCard key={wishlist.id} wishlist={wishlist}/>))}</div>
             }
         </div>
     )
