@@ -1,6 +1,6 @@
 const express = require("express");
 const { check } = require("express-validator")
-const { Wishlist, WishlistItem, Spot } = require("../../db/models");
+const { Wishlist, WishlistItem, Spot, SpotImage } = require("../../db/models");
 const { handleValidationErrors } = require("../../utils/validation");
 const { requireAuth } = require("../../utils/auth")
 const router = express.Router();
@@ -28,6 +28,26 @@ router.get('/', async (req, res, next) => {
     })
 
     return res.json({ Wishlists: wishlists })
+})
+
+router.get('/:wishlistId', async (req, res, next) => {
+    const wishlistId = req.params.wishlistId
+    const userId = req.user.id
+
+    const wishlist = await Wishlist.findByPk(wishlistId, {
+        include: [{
+            model: WishlistItem,
+            include: Spot
+        }]
+    })
+
+    if (!wishlist) {
+        const error = new Error("Wishlist couldn't be found")
+        error.status = 404;
+        return next(error)
+    }
+
+    return res.json({wishlist})
 })
 
 // create a wishlist

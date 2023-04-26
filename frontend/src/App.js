@@ -12,6 +12,8 @@ import CreateReviewForm from './components/Reviews/CreateReviewForm.js';
 import EditReviewForm from './components/Reviews/EditReviewForm.js';
 import * as sessionActions from './store/session'
 import WishlistIndex from './components/Wishlist/WishlistIndex.js';
+import WishlistShow from './components/Wishlist/WishlistShow.js';
+import WishlistCard from './components/Wishlist/WishlistCard.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +52,9 @@ function App() {
             </Route>
             <Route path="/wishlists">
               <WishlistIndex/>
+            </Route>
+            <Route path="/wishlists/:wishlistId">
+              <WishlistShow/>
             </Route>
           </Switch>
         )}
