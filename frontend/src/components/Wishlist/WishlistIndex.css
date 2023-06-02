@@ -1,6 +1,6 @@
 #wishlist-index-heading {
-    font-size: 2.4rem;
-    font-weight: 600;
+    font-size: 2.2rem;
+    font-weight: 500;
     margin: 2.5rem 0;
     padding-top: .5rem;
 }
@@ -19,7 +19,8 @@
 
 .wishlist-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(4rem, auto));
+    grid-template-columns: repeat(auto-fit, minmax(10rem, auto));
     column-gap: 1.5rem;
     row-gap: 3rem;
+    max-width: 60rem;
 }

@@ -1,5 +1,6 @@
 #spotIndex {
-    padding-top: 2rem;
+    /* padding-top: 2rem; */
+    padding: 2rem 60px 0 60px;
     display: grid;
     column-gap: 2rem;
     row-gap: 3rem;

@@ -13,7 +13,7 @@ const WishlistIndex = () => {
     }, [dispatch])
 
     return (
-        <div>
+        <div id="wishlist-window">
             <div id="wishlist-index-heading">Wishlists</div>
             {/* if there are no wishlist, it would instruct you to make wishlists */}
             {/* if there are wishlists, then there will be cards */}

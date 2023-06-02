@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom"
+import "./WishlistShow.css"
 
 const WishlistShow = () => {
-    const {wishlistId} = useParams()
-    
+
     return (
-        <div>
-            <div>WishlistName</div>
+        <div id="wishlist-outer-container">
+            <div id="wishlist-information-container">Spots</div>
+            <div id="wishlist-map-container">Map</div>
         </div>
     )
 }

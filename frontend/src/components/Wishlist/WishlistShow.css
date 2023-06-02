@@ -1,0 +1,23 @@
+#wishlist-window{
+    padding: 0 60px 0 60px;
+}
+
+#wishlist-outer-container {
+    display: flex;
+}
+
+/* auto */
+#wishlist-map-container {
+    background-color: green;
+    position: relatice;
+    right: 0;
+    width: 100%;
+    /* min-width: 30%; */
+}
+
+/* fixed */
+#wishlist-information-container {
+    width: 100%;
+    max-width: 32%;
+    background-color: red;
+}
