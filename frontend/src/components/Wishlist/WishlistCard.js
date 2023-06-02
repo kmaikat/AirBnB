@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import "./WishlistCard.css"
 
-const WishlistCard = ({wishlist}) => {
+const WishlistCard = ({ wishlist }) => {
     return (
         <div className="wishlist-card-container">
             <Link to={`/wishlists/${wishlist.id}`}>
@@ -11,6 +11,9 @@ const WishlistCard = ({wishlist}) => {
                 <p className="wishlist-index-name">{wishlist.name}</p>
                 <p className="wishlist-index-saved-number">{wishlist.WishlistItems.length} saved</p>
             </Link>
+            <div className="wishlist-index-delete-button">
+                <i class="fa-solid fa-x"></i>
+            </div>
         </div>
     )
 }
