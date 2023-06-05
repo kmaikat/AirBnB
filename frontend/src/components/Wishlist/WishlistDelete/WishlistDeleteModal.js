@@ -1,12 +1,20 @@
+import "./WishlistDeleteModal.css"
 function WishlistDeleteModal({setShowModal}) {
     return (
         <div>
-            <div>cancel here</div>
-            <div>
-                <div>Delete this wishlist?</div>
-                <div>"Wishlist Name here" will be permanently deleted.</div>
+            <div className="delete-modal-exit-container">
+                <button onClick={() => setShowModal(false)}>
+                    <i className="fa-solid fa-x"></i>
+                </button>
             </div>
-            <div>cancel and delete here</div>
+            <div className="delete-modal-dialog-container">
+                <p>Delete this wishlist?</p>
+                <p>"A" will be permanently deleted.</p>
+            </div>
+            <div className="delete-modal-options">
+                <button id="delete-modal-cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
+                <button id="delete-modal-delete-button" onClick={() => console.log("oy im deleting")}>Delete</button>
+            </div>
         </div>
     )
 }

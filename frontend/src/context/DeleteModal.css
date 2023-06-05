@@ -1,6 +1,6 @@
 #delete-modal {
     position: fixed;
-    top: 0;
+    top: 0rem;
     right: 0;
     left: 0;
     bottom: 0;
@@ -22,4 +22,7 @@
     position: absolute;
     background-color:white;
     border-radius: 12px;
+    box-shadow: rgba(0,0,0,.28) 0 8px 28px 0;
+    /* padding: 1.5rem; */
+    max-width: 20rem;
   }
