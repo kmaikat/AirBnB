@@ -11,13 +11,17 @@
     background-color: green;
     position: relatice;
     right: 0;
-    width: 100%;
-    /* min-width: 30%; */
+    min-width: 570px;
 }
 
 /* fixed */
 #wishlist-information-container {
-    width: 100%;
-    max-width: 32%;
     background-color: red;
+    width:100%
+}
+
+@media (max-width:949px) {
+    #wishlist-map-container{
+        display: none;
+    }
 }
