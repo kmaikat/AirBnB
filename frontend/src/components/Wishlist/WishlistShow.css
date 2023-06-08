@@ -4,19 +4,19 @@
 
 #wishlist-outer-container {
     display: flex;
+    height: 100vh;
 }
 
-/* auto */
 #wishlist-map-container {
-    background-color: green;
-    position: relatice;
+    position: relative;
     right: 0;
     min-width: 570px;
+    width: 100%;
+    background-color: gray;
+
 }
 
-/* fixed */
 #wishlist-information-container {
-    background-color: red;
     width:100%
 }
 
