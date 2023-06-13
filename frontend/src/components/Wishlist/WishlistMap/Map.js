@@ -52,7 +52,22 @@ const styles = [
                 "color": "#aee0f4"
             }
         ]
-    }
+    },
+    {
+        featureType: "poi",
+        elementType: "labels.icon",
+        stylers: [{ visibility: "off" }],
+    },
+    {
+        featureType: "transit",
+        elementType: "labels.icon",
+        stylers: [{ visibility: "off" }],
+    },
+    {
+        featureType: "poi.park",
+        elementType: "geometry.fill",
+        stylers: [{ color: "#d0eac6" }],
+      }
 ]
 
 export default styles
