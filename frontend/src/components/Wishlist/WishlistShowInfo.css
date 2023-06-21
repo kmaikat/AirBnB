@@ -36,6 +36,7 @@
     aspect-ratio: 1/1;
     border-radius: 16px;
     overflow: hidden;
+    position: relative;
 }
 
 .wishlist-spot-card-image > img {
