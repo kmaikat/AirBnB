@@ -20,7 +20,7 @@ const WishlistShowInfo = () => {
     return (
         <div className="wishlist-spots-show-container">
             <div className="wishlist-spots-options">
-                <div><i className="fa-solid fa-arrow-left"></i></div>
+                <div onClick={_ => history.push("/wishlists")}><i className="fa-solid fa-arrow-left"></i></div>
                 <div><i className="fa-solid fa-ellipsis"></i></div>
             </div>
             <div className="wishlist-spots-show-title">{wishlistInfo.name}</div>
