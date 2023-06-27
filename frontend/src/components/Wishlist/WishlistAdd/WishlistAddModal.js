@@ -8,7 +8,7 @@ function WishlistAddModal({ setShowModal }) {
     return (
         <div className="add-modal-outer-container">
             <div className="add-modal-heading-container">
-                <button onClick={() => setShowModal(false)}>
+                <button onClick={(event) => {event.stopPropagation(); setShowModal(false)}}>
                     <i className="fa-solid fa-x"></i>
                 </button>
                 <div>Add to wishlist</div>
