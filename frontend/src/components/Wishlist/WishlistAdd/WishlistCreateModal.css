@@ -75,3 +75,23 @@
 .create-modal-counter-container-warning-hidden{
     display: none;
 }
+
+.create-modal-options-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.create-modal-clear-button{
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.create-modal-create-button{
+    background-color: black;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: .5rem;
+}

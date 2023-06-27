@@ -36,9 +36,9 @@ const WishlistCreateModal = ({ setShowModal }) => {
                     </div>
                 </div>
             </form>
-            <div>
-                <div>Clear</div>
-                <div>Create</div>
+            <div className="create-modal-options-container">
+                <button className="create-modal-clear-button">Clear</button>
+                <button className="create-modal-create-button">Create</button>
             </div>
         </div>
     )
