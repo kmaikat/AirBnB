@@ -25,6 +25,14 @@ module.exports = {
       userId: 1,
       name: "Dallas"
     },
+    {
+      userId: 1,
+      name: "Colorado"
+    },
+    {
+      userId: 1,
+      name: "Oregon"
+    },
 
    ])
   },
@@ -37,7 +45,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete("Wishlists", {
-      id: [1,2,3]
+      id: [1,2,3,4,5]
     } )
   }
 };
