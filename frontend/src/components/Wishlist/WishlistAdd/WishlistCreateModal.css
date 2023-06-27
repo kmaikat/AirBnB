@@ -69,5 +69,9 @@
 .create-modal-counter-container-warning{
     display: flex;
     gap: .5rem;
-    color: red;
+    color: #c13515;
+}
+
+.create-modal-counter-container-warning-hidden{
+    display: none;
 }
