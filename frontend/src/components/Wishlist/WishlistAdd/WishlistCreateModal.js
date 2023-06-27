@@ -35,11 +35,12 @@ const WishlistCreateModal = ({ setShowModal }) => {
                         <p>Over character limit</p>
                     </div>
                 </div>
+
+                <div className="create-modal-options-container">
+                    <button className="create-modal-clear-button" onClick={() => setName("")}>Clear</button>
+                    <button className="create-modal-create-button">Create</button>
+                </div>
             </form>
-            <div className="create-modal-options-container">
-                <button className="create-modal-clear-button">Clear</button>
-                <button className="create-modal-create-button">Create</button>
-            </div>
         </div>
     )
 }
