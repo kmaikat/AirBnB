@@ -8,18 +8,35 @@
 .wishlist-spots-options{
     display: flex;
     justify-content: space-between;
+    font-size: 1.2rem;
+}
+
+.wishlist-spots-options>div{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    padding:.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.wishlist-spots-options>div:hover{
+    background-color: rgb(237, 237, 237);
 }
 
 .wishlist-spots-show-title{
     font-size: 2rem;
     font-weight: 500;
     letter-spacing: .03rem;
+    padding:.5rem;
+
 }
 
 .wishlist-spots-grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    padding:.5rem;
 }
 
 .wishlist-spot-card{
