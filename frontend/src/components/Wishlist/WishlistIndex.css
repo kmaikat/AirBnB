@@ -17,12 +17,13 @@
     line-height: 1.5rem;
 }
 
+.wishlist-card-outer-container{
+    display: flex;
+    justify-content: center;
+}
 .wishlist-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, auto));
+    grid-template-columns: repeat(4, 1fr);
     column-gap: 1.5rem;
     row-gap: 3rem;
-    max-width: 60rem;
-
 }
-

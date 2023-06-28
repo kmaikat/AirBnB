@@ -1,6 +1,7 @@
 .wishlist-card-container{
     position: relative;
     cursor: pointer;
+    width: 19rem;
 }
 
 .wishlist-index-delete-button{
