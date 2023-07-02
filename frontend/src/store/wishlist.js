@@ -19,6 +19,20 @@ const createWishlistAction = (wishlists) => {
     }
 }
 
+const editWishlistAction = (wishlist) => {
+    return {
+        type: EDIT_WISHLIST,
+        wishlist
+    }
+}
+
+const deleteWishlistAction = (wishlist) => {
+    return {
+        type: DELETE_WISHLIST,
+        wishlist
+    }
+}
+
 export const getWishlistsThunk = () => async dispatch => {
     const response = await csrfFetch(`/api/wishlists`)
 
@@ -43,6 +57,38 @@ export const createWishlistThunk = (wishlist) => async dispatch => {
         dispatch(createWishlistAction(wishlist));
     } else {
         const errors = await response.json();
+        return errors
+    }
+}
+
+export const updateWishlistThunk = (wishlistId) => async dispatch => {
+    const response = await csrfFetch(`/api/${wishlistId}`, {
+        method: "PUT",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(wishlistId)
+    });
+
+    if (response.ok) {
+        const wishlist = await response.json();
+        dispatch(editWishlistAction(wishlist));
+    } else {
+        const errors = await response.json();
+        return errors
+    }
+}
+
+export const deleteWishlistThunk = (wishlistId) => async dispatch => {
+    const response = await csrfFetch(`/api/${wishlistId}`, {
+        method: "DELETE"
+    });
+
+    if (response.ok) {
+        const wishlist = await response.json()
+        dispatch(deleteWishlistAction(wishlist))
+    } else {
+        const errors = await response.json()
         return errors
     }
 }
