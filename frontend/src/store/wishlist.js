@@ -110,7 +110,6 @@ export const deleteWishlistThunk = (wishlistId) => async dispatch => {
 }
 
 export const addSpotToWishlistThunk = ({wishlistId, spotId}) => async dispatch => {
-    console.log(wishlistId, spotId)
     const response = await csrfFetch(`/api/wishlists/${wishlistId}/add-spot`, {
         method: "POST",
         body: JSON.stringify({spotId})
@@ -119,7 +118,6 @@ export const addSpotToWishlistThunk = ({wishlistId, spotId}) => async dispatch =
     const wishlistItem = {}
 
     if (response.ok) {
-        console.log(response)
         dispatch(addSpotAction(spotId))
         wishlistItem.data = await response.json()
     } else {
