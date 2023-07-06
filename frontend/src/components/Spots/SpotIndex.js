@@ -43,7 +43,7 @@ export default function SpotsIndex() {
                         {spot.previewImage ?
                             (<img src={`${spot.previewImage}`} alt="spot preview" />) :
                             (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
-                            <WishlistAddButton/>
+                            <WishlistAddButton spotId={spot.id}/>
                     </div>
                     <div className="eachspot-content-description">
                         <div className="eachspot-content-description-left">

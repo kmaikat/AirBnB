@@ -54,7 +54,6 @@ router.get('/:wishlistId', async (req, res, next) => {
 router.post('/', requireAuth, validateWishlistName, async (req, res) => {
     const { name } = req.body
     const userId = req.user.id
-
     const newWishlist = await Wishlist.create({
         userId,
         name
@@ -109,6 +108,7 @@ router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
     const spotId = req.body.spotId
     const userId = req.user.id
 
+    console.log("HELLO WORLD")
     const wishlist = Wishlist.findByPk(wishlistId)
 
     if (!wishlist) {
@@ -120,7 +120,7 @@ router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
     const existingItem = await WishlistItem.findOne({
         where: {
             spotId,
-            wishlistId
+            wishlistId,
         }
     })
 
@@ -130,6 +130,7 @@ router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
         return next(error)
     }
 
+    console.log(existingItem)
     const wishlistItem = await WishlistItem.create({
         wishlistId,
         spotId,

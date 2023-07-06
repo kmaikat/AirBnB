@@ -1,15 +1,51 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import WishlistAddCard from "./WishlistAddCard"
 import "./WishlistAddModal.css"
 import { useState } from "react"
+import { addSpotToWishlistThunk, createWishlistThunk } from "../../../store/wishlist"
 
-function WishlistAddModal({ setShowModal }) {
+function WishlistAddModal({ setShowModal, spotId }) {
     const wishlists = useSelector(state => state.wishlists)
     const [modalState, setModalState] = useState("initial")
     const [name, setName] = useState("")
+    const dispatch = useDispatch()
+
+    const userId = useSelector(state => state.session.user.id)
 
     const updateName = (e) => {
         setName(e.target.value)
+    }
+
+    const submitWishlistName = async (event) => {
+        event.preventDefault();
+
+        // create the wishlist
+        const submission = {
+            userId,
+            name
+        }
+
+        // add the spot to the wishlist
+        const wishlist = await dispatch(createWishlistThunk(submission))
+
+        if (!wishlist.errors) {
+            const spotSubmission = {
+                userId,
+                spotId,
+                wishlistId: wishlist.data.id
+            }
+
+            const wishlistItem = await dispatch(addSpotToWishlistThunk(spotSubmission))
+
+            if (!wishlistItem.errors) {
+                setShowModal(false)
+            } else {
+                console.log(wishlistItem.errors)
+            }
+
+        } else {
+            console.log(wishlist.errors)
+        }
     }
 
     return (
@@ -40,7 +76,7 @@ function WishlistAddModal({ setShowModal }) {
                         <div>Create wishlist</div>
                         <div></div>
                     </div>
-                    <form onSubmit={e => {e.preventDefault(); console.log("im here")}}>
+                    <form onSubmit={submitWishlistName}>
                     <div id="create-modal-name-container">
                         <label className={name.length > 0 ? "name-label-filled" : ""}>Name</label>
                         <input
@@ -58,10 +94,9 @@ function WishlistAddModal({ setShowModal }) {
                             <p>Over character limit</p>
                         </div>
                     </div>
-
                     <div className="create-modal-options-container">
                         <button className="create-modal-clear-button" onClick={() => setName("")}>Clear</button>
-                    <button className="create-modal-create-button" type="submit" onClick={e => e.stopPropagation()}>Create</button>
+                        <button className="create-modal-create-button" type="submit" onClick={e => e.stopPropagation()}>Create</button>
                     </div>
                 </form>
         </div >

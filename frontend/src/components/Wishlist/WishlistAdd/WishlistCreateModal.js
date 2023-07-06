@@ -17,7 +17,7 @@ const WishlistCreateModal = ({ setShowModal }) => {
                 <div>Create wishlist</div>
                 <div></div>
             </div>
-            <form id="creat-wishlist-form" onSubmit={()=>console.log("i wish i could afford new shoes")}>
+            <form id="creat-wishlist-form" onSubmit={()=>console.log("helloloo")}>
                 <div id="create-modal-name-container">
                     <label className={name.length > 0 ? "name-label-filled" : ""}>Name</label>
                     <input
