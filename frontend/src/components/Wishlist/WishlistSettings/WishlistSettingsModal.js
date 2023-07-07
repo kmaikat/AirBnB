@@ -3,7 +3,7 @@ import "./WishlistSettingsModal.css"
 import WishlistRenameModal from "./WishlistRenameModal";
 import WishlistSettingsDeleteModal from "./WishlistSettingsDeleteModal";
 
-const WishlistSettingsModal = ({ setShowModal }) => {
+const WishlistSettingsModal = ({ setShowModal, wishlistInfo }) => {
     const [modalState, setModalState] = useState("initial")
 
     return (
@@ -39,7 +39,7 @@ const WishlistSettingsModal = ({ setShowModal }) => {
                 <WishlistRenameModal setModalState={setModalState}/>
             }
             {modalState === "delete" &&
-                <WishlistSettingsDeleteModal setModalState={setModalState}/>
+                <WishlistSettingsDeleteModal wishlistInfo={wishlistInfo} setShowModal={setShowModal} setModalState={setModalState}/>
 
             }
         </>

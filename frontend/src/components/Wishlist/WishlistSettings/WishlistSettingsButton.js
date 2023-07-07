@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Modal } from "../../../context/Modal"
 import WishlistSettingsModal from "./WishlistSettingsModal"
 
-const WishlistSettingsButton = () => {
+const WishlistSettingsButton = ({wishlistInfo}) => {
     const [showModal,setShowModal] = useState(false)
 
     return (
@@ -13,7 +13,7 @@ const WishlistSettingsButton = () => {
             {
                 showModal && (
                     <Modal onClose={() => setShowModal(false)}>
-                        <WishlistSettingsModal setShowModal={setShowModal}/>
+                        <WishlistSettingsModal wishlistInfo={wishlistInfo} setShowModal={setShowModal}/>
                     </Modal>
                 )
             }

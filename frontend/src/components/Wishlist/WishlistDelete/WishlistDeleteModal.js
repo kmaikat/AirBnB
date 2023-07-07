@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux"
 import "./WishlistDeleteModal.css"
-import { deleteWishlistThunk, getWishlistsThunk } from "../../../store/wishlist"
-import { useEffect } from "react"
+import { deleteWishlistThunk } from "../../../store/wishlist"
 
 function WishlistDeleteModal({setShowModal, wishlist}) {
     const dispatch = useDispatch()
