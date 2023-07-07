@@ -2,7 +2,7 @@ import { useState } from "react"
 import { DeleteModal } from "../../../context/DeleteModal"
 import WishlistDeleteModal from "./WishlistDeleteModal"
 
-function WishlistDeleteButton() {
+function WishlistDeleteButton({wishlist}) {
     const [showModal, setShowModal] = useState(false)
 
     return (
@@ -12,7 +12,7 @@ function WishlistDeleteButton() {
             </button>
             {showModal && (
                 <DeleteModal onClose={() => setShowModal(false)}>
-                    <WishlistDeleteModal setShowModal={setShowModal}/>
+                    <WishlistDeleteModal setShowModal={setShowModal} wishlist={wishlist}/>
                 </DeleteModal>
             )
             }

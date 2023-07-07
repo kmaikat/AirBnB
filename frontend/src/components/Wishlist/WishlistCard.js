@@ -12,7 +12,7 @@ const WishlistCard = ({ wishlist }) => {
                 <p className="wishlist-index-name">{wishlist.name}</p>
                 <p className="wishlist-index-saved-number">{wishlist.WishlistItems.length} saved</p>
             </Link>
-            <WishlistDeleteButton/>
+            <WishlistDeleteButton wishlist={wishlist}/>
         </div>
     )
 }

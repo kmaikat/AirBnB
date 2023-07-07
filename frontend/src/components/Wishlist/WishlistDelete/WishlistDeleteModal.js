@@ -1,5 +1,27 @@
+import { useDispatch } from "react-redux"
 import "./WishlistDeleteModal.css"
-function WishlistDeleteModal({setShowModal}) {
+import { deleteWishlistThunk, getWishlistsThunk } from "../../../store/wishlist"
+import { useEffect } from "react"
+
+function WishlistDeleteModal({setShowModal, wishlist}) {
+    const dispatch = useDispatch()
+    const wishlistId = wishlist.id
+
+    useEffect(() => {
+        dispatch(getWishlistsThunk())
+    }, [dispatch])
+
+    const handleDelete = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const deleteResponse = await dispatch(deleteWishlistThunk(wishlistId))
+
+        if (deleteResponse) {
+            console.log("yay i deleted")
+            setShowModal(false)
+        }
+    }
+
     return (
         <div>
             <div className="delete-modal-exit-container">
@@ -13,7 +35,7 @@ function WishlistDeleteModal({setShowModal}) {
             </div>
             <div className="delete-modal-options">
                 <button id="delete-modal-cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
-                <button id="delete-modal-delete-button" onClick={() => console.log("oy im deleting")}>Delete</button>
+                <button id="delete-modal-delete-button" onClick={handleDelete}>Delete</button>
             </div>
         </div>
     )
