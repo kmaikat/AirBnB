@@ -7,10 +7,6 @@ function WishlistDeleteModal({setShowModal, wishlist}) {
     const dispatch = useDispatch()
     const wishlistId = wishlist.id
 
-    useEffect(() => {
-        dispatch(getWishlistsThunk())
-    }, [dispatch])
-
     const handleDelete = async (event) => {
         event.preventDefault();
         event.stopPropagation();
