@@ -60,7 +60,7 @@ function WishlistAddModal({ setShowModal, spotId }) {
                         <div></div>
                     </div>
                     <div className="add-modal-wishlists-container">
-                        {wishlists.map(wishlist => (<WishlistAddCard key={wishlist.id} wishlist={wishlist} />))}
+                        {wishlists.map(wishlist => (<WishlistAddCard key={wishlist.id} wishlist={wishlist} spotId={spotId} setShowModal={setShowModal}/>))}
                     </div>
                     <div className="add-modal-options">
                         <button id="add-modal-create-button" onClick={() => setModalState("create")}>Create new wishlist</button>
