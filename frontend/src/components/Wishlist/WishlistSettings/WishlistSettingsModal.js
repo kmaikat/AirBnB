@@ -36,7 +36,7 @@ const WishlistSettingsModal = ({ setShowModal, wishlistInfo }) => {
                 </div>
             }
             {modalState === "rename" &&
-                <WishlistRenameModal setModalState={setModalState}/>
+                <WishlistRenameModal wishlistInfo={wishlistInfo} setShowModal={setShowModal} setModalState={setModalState}/>
             }
             {modalState === "delete" &&
                 <WishlistSettingsDeleteModal wishlistInfo={wishlistInfo} setShowModal={setShowModal} setModalState={setModalState}/>

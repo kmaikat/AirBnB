@@ -1,11 +1,34 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { updateWishlistThunk } from "../../../store/wishlist"
 
-const WishlistRenameModal = ({setModalState}) => {
-    const [name, setName] = useState("")
+
+const WishlistRenameModal = ({setModalState, wishlistInfo, setShowModal}) => {
+    const wishlistName = wishlistInfo.name
+    const [name, setName] = useState(wishlistName)
+    const dispatch = useDispatch()
 
     const updateName = (e) => {
         setName(e.target.value)
     }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const submission = {
+            wishlistId: wishlistInfo.id,
+            name
+        }
+
+        const wishlist = await dispatch(updateWishlistThunk(submission))
+
+        if (!wishlist.errors) {
+            setShowModal(false)
+        }
+
+    }
+
+
     return (
         <div className="create-modal-outer-container">
             <div className="create-modal-heading-container">
@@ -15,7 +38,7 @@ const WishlistRenameModal = ({setModalState}) => {
                 <div>Rename wishlist</div>
                 <div></div>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div id="create-modal-name-container">
                     <label className={name.length > 0 ? "name-label-filled" : ""}>Name</label>
                     <input
@@ -36,7 +59,7 @@ const WishlistRenameModal = ({setModalState}) => {
 
                 <div className="create-modal-options-container">
                     <button className="create-modal-clear-button" onClick={(event) => {event.stopPropagation();setName("")}}>Clear</button>
-                    <button className="create-modal-create-button">Save</button>
+                    <button className="create-modal-create-button" type="submit">Save</button>
                 </div>
             </form>
             </div>

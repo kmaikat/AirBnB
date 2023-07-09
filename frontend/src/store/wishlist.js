@@ -77,22 +77,24 @@ export const createWishlistThunk = (wishlistName) => async dispatch => {
     return wishlist;
 }
 
-export const updateWishlistThunk = (wishlistId) => async dispatch => {
-    const response = await csrfFetch(`/api/${wishlistId}`, {
+export const updateWishlistThunk = ({ wishlistId, name }) => async dispatch => {
+    const response = await csrfFetch(`/api/wishlists/${wishlistId}`, {
         method: "PUT",
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.stringify(wishlistId)
+        body: JSON.stringify({name})
     });
 
+
+    const wishlist = {}
+
     if (response.ok) {
-        const wishlist = await response.json();
-        dispatch(editWishlistAction(wishlist));
+        wishlist.data = await response.json();
+        dispatch(getWishlistsThunk());
     } else {
-        const errors = await response.json();
-        return errors
+        wishlist.errors = await response.json();
     }
+
+    console.log(wishlist)
+    return wishlist
 }
 
 export const deleteWishlistThunk = (wishlistId) => async dispatch => {
