@@ -5,6 +5,7 @@ import { deleteASpotThunk, getSpotByIdThunk } from "../../store/spotReducer";
 import './SpotShow.css'
 import { Link } from "react-router-dom";
 import ReviewIndex from "../Reviews/ReviewIndex";
+import BookingIndex from "./Bookings/BookingIndex";
 
 export default function SpotShow() {
     const dispatch = useDispatch();
@@ -18,16 +19,16 @@ export default function SpotShow() {
         dispatch(getSpotByIdThunk(spotId))
     }, [dispatch])
 
-    const handleDelete = async () => {
-        const deleteResponse = await dispatch(deleteASpotThunk(spotId))
-        if (deleteResponse.ok) {
-            history.push("/")
-        } else {
-            setErrors([deleteResponse.message])
-        }
-        // useEffect for errors for a form
-        // for errors from a button click, create error state and set errors to returned errors
-    }
+    // const handleDelete = async () => {
+    //     const deleteResponse = await dispatch(deleteASpotThunk(spotId))
+    //     if (deleteResponse.ok) {
+    //         history.push("/")
+    //     } else {
+    //         setErrors([deleteResponse.message])
+    //     }
+    //     // useEffect for errors for a form
+    //     // for errors from a button click, create error state and set errors to returned errors
+    // }
 
 
     if (!spot) return null
@@ -75,7 +76,7 @@ export default function SpotShow() {
                     <div className="spot-hosted-by">
                         <div>
                             <div>Entire home hosted by {spot.Owner.firstName}</div>
-                            <div className="spot-rooms-guests">16 guests5 bedrooms10 beds3 baths</div>
+                            <div className="spot-rooms-guests">16 guests 5 bedrooms 10 beds 3 baths</div>
                         </div>
                     </div>
                     <div className="aircover-container">
@@ -92,33 +93,7 @@ export default function SpotShow() {
                     </div>
 
                 </div>
-                <div className="spot-details-right">
-                    <div className="spot-details-right-container">
-                        <div className="spot-details-right-top">
-                            <div className="spot-details-right-price"> <span id="right-spot-price">${spot.price}</span> night</div>
-                            <div className="spot-details-right-reviews">
-
-                                {spot.numReviews > 0 && <>
-                                    <div>
-                                        <i className="fa-solid fa-star"></i>
-                                        {Number(spot.avgStarRating).toFixed(2) || "New"}
-                                    </div>
-                                    <div>
-                                        {spot.numReviews > 0 && <>{spot.numReviews} Reviews</>}
-                                    </div>
-                                </>
-                                }
-                            </div>
-                        </div>
-                        {user && user.id === spot.Owner.id && <div className="spot-details-right-bottom">
-
-                            <Link to={`/spot/${spotId}/edit`} className="submit" id="spot-edit"> <button>Edit</button></Link>
-
-                            <button className="submit" id="spot-delete" onClick={handleDelete}>Delete</button>
-
-                        </div>}
-                    </div>
-                </div>
+                <BookingIndex spotId={spotId} setErrors-={setErrors} user={user} spot={spot}/>
             </div>
             <div className="reviews-container">
                 <ReviewIndex spot={spot} />
