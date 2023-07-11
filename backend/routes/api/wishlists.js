@@ -24,17 +24,42 @@ router.get('/', async (req, res, next) => {
         include: [{
             model: WishlistItem,
             include: Spot
+        }],
+    })
+
+    const wishlistsObj = wishlists.reduce((obj, item) => {
+        obj[item.id] = item;
+        return obj
+    }, {})
+
+
+    return res.json({ Wishlists: wishlists, wishlistsObj })
+})
+
+router.get('/:wishlistId', async (req, res, next) => {
+    const wishlistId = req.params.wishlistId
+    const userId = req.user.id
+
+    const wishlist = await Wishlist.findByPk(wishlistId, {
+        include: [{
+            model: WishlistItem,
+            include: Spot
         }]
     })
 
-    return res.json({Wishlists: wishlists})
+    if (!wishlist) {
+        const error = new Error("Wishlist couldn't be found")
+        error.status = 404;
+        return next(error)
+    }
+
+    return res.json({wishlist})
 })
 
 // create a wishlist
 router.post('/', requireAuth, validateWishlistName, async (req, res) => {
     const { name } = req.body
     const userId = req.user.id
-
     const newWishlist = await Wishlist.create({
         userId,
         name
@@ -84,8 +109,84 @@ router.delete('/:wishlistId', requireAuth, async (req, res, next) => {
 })
 
 // add spot to wishlist
+router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
+    const wishlistId = req.params.wishlistId
+    const spotId = req.body.spotId
+    const userId = req.user.id
+
+    const wishlist = Wishlist.findByPk(wishlistId)
+
+    if (!wishlist) {
+        const error = new Error("Wishlist couldn't be found")
+        error.status = 404;
+        return next(error)
+    }
+
+    const existingItem = await WishlistItem.findOne({
+        where: {
+            spotId,
+            wishlistId,
+        }
+    })
+
+    if (existingItem) {
+        const error = new Error("Spot is already in wishlist")
+        error.status = 404;
+        return next(error)
+    }
+
+    const wishlistItem = await WishlistItem.create({
+        wishlistId,
+        spotId,
+        userId
+    })
+
+
+    const updatedWishlist = await Wishlist.findByPk(wishlistId, {
+        include: {
+            model: WishlistItem,
+            include: {
+                model: Spot
+            }
+        }
+    })
+
+    return res.json(updatedWishlist)
+
+})
 
 // delete a spot in wishlist
+router.delete('/delete/:spotId', requireAuth, async (req, res, next) => {
+    const spotId = req.params.spotId
+    const userId = req.user.id
+
+    const wishlistItem = await WishlistItem.findOne({
+        where: {
+            spotId
+        }
+    })
+
+    if (!wishlistItem) {
+        const error = new Error("No spot found in wishlist")
+        error.status = 404;
+        return next(error)
+    }
+
+    await wishlistItem.destroy()
+
+    // const wishlist = await Wishlist.findOne({
+    //     where: {
+    //         id: wishlistId,
+    //         userId
+    //     },
+    //     include: {
+    //         model: Spot,
+    //     }
+    // });
+
+    return res.json("wishlist deleted");
+
+})
 
 
 module.exports = router;

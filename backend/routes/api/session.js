@@ -2,7 +2,7 @@
 const express = require('express');
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, WishlistItem, Sequelize } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
@@ -24,12 +24,28 @@ router.delete('/', (_req, res) => {
 });
 
 // Restore session user
-router.get('/', restoreUser, (req, res) => {
+router.get('/', restoreUser, async (req, res) => {
   const { user } = req;
+
+  const wishlistItems = await WishlistItem.findAll({
+    where: {
+      userId: user.id
+    },
+    attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("spotId")), "spotId"]],
+    raw: true
+  })
+
+  const savedSpots = wishlistItems.reduce((obj, item) => {
+    obj[item.spotId] = item.spotId
+    return obj
+  }, {})
+
   if (user) {
     return res.json({user: {
-      ...user.toSafeObject()
-    }});
+      ...user.toSafeObject(),
+      savedSpots
+    }}
+    );
   } else return res.json({user: null});
 });
 
@@ -54,13 +70,21 @@ router.post('/', validateLogin, async (req, res, next) => {
   const token = await setTokenCookie(res, user);
 
   const response = user.toSafeObject()
+  const wishlistItems = await WishlistItem.findAll({
+    where: {
+      userId: user.id
+    },
+    attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("spotId")), "spotId"]],
+    raw: true
+  })
+
+  const savedSpots = wishlistItems.reduce((obj, item) => {
+    obj[item.spotId] = item.spotId
+    return obj
+  }, {})
   response.token = token;
-  return res.json({user: response});
+  return res.json({user: response, savedSpots});
 }
 );
-
-// router.get('/', requireAuth, async (req,res, next) => {
-
-// })
 
 module.exports = router;

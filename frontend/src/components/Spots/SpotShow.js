@@ -37,7 +37,7 @@ export default function SpotShow() {
     }
 
     return (
-        <div>
+        <div className="spot-outer-container">
             <div className="spot-header">
                 <div className="spot-header-name">
                     {spot.name}

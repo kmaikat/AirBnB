@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from 'react-router-dom';
 import { getAllSpotsThunk } from "../../store/spotReducer";
 import './SpotIndex.css'
+import WishlistAddButton from "../Wishlist/WishlistAdd/WishlistAddButton";
 
 
 export default function SpotsIndex() {
@@ -42,7 +43,7 @@ export default function SpotsIndex() {
                         {spot.previewImage ?
                             (<img src={`${spot.previewImage}`} alt="spot preview" />) :
                             (<img src="https://creativeclickmedia.com/wp-content/uploads/2018/04/wireframe-box-270x203.jpg" alt="spot preview frame" />)}
-                            <i onClick={saveSpot} id="eachspot-heart" className="fa-solid fa-heart"></i>
+                            <WishlistAddButton spotId={spot.id}/>
                     </div>
                     <div className="eachspot-content-description">
                         <div className="eachspot-content-description-left">

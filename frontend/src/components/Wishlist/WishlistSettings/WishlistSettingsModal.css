@@ -1,0 +1,48 @@
+.wishlist-settings-container{
+    width: 25rem;
+}
+
+.wishlist-settings-header{
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wishlist-settings-header>:nth-child(2){
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.wishlist-settings-header>:first-child{
+    font-size: small;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    padding:.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.wishlist-settings-header>:first-child:hover{
+    background-color: rgb(237, 237, 237);
+}
+
+.wishlist-settings-options-container{
+    padding: 0 1.5rem .5rem 1.5rem;
+}
+.wishlist-settings-options-container>div{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding:1.5rem 0;
+}
+
+.wishlist-settings-options-container>div>div{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.wishlist-settings-rename-container{
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}

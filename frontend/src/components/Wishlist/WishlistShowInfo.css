@@ -1,0 +1,80 @@
+.wishlist-spots-show-container{
+    margin: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.wishlist-spots-options{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+}
+
+.wishlist-spots-options>div{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    padding:.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.wishlist-spots-options>div:hover{
+    background-color: rgb(237, 237, 237);
+}
+
+.wishlist-spots-show-title{
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: .03rem;
+    padding:.5rem;
+
+}
+
+.wishlist-spots-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding:.5rem;
+}
+
+.wishlist-spot-card{
+    display: flex;
+    flex-direction: column;
+}
+
+.wishlist-spot-card:hover{
+    cursor: pointer;
+}
+
+.wishlist-spot-card-image{
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+}
+
+.wishlist-spot-card-image > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wishlist-sport-card-info{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+}
+.wishlist-spot-card-beds{
+    padding-top: 4px;
+}
+
+@media screen and ( max-width: 1240px) {
+    .wishlist-spots-grid{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}

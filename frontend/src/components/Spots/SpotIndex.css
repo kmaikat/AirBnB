@@ -1,9 +1,35 @@
 #spotIndex {
-    padding-top: 2rem;
+    /* padding-top: 2rem; */
+    padding: 2rem 60px 0 60px;
     display: grid;
-    column-gap: 2rem;
+    column-gap: 1rem;
     row-gap: 3rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+@media (min-width:1640px) {
+    #spotIndex {
+        padding: 2rem 60px 0 60px;
+        display: grid;
+        column-gap: 1rem;
+        row-gap: 3rem;
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (min-width:1880px) {
+    #spotIndex {
+        padding: 2rem 60px 0 60px;
+        display: grid;
+        column-gap: 1rem;
+        row-gap: 3rem;
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+.eachspot-content {
+    height: 25rem;
 }
 
 .eachspot-content-image-container {
@@ -18,7 +44,7 @@
     top: 1rem;
     right: 1rem;
     font-size: 1.5rem;
-    color: rgba(0,0,0,.5);
+    color: rgba(0, 0, 0, .5);
     transition: font-size ease-in .2s;
 }
 

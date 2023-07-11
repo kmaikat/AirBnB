@@ -15,7 +15,8 @@ module.exports = {
         references: {
           model: "Users",
           key: "id"
-        }
+        },
+        onDelete: "CASCADE"
       },
       spotId: {
         type: Sequelize.INTEGER,
@@ -23,7 +24,8 @@ module.exports = {
         references: {
           model: "Spots",
           key: "id"
-        }
+        },
+        onDelete: "CASCADE"
       },
       wishlistId: {
         type: Sequelize.INTEGER,
@@ -31,7 +33,8 @@ module.exports = {
         references: {
           model: "Wishlists",
           key: "id"
-        }
+        },
+        onDelete: "CASCADE"
       },
       createdAt: {
         allowNull: false,
