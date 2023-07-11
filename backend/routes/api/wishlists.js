@@ -16,7 +16,7 @@ const validateWishlistName = [
 
 // Get all wishlists
 router.get('/', async (req, res, next) => {
-    const userId = parseInt(req.user.id)
+    const user = req.user
 
     if (user) {
         const userId = parseInt(user.id)
