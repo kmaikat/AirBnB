@@ -25,7 +25,7 @@ function WishlistDeleteModal({setShowModal, wishlist}) {
             </div>
             <div className="delete-modal-dialog-container">
                 <p>Delete this wishlist?</p>
-                <p>"A" will be permanently deleted.</p>
+                <p>{wishlist.name} will be permanently deleted.</p>
             </div>
             <div className="delete-modal-options">
                 <button id="delete-modal-cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
