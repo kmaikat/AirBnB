@@ -24,7 +24,6 @@ function WishlistAddModal({ setShowModal, spotId }) {
             userId,
             name
         }
-
         // add the spot to the wishlist
         const wishlist = await dispatch(createWishlistThunk(submission))
 
@@ -96,7 +95,7 @@ function WishlistAddModal({ setShowModal, spotId }) {
                     </div>
                     <div className="create-modal-options-container">
                         <button className="create-modal-clear-button" onClick={() => setName("")}>Clear</button>
-                        <button className="create-modal-create-button" type="submit" onClick={e => e.stopPropagation()}>Create</button>
+                        <button className="create-modal-create-button" type="submit" onClick={e => {e.stopPropagation()}}>Create</button>
                     </div>
                 </form>
         </div >

@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { restoreUser } from "./session";
 
 const GET_WISHLISTS = 'wishlist/getWishlists'
 const CREATE_WISHLIST = 'wishlist/createWishlist'
@@ -56,6 +57,7 @@ export const getWishlistsThunk = () => async dispatch => {
     if (response.ok) {
         const data = await response.json()
         dispatch(getWishlistsAction(data))
+        dispatch(restoreUser())
         return data
     }
 }
@@ -71,6 +73,7 @@ export const createWishlistThunk = (wishlistName) => async dispatch => {
     if (response.ok) {
         wishlist.data = await response.json();
         dispatch(getWishlistsThunk())
+        dispatch(restoreUser())
     } else {
         wishlist.errors = await response.json();
     }
@@ -108,6 +111,7 @@ export const deleteWishlistThunk = (wishlistId) => async dispatch => {
         console.log("heyyo")
         deleteWishlist.ok = await response.json()
         dispatch(getWishlistsThunk())
+        dispatch(restoreUser())
     } else {
         deleteWishlist.errors = await response.json()
     }
@@ -124,6 +128,7 @@ export const addSpotToWishlistThunk = ({wishlistId, spotId}) => async dispatch =
 
     if (response.ok) {
         dispatch(addSpotAction(spotId))
+        dispatch(restoreUser())
         wishlistItem.data = await response.json()
     } else {
         wishlistItem.errors = await response.json()
@@ -131,6 +136,7 @@ export const addSpotToWishlistThunk = ({wishlistId, spotId}) => async dispatch =
 
     return wishlistItem;
 }
+
 
 const initialState = []; // should this be an obj or arr?
 

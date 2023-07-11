@@ -1,11 +1,46 @@
 import { useState } from "react"
 import "./WishlistCreateModal.css"
+import { useDispatch, useSelector } from "react-redux"
+import { addSpotToWishlistThunk, createWishlistThunk } from "../../../store/wishlist"
 
-const WishlistCreateModal = ({ setShowModal }) => {
+const WishlistCreateModal = ({ setShowModal, spotId}) => {
     const [name, setName] = useState("")
+    const dispatch = useDispatch()
+    const userId = useSelector(state => state.session.user.id)
 
     const updateName = (e) => {
         setName(e.target.value)
+    }
+
+    const submitWishlistName = async (event) => {
+        event.preventDefault();
+
+        // create the wishlist
+        const submission = {
+            userId,
+            name
+        }
+        // add the spot to the wishlist
+        const wishlist = await dispatch(createWishlistThunk(submission))
+
+        if (!wishlist.errors) {
+            const spotSubmission = {
+                userId,
+                spotId,
+                wishlistId: wishlist.data.id
+            }
+
+            const wishlistItem = await dispatch(addSpotToWishlistThunk(spotSubmission))
+
+            if (!wishlistItem.errors) {
+                setShowModal(false)
+            } else {
+                console.log(wishlistItem.errors)
+            }
+
+        } else {
+            console.log(wishlist.errors)
+        }
     }
 
     return (
@@ -17,7 +52,7 @@ const WishlistCreateModal = ({ setShowModal }) => {
                 <div>Create wishlist</div>
                 <div></div>
             </div>
-            <form id="creat-wishlist-form" onSubmit={()=>console.log("helloloo")}>
+            <form id="creat-wishlist-form" onSubmit={submitWishlistName}>
                 <div id="create-modal-name-container">
                     <label className={name.length > 0 ? "name-label-filled" : ""}>Name</label>
                     <input
@@ -38,7 +73,7 @@ const WishlistCreateModal = ({ setShowModal }) => {
 
                 <div className="create-modal-options-container">
                     <button className="create-modal-clear-button" onClick={() => setName("")}>Clear</button>
-                    <button className="create-modal-create-button" type="submit">Create</button>
+                    <button className="create-modal-create-button" type="submit" onClick={(event) => event.stopPropagation()}>Create</button>
                 </div>
             </form>
         </div>

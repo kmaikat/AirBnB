@@ -1,6 +1,6 @@
 const express = require("express");
 const { check } = require("express-validator")
-const { Wishlist, WishlistItem, Spot, SpotImage } = require("../../db/models");
+const { Wishlist, WishlistItem, Spot } = require("../../db/models");
 const { handleValidationErrors } = require("../../utils/validation");
 const { requireAuth } = require("../../utils/auth")
 const router = express.Router();
@@ -108,7 +108,6 @@ router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
     const spotId = req.body.spotId
     const userId = req.user.id
 
-    console.log("HELLO WORLD")
     const wishlist = Wishlist.findByPk(wishlistId)
 
     if (!wishlist) {
