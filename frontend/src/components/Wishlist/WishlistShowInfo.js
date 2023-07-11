@@ -33,7 +33,6 @@ const WishlistShowInfo = () => {
                 <div className="wishlist-spot-card" onClick={_ => history.push("/spots/" + card.Spot.id)}>
                     <div className="wishlist-spot-card-image">
                         <img src={card.Spot.SpotImages? card.Spot.SpotImages[0].url: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmFuZG9tfGVufDB8fDB8fHww&w=1000&q=80"}></img>
-                        {console.log(card.Spot.SpotImages[0].url)}
                         <WishlistShowInfoHeart wishlistInfo={wishlistInfo} card={card}/>
                     </div>
                     <div className="wishlist-sport-card-info">
