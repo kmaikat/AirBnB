@@ -27,7 +27,7 @@ const WishlistSettingsDeleteModal = ({setShowModal, setModalState, wishlistInfo}
             </div>
             <div className="delete-modal-dialog-container">
                 <p>Delete this wishlist?</p>
-                <p>"A" will be permanently deleted.</p>
+                <p>{wishlistInfo.name} will be permanently deleted.</p>
             </div>
             <div className="delete-modal-options">
                 <button id="delete-modal-cancel-button" onClick={() => setModalState("initial")}>Cancel</button>
