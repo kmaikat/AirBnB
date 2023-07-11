@@ -12,7 +12,7 @@ const DELETE_SPOT = 'wishlist/deleteSpot'
 const getWishlistsAction = (wishlists) => {
     return {
         type: GET_WISHLISTS,
-        wishlists: wishlists.Wishlists
+        wishlists: wishlists
     }
 }
 
@@ -96,7 +96,6 @@ export const updateWishlistThunk = ({ wishlistId, name }) => async dispatch => {
         wishlist.errors = await response.json();
     }
 
-    console.log(wishlist)
     return wishlist
 }
 
@@ -106,9 +105,7 @@ export const deleteWishlistThunk = (wishlistId) => async dispatch => {
     });
 
     const deleteWishlist = {}
-
     if (response.ok) {
-        console.log("heyyo")
         deleteWishlist.ok = await response.json()
         dispatch(getWishlistsThunk())
         dispatch(restoreUser())
@@ -127,7 +124,7 @@ export const addSpotToWishlistThunk = ({wishlistId, spotId}) => async dispatch =
     const wishlistItem = {}
 
     if (response.ok) {
-        dispatch(addSpotAction(spotId))
+        dispatch(getWishlistsThunk())
         dispatch(restoreUser())
         wishlistItem.data = await response.json()
     } else {
@@ -135,6 +132,23 @@ export const addSpotToWishlistThunk = ({wishlistId, spotId}) => async dispatch =
     }
 
     return wishlistItem;
+}
+
+export const deleteSpotFromWishlistThunk = ({spotId}) => async dispatch => {
+    const response = await csrfFetch(`/api/wishlists/delete/${spotId}`, {
+        method: "DELETE",
+        body: JSON.stringify({spotId})
+    })
+
+    const wishlistItem = {}
+
+    if (response.ok) {
+        dispatch(getWishlistsThunk())
+        dispatch(restoreUser())
+        wishlistItem.data = await response.json()
+    } else {
+        wishlistItem.errors = await response.json()
+    }
 }
 
 

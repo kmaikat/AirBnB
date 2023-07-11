@@ -24,10 +24,16 @@ router.get('/', async (req, res, next) => {
         include: [{
             model: WishlistItem,
             include: Spot
-        }]
+        }],
     })
 
-    return res.json({ Wishlists: wishlists })
+    const wishlistsObj = wishlists.reduce((obj, item) => {
+        obj[item.id] = item;
+        return obj
+    }, {})
+
+
+    return res.json({ Wishlists: wishlists, wishlistsObj })
 })
 
 router.get('/:wishlistId', async (req, res, next) => {
@@ -129,7 +135,6 @@ router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
         return next(error)
     }
 
-    console.log(existingItem)
     const wishlistItem = await WishlistItem.create({
         wishlistId,
         spotId,
@@ -151,14 +156,12 @@ router.post('/:wishlistId/add-spot', requireAuth, async (req, res, next) => {
 })
 
 // delete a spot in wishlist
-router.delete('/:wishlistId/delete-spot', requireAuth, async (req, res, next) => {
-    const wishlistId = req.params.wishlistId
-    const spotId = req.body.spotId
+router.delete('/delete/:spotId', requireAuth, async (req, res, next) => {
+    const spotId = req.params.spotId
     const userId = req.user.id
 
     const wishlistItem = await WishlistItem.findOne({
         where: {
-            wishlistId,
             spotId
         }
     })
@@ -171,17 +174,17 @@ router.delete('/:wishlistId/delete-spot', requireAuth, async (req, res, next) =>
 
     await wishlistItem.destroy()
 
-    const wishlist = await Wishlist.findOne({
-        where: {
-            id: wishlistId,
-            userId
-        },
-        include: {
-            model: Spot,
-        }
-    });
+    // const wishlist = await Wishlist.findOne({
+    //     where: {
+    //         id: wishlistId,
+    //         userId
+    //     },
+    //     include: {
+    //         model: Spot,
+    //     }
+    // });
 
-    return res.json(wishlist);
+    return res.json("wishlist deleted");
 
 })
 

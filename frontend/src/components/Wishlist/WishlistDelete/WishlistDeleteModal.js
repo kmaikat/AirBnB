@@ -12,7 +12,6 @@ function WishlistDeleteModal({setShowModal, wishlist}) {
         const deleteResponse = await dispatch(deleteWishlistThunk(wishlistId))
 
         if (deleteResponse) {
-            console.log("yay i deleted")
             setShowModal(false)
         }
     }

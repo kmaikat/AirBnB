@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import { Modal } from "../../../context/Modal"
 import WishlistAddModal from "./WishlistAddModal"
-import { getWishlistsThunk } from "../../../store/wishlist"
+import { deleteSpotFromWishlistThunk, getWishlistsThunk } from "../../../store/wishlist"
 import { useDispatch, useSelector } from "react-redux"
 import WishlistCreateModal from "./WishlistCreateModal"
 
 const WishlistAddButton = ({spotId}) => {
     const [showModal, setShowModal] = useState(false)
     const dispatch = useDispatch()
-    const wishlists = useSelector(state => state.wishlists)
+    const wishlists = useSelector(state => state.wishlists.Wishlists)
     const savedSpots = useSelector(state => state.session.user.savedSpots)
 
 
@@ -19,7 +19,16 @@ const WishlistAddButton = ({spotId}) => {
     const saveSpot = (e) => {
         e.preventDefault()
         e.stopPropagation()
-        setShowModal(true)
+
+        if (spotId in savedSpots) {
+            const spotSubmission = {
+                spotId
+            }
+
+            dispatch(deleteSpotFromWishlistThunk(spotSubmission))
+        } else {
+            setShowModal(true)
+        }
     }
 
     return (

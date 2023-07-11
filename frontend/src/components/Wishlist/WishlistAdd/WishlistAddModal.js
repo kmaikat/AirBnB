@@ -5,7 +5,7 @@ import { useState } from "react"
 import { addSpotToWishlistThunk, createWishlistThunk } from "../../../store/wishlist"
 
 function WishlistAddModal({ setShowModal, spotId }) {
-    const wishlists = useSelector(state => state.wishlists)
+    const wishlists = useSelector(state => state.wishlists.Wishlists)
     const [modalState, setModalState] = useState("initial")
     const [name, setName] = useState("")
     const dispatch = useDispatch()

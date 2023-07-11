@@ -6,7 +6,7 @@ import WishlistCard from "./WishlistCard";
 const WishlistIndex = () => {
     const dispatch = useDispatch();
 
-    const wishlists = useSelector(state => state.wishlists)
+    const wishlists = useSelector(state => state.wishlists.Wishlists)
 
     useEffect(() => {
         dispatch(getWishlistsThunk())

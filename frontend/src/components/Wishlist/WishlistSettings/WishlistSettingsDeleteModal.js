@@ -13,7 +13,6 @@ const WishlistSettingsDeleteModal = ({setShowModal, setModalState, wishlistInfo}
         const deleteResponse = await dispatch(deleteWishlistThunk(wishlistId))
 
         if (deleteResponse) {
-            console.log("yay i deleted")
             setShowModal(false)
             history.push('/wishlists')
             // need to push to wishlist index
