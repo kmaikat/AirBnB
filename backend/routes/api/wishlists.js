@@ -17,26 +17,32 @@ const validateWishlistName = [
 // Get all wishlists
 router.get('/', async (req, res, next) => {
     const userId = parseInt(req.user.id)
-    const wishlists = await Wishlist.findAll({
-        where: {
-            userId
-        },
-        include: [{
-            model: WishlistItem,
-            include: [{model:Spot, include: SpotImage}]
-        }],
-    })
 
-    const wishlistsObj = wishlists.reduce((obj, item) => {
-        obj[item.id] = item;
-        return obj
-    }, {})
+    if (user) {
+        const userId = parseInt(user.id)
+
+        const wishlists = await Wishlist.findAll({
+            where: {
+                userId
+            },
+            include: [{
+                model: WishlistItem,
+                include: [{model:Spot, include: SpotImage}]
+            }],
+        })
+
+        const wishlistsObj = wishlists.reduce((obj, item) => {
+            obj[item.id] = item;
+            return obj
+        }, {})
 
 
-    return res.json({ Wishlists: wishlists, wishlistsObj })
+        return res.json({ Wishlists: wishlists, wishlistsObj })
+    }
+    return
 })
 
-router.get('/:wishlistId', async (req, res, next) => {
+router.get('/:wishlistId', requireAuth, async (req, res, next) => {
     const wishlistId = req.params.wishlistId
     const userId = req.user.id
 

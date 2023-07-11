@@ -26,27 +26,28 @@ router.delete('/', (_req, res) => {
 // Restore session user
 router.get('/', restoreUser, async (req, res) => {
   const { user } = req;
-
-  const wishlistItems = await WishlistItem.findAll({
-    where: {
-      userId: user.id
-    },
-    attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("spotId")), "spotId"]],
-    raw: true
-  })
-
-  const savedSpots = wishlistItems.reduce((obj, item) => {
-    obj[item.spotId] = item.spotId
-    return obj
-  }, {})
-
   if (user) {
-    return res.json({user: {
-      ...user.toSafeObject(),
-      savedSpots
-    }}
+    const wishlistItems = await WishlistItem.findAll({
+      where: {
+        userId: user.id
+      },
+      attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("spotId")), "spotId"]],
+      raw: true
+    })
+
+    const savedSpots = wishlistItems.reduce((obj, item) => {
+      obj[item.spotId] = item.spotId
+      return obj
+    }, {})
+
+    return res.json({
+      user: {
+        ...user.toSafeObject(),
+        savedSpots
+      }
+    }
     );
-  } else return res.json({user: null});
+  } else return res.json({ user: null});
 });
 
 
@@ -83,7 +84,7 @@ router.post('/', validateLogin, async (req, res, next) => {
     return obj
   }, {})
   response.token = token;
-  return res.json({user: response, savedSpots});
+  return res.json({ user: response, savedSpots });
 }
 );
 
