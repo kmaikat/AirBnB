@@ -53,7 +53,7 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                     </div> :
                     <div>
                         <div className="booking-calendar-container">
-                            <div className="booking-calendar-dates-container" onClick={handleCalendar}>
+                            <div className="booking-calendar-dates-container" onClick={handleCalendar} tabIndex={showCalendar ? 1: -1} onBlur={() => setShowCalendar(false)}>
                                 <div className="booking-calendar-dates-content">
                                     <div>CHECK-IN</div>
                                     <div>8/17/2305</div>
