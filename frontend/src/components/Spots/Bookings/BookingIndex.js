@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { deleteASpotThunk } from "../../../store/spotReducer"
 import "./BookingIndex.css"
 import { useState } from "react"
+import Calendar from "./Calendar"
 
 const BookingIndex = ({ spot, user, setErrors, spotId }) => {
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
     const handleCalendar = () => {
         setShowCalendar(true)
     }
+
     return (
         <div className="spot-details-right">
             <div className="spot-details-right-container">
@@ -53,7 +55,7 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                     </div> :
                     <div>
                         <div className="booking-calendar-container">
-                            <div className="booking-calendar-dates-container" onClick={handleCalendar} tabIndex={showCalendar ? 1: -1} onBlur={() => setShowCalendar(false)}>
+                            <div className="booking-calendar-dates-container" onClick={handleCalendar}>
                                 <div className="booking-calendar-dates-content">
                                     <div>CHECK-IN</div>
                                     <div>8/17/2305</div>
@@ -63,8 +65,12 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                                     <div>8/19/2350</div>
                                 </div>
                             </div>
-                                {showCalendar &&
-                                    <div className="calendar-container">This is where the calendar will be</div>}
+                            {showCalendar &&
+                                <div className="calendar-container" >
+                                    DANGNABBIT IS THIS THING WORKIGN
+                                    <Calendar/>
+                                </div>
+                            }
                             <div>
                                 <div className="booking-guest-data">
                                     <div>Guests</div>
