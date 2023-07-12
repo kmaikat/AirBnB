@@ -1,0 +1,58 @@
+.booking-calendar-container{
+    border: .5px solid black;
+    border-radius: .5rem;
+    overflow: hidden;
+}
+/* .booking-calendar-container>div{
+    padding: 0 .7rem;
+} */
+
+.booking-calendar-dates-container{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: .5px solid black;
+}
+.booking-calendar-dates-container>div{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    padding: .5rem .6rem;
+    font-size: .9rem;
+}
+
+.booking-calendar-dates-container>div:first-child{
+    border-right: .5px solid black;
+}
+.booking-calendar-dates-content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: .4rem;
+    position: relative;
+}
+
+.booking-calendar-dates-content>div:first-child{
+    font-weight: 700;
+    font-size: .7rem;
+}
+/*
+.booking-guest-data{
+    position: relative;
+}
+
+.booking-guest-carat{
+    position: absolute;
+    right: 0;
+} */
+
+.calendar-container{
+    position: absolute;
+    height: 30rem;
+    top: 2rem;
+    right: -.5rem;
+    width: 42rem;
+    border-radius: 1.25rem;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px;
+    background-color: white;
+    padding: 1.5rem 2rem;
+}
