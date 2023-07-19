@@ -47,7 +47,7 @@
 
 .calendar-container{
     position: absolute;
-    height: 30rem;
+    height: fit-content;
     top: 2rem;
     right: -.5rem;
     width: 42rem;

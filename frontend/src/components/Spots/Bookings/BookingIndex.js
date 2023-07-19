@@ -67,7 +67,6 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                             </div>
                             {showCalendar &&
                                 <div className="calendar-container" >
-                                    DANGNABBIT IS THIS THING WORKIGN
                                     <Calendar/>
                                 </div>
                             }
