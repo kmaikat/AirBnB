@@ -48,3 +48,14 @@
     font-size: .8rem;
     font-weight:200;
 }
+
+.rdp-day_range_end, .rdp-day_range_start{
+    background-color: black !important;
+    border-radius: 100% !important;
+    color: white !important;
+}
+.rdp-day_selected, .rdp-day_selected:focus-visible, .rdp-day_selected:hover {
+    background-color: rgb(247, 247, 247) ;
+    color: #000 ;
+    opacity: 1;
+  }
