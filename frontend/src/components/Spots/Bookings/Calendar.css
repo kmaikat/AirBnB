@@ -59,3 +59,8 @@
     color: #000 ;
     opacity: 1;
   }
+
+  .rdp-button:hover:not([disabled]):not(.rdp-day_selected){
+    border: 2px solid black;
+    background-color: white;
+  }
