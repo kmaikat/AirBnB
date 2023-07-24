@@ -1,7 +1,8 @@
-import { format, isAfter, isBefore, isValid, parse } from 'date-fns';
+import { format, formatDistance, formatDistanceStrict, isAfter, isBefore, isValid, parse } from 'date-fns';
 import { useState } from 'react';
 import { DayPicker, DateRange, useInput } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
+import './Calendar.css'
 
 const Calendar = () => {
     const [selectedRange, setSelectedRange] = useState('');
@@ -52,22 +53,31 @@ const Calendar = () => {
         }
     };
 
+
     return (
         <>
-            <div>
-                <div>{console.log(fromValue, toValue)}</div>
+            <div className='booking-modal-header'>
+                <div className='booking-modal-header-left'>
+                    <div>Select dates</div>
+                    <div>Add your travel dates for exact pricing</div>
+                </div>
                 <div className='checkin-checkout-container'>
-                    <input
-                        placeholder='MM/DD/YYYY'
-                        value={fromValue}
-                        onChange={handleFromChange}
-                    />
-
-                    <input
-                        placeholder='MM/DD/YYYY'
-                        value={toValue}
-                        onChange={handleToChange}
-                    />
+                    <div>
+                        <label>CHECK-IN</label>
+                        <input
+                            placeholder='MM/DD/YYYY'
+                            value={fromValue}
+                            onChange={handleFromChange}
+                        />
+                    </div>
+                    <div>
+                        <label>CHECKOUT</label>
+                        <input
+                            placeholder='MM/DD/YYYY'
+                            value={toValue}
+                            onChange={handleToChange}
+                        />
+                    </div>
                 </div>
             </div>
             <DayPicker
