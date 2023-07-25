@@ -71,15 +71,14 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                                     <Calendar fromValue={fromValue} setFromValue={setFromValue} toValue={toValue} setToValue={setToValue} setShowCalendar={setShowCalendar}/>
                                 </div>
                             }
-                            <div>
+                            <div className="booking-guest-data-container">
                                 <div className="booking-guest-data">
-                                    <div>Guests</div>
+                                    <div>GUESTS</div>
                                     <div>12 guests</div>
                                 </div>
                                 <div className="booking-guest-carat">
                                     <i className="fa-solid fa-angle-down"></i>
                                 </div>
-
                             </div>
                         </div>
                         {/* <div>

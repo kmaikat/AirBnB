@@ -56,3 +56,22 @@
     background-color: white;
     padding: 1.5rem 2rem;
 }
+
+.booking-guest-data-container{
+    position: relative;
+}
+
+.booking-guest-data{
+    padding: .5rem .6rem;
+}
+
+.booking-guest-data>div:first-child{
+    font-weight: 700;
+    font-size: .7rem;
+}
+
+.booking-guest-carat{
+    position: absolute;
+    right: 5%;
+    top:35%;
+}
