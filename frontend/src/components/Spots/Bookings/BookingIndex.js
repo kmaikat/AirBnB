@@ -9,6 +9,9 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    const [fromValue, setFromValue] = useState('');
+    const [toValue, setToValue] = useState('');
+
     const [showCalendar, setShowCalendar] = useState(false)
 
     const handleDelete = async () => {
@@ -18,8 +21,6 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
         } else {
             setErrors([deleteResponse.message])
         }
-        // useEffect for errors for a form
-        // for errors from a button click, create error state and set errors to returned errors
     }
 
     const handleCalendar = () => {
@@ -58,16 +59,16 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                             <div className="booking-calendar-dates-container" onClick={handleCalendar}>
                                 <div className="booking-calendar-dates-content">
                                     <div>CHECK-IN</div>
-                                    <div>8/17/2305</div>
+                                    <div>{fromValue? fromValue : 'Add date'}</div>
                                 </div>
                                 <div className="booking-calendar-dates-content">
                                     <div>CHECKOUT</div>
-                                    <div>8/19/2350</div>
+                                    <div>{toValue? toValue : 'Add date'}</div>
                                 </div>
                             </div>
                             {showCalendar &&
                                 <div className="calendar-container" >
-                                    <Calendar/>
+                                    <Calendar fromValue={fromValue} setFromValue={setFromValue} toValue={toValue} setToValue={setToValue} setShowCalendar={setShowCalendar}/>
                                 </div>
                             }
                             <div>

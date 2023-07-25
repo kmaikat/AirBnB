@@ -1,30 +1,31 @@
-.booking-modal-header{
+.booking-modal-header {
     display: flex;
     justify-content: space-between;
     padding-bottom: 1rem;
 }
 
-.booking-modal-header-left>div:first-child{
+.booking-modal-header-left>div:first-child {
     font-size: 1.5rem;
     font-weight: 500;
 }
-.booking-modal-header-left>div:last-child{
+
+.booking-modal-header-left>div:last-child {
     font-size: .95rem;
     font-weight: 200;
     padding-top: .5rem;
 }
 
-.checkin-checkout-container{
+.checkin-checkout-container {
     display: flex;
     border-radius: .5rem;
     border: 1px solid grey;
     height: min-content;
-    margin-left:1rem;
+    margin-left: 1rem;
     width: fit-content;
     background-color: rgb(247, 247, 247);
 }
 
-.checkin-checkout-container>div{
+.checkin-checkout-container>div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -33,34 +34,51 @@
     border-radius: .5rem;
 }
 
-.checkin-checkout-container>div:focus-within{
+.checkin-checkout-container>div:focus-within {
     background-color: white;
     outline: 2px solid black;
 }
 
-.checkin-checkout-container>div>label{
+.checkin-checkout-container>div>label {
     font-size: .65rem;
-    font-weight:700;
+    font-weight: 700;
     padding-bottom: .25rem;
 }
 
-.checkin-checkout-container>div>input{
+.checkin-checkout-container>div>input {
     font-size: .8rem;
-    font-weight:200;
+    font-weight: 200;
 }
 
-.rdp-day_range_end, .rdp-day_range_start{
+.rdp-day_range_end,
+.rdp-day_range_start {
     background-color: black !important;
     border-radius: 100% !important;
     color: white !important;
 }
-.rdp-day_selected, .rdp-day_selected:focus-visible, .rdp-day_selected:hover {
-    background-color: rgb(247, 247, 247) ;
-    color: #000 ;
-    opacity: 1;
-  }
 
-  .rdp-button:hover:not([disabled]):not(.rdp-day_selected){
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+    background-color: rgb(247, 247, 247);
+    color: #000;
+    opacity: 1;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
     border: 2px solid black;
     background-color: white;
-  }
+}
+
+.booking-calendar-footer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.calendar-close-button {
+    font-weight: 500;
+    color: white;
+    background-color: black;
+    border-radius: .5rem;
+    padding: .6rem 1rem;
+}

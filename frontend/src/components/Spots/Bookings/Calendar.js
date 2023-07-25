@@ -1,13 +1,11 @@
-import { format, formatDistance, formatDistanceStrict, isAfter, isBefore, isValid, parse } from 'date-fns';
+import { format, isAfter, isBefore, isValid, parse } from 'date-fns';
 import { useState } from 'react';
-import { DayPicker, DateRange, useInput } from 'react-day-picker'
+import { DayPicker} from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import './Calendar.css'
 
-const Calendar = () => {
+const Calendar = ({setShowCalendar, setFromValue, setToValue, fromValue, toValue}) => {
     const [selectedRange, setSelectedRange] = useState('');
-    const [fromValue, setFromValue] = useState('');
-    const [toValue, setToValue] = useState('');
 
     const today = new Date()
     const defaultMonth = new Date(today.getFullYear(), today.getMonth())
@@ -91,6 +89,9 @@ const Calendar = () => {
                 selected={selectedRange}
                 onSelect={handleRangeSelect}
             />
+            <div className='booking-calendar-footer'>
+            <button className="calendar-close-button" onClick={() => setShowCalendar(false)}>Cancel</button>
+            </div>
         </>
     )
 }
