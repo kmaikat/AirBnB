@@ -33,10 +33,10 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                 <div className="spot-details-right-top">
                     <div className="spot-details-right-price"> <span id="right-spot-price">${spot.price}</span> night</div>
                     <div className="spot-details-right-reviews">
-
                         {spot.numReviews > 0 && <>
                             <div>
                                 <i className="fa-solid fa-star"></i>
+
                                 {Number(spot.avgStarRating).toFixed(2) || "New"}
                             </div>
                             <div>
@@ -59,27 +59,27 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                             <div className="booking-calendar-dates-container" onClick={handleCalendar}>
                                 <div className="booking-calendar-dates-content">
                                     <div>CHECK-IN</div>
-                                    <div>{fromValue? fromValue : 'Add date'}</div>
+                                    <div>{fromValue ? fromValue : 'Add date'}</div>
                                 </div>
                                 <div className="booking-calendar-dates-content">
                                     <div>CHECKOUT</div>
-                                    <div>{toValue? toValue : 'Add date'}</div>
+                                    <div>{toValue ? toValue : 'Add date'}</div>
                                 </div>
                             </div>
-                            {showCalendar &&
-                                <div className="calendar-container" >
-                                    <Calendar fromValue={fromValue} setFromValue={setFromValue} toValue={toValue} setToValue={setToValue} setShowCalendar={setShowCalendar}/>
-                                </div>
-                            }
                             <div className="booking-guest-data-container">
                                 <div className="booking-guest-data">
                                     <div>GUESTS</div>
                                     <div>12 guests</div>
-                                </div>
-                                <div className="booking-guest-carat">
-                                    <i className="fa-solid fa-angle-down"></i>
+                                    <div className="booking-guest-carat">
+                                        <i className="fa-solid fa-angle-down"></i>
+                                    </div>
                                 </div>
                             </div>
+                            {showCalendar &&
+                                <div className="calendar-container" >
+                                    <Calendar fromValue={fromValue} setFromValue={setFromValue} toValue={toValue} setToValue={setToValue} setShowCalendar={setShowCalendar} />
+                                </div>
+                            }
                         </div>
                         {/* <div>
                             <div>reserve</div>
