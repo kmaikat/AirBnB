@@ -17,9 +17,7 @@
     border-radius: .5rem;
     overflow: hidden;
 }
-/* .booking-calendar-container>div{
-    padding: 0 .7rem;
-} */
+
 
 .booking-calendar-dates-container{
     display: flex;
@@ -49,15 +47,7 @@
     font-weight: 700;
     font-size: .7rem;
 }
-/*
-.booking-guest-data{
-    position: relative;
-}
 
-.booking-guest-carat{
-    position: absolute;
-    right: 0;
-} */
 
 .calendar-container{
     position: absolute;
@@ -88,4 +78,22 @@
     position: absolute;
     right: 5%;
     top:35%;
+}
+
+.reserve-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.reserve-button{
+    width: 100%;
+    padding: 1rem;
+    border-radius: .5rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    background-image: radial-gradient(circle at center,#FF385C 0%,#E61E4D 27.5%,#E31C5F 40%);
+    margin-bottom: 1rem;
 }

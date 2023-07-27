@@ -81,15 +81,10 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                                 </div>
                             }
                         </div>
-                        {/* <div>
-                            <div>reserve</div>
-                            <div>you wont be charged yet</div>
+                        <div className="reserve-container">
+                            <button className="reserve-button">Reserve</button>
+                            <div>You won't be charged yet</div>
                         </div>
-                        <div>
-                            <div>602 a night</div>
-                            <div>cleaning fee</div>
-                            <div>service fee</div>
-                        </div> */}
                     </div>
                 }
             </div>
