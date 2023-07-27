@@ -52,7 +52,10 @@
     font-weight: 500;
 }
 
-.profile-dropdown li:hover, a:hover {
+.profile-dropdown li:hover{
+    background-color: rgb(237, 237, 237);
+}
+.profile-dropdown a:hover{
     background-color: rgb(237, 237, 237);
 }
 

@@ -10,7 +10,8 @@ const getBookingsAction = (bookings) => {
         bookings: bookings
     }
 }
-const getBookingsThunk = () => async dispatch => {
+
+export const getBookingsThunk = () => async dispatch => {
     const response = await csrfFetch(`/api/bookings/current`)
 
     if (response.ok) {
@@ -19,6 +20,7 @@ const getBookingsThunk = () => async dispatch => {
         return data
     }
 }
+
 const initialState = []
 
 const bookingReducer = (state = initialState, action) => {
