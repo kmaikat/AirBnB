@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import "./Navigation.css"
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 export default function ProfileButton({ user, setShowModal, setLogin }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
@@ -40,6 +41,8 @@ export default function ProfileButton({ user, setShowModal, setLogin }) {
                         <p>{user.username}</p>
                         <p>{user.email}</p>
                     </div>
+                    <Link to="/trips">Trips</Link>
+                    <Link to="/wishlists">Wishlists</Link>
                     <li onClick={logout}>
                         Log Out
                     </li>

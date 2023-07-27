@@ -14,6 +14,7 @@ import * as sessionActions from './store/session'
 import WishlistIndex from './components/Wishlist/WishlistIndex.js';
 import WishlistShow from './components/Wishlist/WishlistShow.js';
 import WishlistCard from './components/Wishlist/WishlistCard.js';
+import TripsIndex from './components/Navigation/TripsIndex.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,9 @@ function App() {
             </Route>
             <Route path="/wishlists">
               <WishlistIndex/>
+            </Route>
+            <Route path="/trips">
+              <TripsIndex/>
             </Route>
           </Switch>
         )}
