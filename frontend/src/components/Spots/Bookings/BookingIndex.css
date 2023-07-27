@@ -97,3 +97,24 @@
     background-image: radial-gradient(circle at center,#FF385C 0%,#E61E4D 27.5%,#E31C5F 40%);
     margin-bottom: 1rem;
 }
+
+.math-container>div{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+
+.math-container>div>p:first-child{
+    text-decoration: underline;
+}
+
+.math-total{
+    border-top: 1px solid rgb(221, 221, 221) !important;
+    padding-top: 1.5rem;
+    font-weight: 600;
+}
+
+.math-total>p:first-child{
+    text-decoration: none !important;
+}

@@ -27,6 +27,11 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
         setShowCalendar(true)
     }
 
+    const daysBetween = (Date.parse(toValue) - Date.parse(fromValue)) / (1000 * 3600 * 24 ) || 1
+    const priceByDays = spot.price * daysBetween;
+    const serviceFee = spot.price * .75;
+
+
     return (
         <div className="spot-details-right">
             <div className="spot-details-right-container">
@@ -84,6 +89,20 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                         <div className="reserve-container">
                             <button className="reserve-button">Reserve</button>
                             <div>You won't be charged yet</div>
+                        </div>
+                        <div className="math-container">
+                            <div>
+                                <p>{spot.price} x {daysBetween} nights</p>
+                                <p>${priceByDays}</p>
+                            </div>
+                            <div>
+                                <p>Airbnb sevice fee</p>
+                                <p>${serviceFee}</p>
+                            </div>
+                            <div className="math-total">
+                                <p>Total before taxes</p>
+                                <p>${priceByDays + serviceFee}</p>
+                            </div>
                         </div>
                     </div>
                 }
