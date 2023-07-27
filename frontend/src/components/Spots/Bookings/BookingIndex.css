@@ -1,11 +1,23 @@
+.spot-details-right-top{
+    padding: .5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+#right-spot-price{
+    font-size: 1.5rem;
+}
+
+.spot-details-right-reviews>div:first-child{
+    margin-right: .5rem;
+}
+
 .booking-calendar-container{
     border: .5px solid black;
     border-radius: .5rem;
     overflow: hidden;
 }
-/* .booking-calendar-container>div{
-    padding: 0 .7rem;
-} */
+
 
 .booking-calendar-dates-container{
     display: flex;
@@ -35,15 +47,7 @@
     font-weight: 700;
     font-size: .7rem;
 }
-/*
-.booking-guest-data{
-    position: relative;
-}
 
-.booking-guest-carat{
-    position: absolute;
-    right: 0;
-} */
 
 .calendar-container{
     position: absolute;
@@ -55,4 +59,62 @@
     box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px;
     background-color: white;
     padding: 1.5rem 2rem;
+}
+
+.booking-guest-data-container{
+    position: relative;
+}
+
+.booking-guest-data{
+    padding: .5rem .6rem;
+}
+
+.booking-guest-data>div:first-child{
+    font-weight: 700;
+    font-size: .7rem;
+}
+
+.booking-guest-carat{
+    position: absolute;
+    right: 5%;
+    top:35%;
+}
+
+.reserve-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.reserve-button{
+    width: 100%;
+    padding: 1rem;
+    border-radius: .5rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    background-image: radial-gradient(circle at center,#FF385C 0%,#E61E4D 27.5%,#E31C5F 40%);
+    margin-bottom: 1rem;
+}
+
+.math-container>div{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+
+.math-container>div>p:first-child{
+    text-decoration: underline;
+}
+
+.math-total{
+    border-top: 1px solid rgb(221, 221, 221) !important;
+    padding-top: 1.5rem;
+    font-weight: 600;
+}
+
+.math-total>p:first-child{
+    text-decoration: none !important;
 }
