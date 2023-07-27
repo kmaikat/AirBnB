@@ -74,7 +74,7 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                             <div className="booking-guest-data-container">
                                 <div className="booking-guest-data">
                                     <div>GUESTS</div>
-                                    <div>12 guests</div>
+                                    <div>16 guests</div>
                                     <div className="booking-guest-carat">
                                         <i className="fa-solid fa-angle-down"></i>
                                     </div>
