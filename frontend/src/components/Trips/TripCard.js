@@ -7,8 +7,6 @@ const TripCard = ({ booking }) => {
     const endDay = getDate(new Date(booking.endDate)) + 1
     const year = getYear(new Date(booking.startDate))
 
-    console.log(bookingMonth)
-
     return (
         <Link to={`/spots/${booking.Spot.id}`}>
         <div className="trip-card-container">
