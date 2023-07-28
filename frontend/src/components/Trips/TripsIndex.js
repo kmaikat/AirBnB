@@ -18,7 +18,7 @@ const TripsIndex = () => {
         <div>
             <div className="trips-header">Trips</div>
             <div className="trips-index-container">
-                {bookings? <div className="trip-grid">{ bookings.map(booking => (<TripCard booking={booking}/>))} </div> : "none"}
+                {bookings? <div className="trip-grid">{ bookings.map(booking => (<TripCard key={booking.id} booking={booking}/>))} </div> : "none"}
             </div>
         </div>
     )

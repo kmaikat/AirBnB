@@ -3,12 +3,13 @@
     grid-template-columns: repeat(3, 1fr);
     column-gap: 1.5rem;
     row-gap: 3rem;
-    padding: 2rem;
+    padding: 2rem 6rem;
 }
 
 .trip-card-container{
     border-radius: .8rem;
     overflow: hidden;
+    cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.13);
 }
 
@@ -35,8 +36,8 @@
 
 .trip-card-date-address-container>div:first-child{
     border-right: 1px solid lightgray;
-    padding-right:2rem;
-    width: max-content;
+    /* padding-right:2rem; */
+    width: 30%;
 }
 
 .trip-card-date-address-container>div:last-child{
