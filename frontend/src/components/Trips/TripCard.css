@@ -35,8 +35,8 @@
 
 .trip-card-date-address-container>div:first-child{
     border-right: 1px solid lightgray;
-    padding-right:2rem;
-    width: max-content;
+    /* padding-right:2rem; */
+    width: 20%;
 }
 
 .trip-card-date-address-container>div:last-child{
