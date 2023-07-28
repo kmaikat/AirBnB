@@ -22,7 +22,6 @@ export const getBookingsThunk = () => async dispatch => {
 
     if (response.ok) {
         const data = await response.json()
-        console.log(data)
         dispatch(getBookingsAction(data))
         return data
     }
@@ -34,7 +33,6 @@ export const createBookingThunk = ({spotId, startDate, endDate}) => async dispat
         body: JSON.stringify({startDate, endDate})
     })
 
-    console.log(response)
 
     const booking = {}
     if (response.ok) {
