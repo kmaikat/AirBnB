@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom/cjs/react-router-dom.min"
 import "./TripCard.css"
 const TripCard = ({ booking }) => {
     return (
+        <Link to={`/spots/${booking.Spot.id}`}>
         <div className="trip-card-container">
             <img src={booking.Spot.previewImage}/>
             <div className="trip-card-header">
@@ -24,6 +26,7 @@ const TripCard = ({ booking }) => {
                 <div>Your check in details: Getting there, getting inside, and wifi</div>
             </div>
         </div>
+        </Link>
     )
 }
 
