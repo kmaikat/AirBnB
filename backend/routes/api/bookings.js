@@ -20,9 +20,9 @@ const validateBooking = [
 router.get('/current', requireAuth, async (req, res) => {
     // find user id
     const userId = req.user.id
-
+    console.log(userId)
     const bookings = await Booking.findAll({
-        where: userId,
+        where: {userId},
         include: [{
             model: Spot,
             include: [{
@@ -40,11 +40,12 @@ router.get('/current', requireAuth, async (req, res) => {
         }]
     })
 
-    // for (let booking of bookings) {
-    //     if (booking.Spot.SpotImages.length > 0) {
-    //         booking.Spot.previewImage = booking.Spot.SpotImages[0].url
-    //     }
-    // }
+
+    for (let booking of bookings) {
+        if (booking.Spot.SpotImages.length > 0) {
+            booking.Spot.previewImage = booking.Spot.SpotImages[0].url
+        }
+    }
 
     for (let index = 0; index < bookings.length; index++) {
         bookings[index] = bookings[index].toJSON()

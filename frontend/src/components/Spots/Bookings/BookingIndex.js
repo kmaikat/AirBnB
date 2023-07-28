@@ -4,6 +4,7 @@ import { deleteASpotThunk } from "../../../store/spotReducer"
 import "./BookingIndex.css"
 import { useState } from "react"
 import Calendar from "./Calendar"
+import { createBookingThunk } from "../../../store/booking"
 
 const BookingIndex = ({ spot, user, setErrors, spotId }) => {
     const dispatch = useDispatch()
@@ -31,8 +32,20 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
     const priceByDays = spot.price * daysBetween;
     const serviceFee = spot.price * .75;
 
-    const handleBooking = () => {
-        console.log("leeedle leedle lee")
+    const handleBooking = async (event) => {
+        const bookingSubmission = {
+            spotId: spot.id,
+            startDate: fromValue,
+            endDate: toValue
+        }
+
+        const bookingItem = await dispatch(createBookingThunk(bookingSubmission))
+
+        if (!bookingItem.errors) {
+            history.push("/trips")
+        } else {
+            console.log(bookingItem.errors)
+        }
     }
 
 
