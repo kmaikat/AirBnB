@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getBookingsThunk } from "../../store/booking";
+import TripCard from "../Trips/TripCard";
+import "./TripCard.css"
+import "./TripIndex.css"
 
 const TripsIndex = () => {
     const bookings = useSelector(state => state.bookings.Bookings);
@@ -14,8 +17,8 @@ const TripsIndex = () => {
     return (
         <div>
             <div className="trips-header">Trips</div>
-            <div>
-                {bookings? bookings.map(booking => (<div key={booking.id}>{booking.spotId}</div>)) : "none"}
+            <div className="trips-index-container">
+                {bookings? <div className="trip-grid">{ bookings.map(booking => (<TripCard booking={booking}/>))} </div> : "none"}
             </div>
         </div>
     )

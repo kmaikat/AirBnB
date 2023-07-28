@@ -14,7 +14,7 @@ import * as sessionActions from './store/session'
 import WishlistIndex from './components/Wishlist/WishlistIndex.js';
 import WishlistShow from './components/Wishlist/WishlistShow.js';
 import WishlistCard from './components/Wishlist/WishlistCard.js';
-import TripsIndex from './components/Navigation/TripsIndex.js';
+import TripsIndex from './components/Trips/TripsIndex.js';
 
 function App() {
   const dispatch = useDispatch();

@@ -1,0 +1,68 @@
+.trip-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1.5rem;
+    row-gap: 3rem;
+    padding: 2rem;
+}
+
+.trip-card-container{
+    border-radius: .8rem;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.13);
+}
+
+.trip-card-header{
+    margin: 0 1.5rem;
+    border-bottom: 1px solid lightgray;
+    padding: 1.5rem 0;
+}
+
+.trip-card-header>p:first-child{
+   font-size: 1.8rem;
+   font-weight: 500;
+   margin-bottom: .2rem;
+}
+
+.trip-card-date-address-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 200;
+    line-height: 1.5rem;
+}
+
+.trip-card-date-address-container>div:first-child{
+    border-right: 1px solid lightgray;
+    padding-right:2rem;
+    width: max-content;
+}
+
+.trip-card-date-address-container>div:last-child{
+    width: 80%;
+    padding-left: 2rem;
+}
+
+#trip-card-last-line-style{
+    font-size: 1rem;
+}
+
+.trip-card-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid lightgrey;
+    padding: 2rem;
+}
+
+.trip-card-footer>i{
+    color: white;
+    background-color: black;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.trip-card-footer>div{
+    width: 80%;
+}
