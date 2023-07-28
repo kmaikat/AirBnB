@@ -31,6 +31,10 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
     const priceByDays = spot.price * daysBetween;
     const serviceFee = spot.price * .75;
 
+    const handleBooking = () => {
+        console.log("leeedle leedle lee")
+    }
+
 
     return (
         <div className="spot-details-right">
@@ -74,7 +78,7 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                             <div className="booking-guest-data-container">
                                 <div className="booking-guest-data">
                                     <div>GUESTS</div>
-                                    <div>12 guests</div>
+                                    <div>16 guests</div>
                                     <div className="booking-guest-carat">
                                         <i className="fa-solid fa-angle-down"></i>
                                     </div>
@@ -87,7 +91,7 @@ const BookingIndex = ({ spot, user, setErrors, spotId }) => {
                             }
                         </div>
                         <div className="reserve-container">
-                            <button className="reserve-button">Reserve</button>
+                            <button onClick={handleBooking} className="reserve-button">Reserve</button>
                             <div>You won't be charged yet</div>
                         </div>
                         <div className="math-container">

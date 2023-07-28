@@ -33,7 +33,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: ['url'],
                 required: false,
                 limit: 1
-            }],
+            }, {model: User, as: "Owner" }],
             attributes: {
                 exclude: ['description', 'createdAt', 'updatedAt']
             }
